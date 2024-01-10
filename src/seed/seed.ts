@@ -7,12 +7,11 @@ interface SeedProduct {
     slug: string;
     tags: string[];
     title: string;
-    type: ValidTypes;
-    gender: 'men'|'women'|'kid'|'unisex'
+    category: ValidCategory;
 }
 
 
-type ValidTypes = 'shirts'|'pants'|'hoodies'|'papeleria';
+export type ValidCategory = 'papeleria'|'juguetes'|'belleza'|'regalos'|'tecnologia';
 
 interface SeedData {
     products: SeedProduct[],
@@ -24,19 +23,46 @@ interface SeedData {
 export const initialData: SeedData = {
     products: [
         {
-            description: "El pegamento, también conocido como cola, es un producto que se utiliza para unir o acoplar un objeto con otro. Su finalidad es lograr que dos superficies que se encuentran separadas, acaben acopladas y entrando en contacto para convertirse en una sola pieza.",
+            description: "Es un producto que se utiliza para tomar",
             images: [
-                '1740176-00-A_0_2000.jpg',
-                '1740176-00-A_1.jpg',
+                'bottle-water.png',
+                'bottle-water-near.png',
             ],
             inStock: 7,
             price: 75,
 
             slug: "pegamento_barra_dixon_8gr",
-            type: 'papeleria',
+            category: 'belleza',
             tags: ['pegamento'],
             title: "Pegamento Barra Dixon 8gr",
-            gender: 'men'
+        },
+        {
+            description: "Es un producto que se utiliza para pintar.",
+            images: [
+                'lapizero.jpeg',
+                'lapicero-near.jpeg',
+            ],
+            inStock: 7,
+            price: 15,
+
+            slug: "lapizero_negro_gel",
+            category: 'papeleria',
+            tags: ['lapizero'],
+            title: "Lapizero color negro de gel",
+        },
+        {
+            description: "Es un producto que se utiliza para cortar.",
+            images: [
+                'tijeras.jpeg',
+                'tijeras-near.jpeg',
+            ],
+            inStock: 7,
+            price: 12,
+
+            slug: "tijeras_sencillas",
+            category: 'juguetes',
+            tags: ['tijeras'],
+            title: "tijera sencilla-economica",
         },
         
     ]

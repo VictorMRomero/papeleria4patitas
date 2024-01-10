@@ -1,10 +1,11 @@
 import { PageNotFound } from "@/components";
 
-function notFound( ) {
+function notFoundPage() {
 
     return(
         <PageNotFound />
     )
 }
 
-export default notFound;
+
+export default notFoundPage;

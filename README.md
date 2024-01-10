@@ -40,3 +40,9 @@ Check out our [Next.js deployment documentation](https://nextjs.org/docs/deploym
 
 --React Icons
 npm install react-icons --save
+
+--Zustand
+npm install zustand
+
+--clsx
+npm install clsx

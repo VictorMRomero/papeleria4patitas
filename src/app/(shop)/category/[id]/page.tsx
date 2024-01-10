@@ -1,23 +1,46 @@
+import { ProductGrid, Title } from "@/components";
+import { ValidCategory, initialData } from "@/seed/seed";
 import { notFound } from "next/navigation";
 
 interface Props {
     params:{
-        id: string;
+        id: ValidCategory;
     }
 }
+const seedProducts = initialData.products;
 
 
-export default function({params}: Props) {
+
+ function categoryPage({params}: Props) {
 
     const {id} = params;
+    const products = seedProducts.filter(product => product.category === id);
 
-    if(id === 'belleza') {
-        notFound();
-    }
+    if(products.length === 0 ){notFound();}
 
+
+
+        
     return(
-        <div>
-            <h1>Category Page {id}</h1>
-        </div>
+        <>
+            <Title 
+                
+                title={id}
+                subtitle={`Productos de ${id}`}
+                className='mb-2'
+            />
+        
+            <ProductGrid 
+                products={products}
+            />
+        </> 
+
+
     )
+
+    
+
+
 }
+
+export default categoryPage;
