@@ -46,3 +46,6 @@ npm install zustand
 
 --clsx
 npm install clsx
+
+--swiper
+npm install swiper
