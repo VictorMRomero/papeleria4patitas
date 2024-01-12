@@ -2,12 +2,6 @@ Este es un proyecto realizado con [Next.js](https://nextjs.org/)
 
 ## Descripcion
 
-
-
-
-
-## Getting Started
-
 Pasos para correr el servidor:
 
 1. Clonar el repositorio
@@ -17,8 +11,12 @@ Pasos para correr el servidor:
 3. Instalar dependencias```npm install```
 
 4. Levantar la base de datos ```docker compose up - d```
+5. Correr las migraciones de prisma
+```npx prisma migrate dev```
+6. Ejecutar seed 
+```npm run seed```
 
-5. Correr el proyecto
+7. Correr el proyecto
 
 ```bash
 npm run dev
@@ -45,8 +43,20 @@ npm install zustand
 npm install clsx
 
 --swiper
-npm install swiper```
+npm install swiper
 
+--Prisma
+npm install prisma --save-dev
+
+npx prisma init --datasource-provider PostgreSQL
+
+npx prisma migrate dev --name ProductCategory
+
+--ts-node
+npm i -D ts-node
+
+npx tsc --init
+```
 
 ## Correr en produccion
 

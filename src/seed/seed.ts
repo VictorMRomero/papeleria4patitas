@@ -3,24 +3,27 @@ interface SeedProduct {
     images: string[];
     inStock: number;
     price: number;
-
     slug: string;
     tags: string[];
     title: string;
-    category: ValidCategory;
+    category: string;
 }
 
 
-export type ValidCategory = 'papeleria'|'juguetes'|'belleza'|'regalos'|'tecnologia';
+export type ValidCategory = 'Papeleria'|'Juguetes'|'Belleza'|'Regalos'|'Tecnologia'| 'Ropa';
 
 interface SeedData {
     products: SeedProduct[],
+    categories: string[],
 }
 
 
 
 
 export const initialData: SeedData = {
+    categories: [
+        'papeleria','juguetes','belleza','regalos','tecnologia', 'ropa'
+    ],
     products: [
         {
             description: "Es un producto que se utiliza para tomar",
