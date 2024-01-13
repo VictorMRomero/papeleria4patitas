@@ -91,7 +91,7 @@ export default function cart() {
 
                         <div className="mt-5 mb-2 w-full">
                             <span className="mb-5">
-                                Al hacer click en "Colocar Orden", aceptas nuestros <a href="#" className="underline"> terminos y condiciones</a>
+                                Al hacer click en &quot;Colocar Orden&quot;, aceptas nuestros <a href="#" className="underline"> terminos y condiciones</a>
                             </span>
                             <Link className="flex btn-primary justify-center" href='/orders/123'>
                                 Colocar Orden
@@ -99,7 +99,7 @@ export default function cart() {
                             </Link>
                         </div>
 
-                    </div>
+                    </div>&quot
 
 
                 </div>

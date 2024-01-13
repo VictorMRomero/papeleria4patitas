@@ -14,7 +14,9 @@ const productsInCart = [
 ]
 
 interface Props {
-    id: string;
+    params: {
+        id: string;
+    };
 }
 
 

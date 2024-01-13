@@ -1,9 +1,11 @@
+export const revalidate = 60;
+
 import { getPaginatedProductsWithImages } from "@/actions";
 import { Pagination, ProductGrid, Title } from "@/components";
 import prisma from "@/lib/prisma";
-import { initialData } from "@/seed/seed";
 
-import { notFound, redirect } from "next/navigation";
+
+import { notFound} from "next/navigation";
 
 interface Props {
     params:{
@@ -12,22 +14,23 @@ interface Props {
     searchParams: {
         page?: string;
     }
+    
+    
 }
 
 
 
 
- async function categoryPage( {params, searchParams}: Props) {
+
+export default async function categoryPage( {params, searchParams}: Props) {
 
      
      try{
         const {nameCategory} = params; //recibo el string 'juguetes'
 
-        const {id, name} = await prisma.category.findUnique({
-            where: {
-                name: nameCategory
-            }
-        })
+        const { id, name } = (await prisma.category.findUnique({
+            where: { name: nameCategory }
+        })) as { id: string; name: string; };
 
         const page = searchParams.page ? parseInt(searchParams.page) : 1;
 
@@ -42,7 +45,7 @@ interface Props {
         //   redirect(`/category/${nameCategory}`);
         // }
     
-        // if(products.length === 0 ){notFound();}
+        if(products.length === 0 ){notFound();}
 
 
         return(
@@ -83,4 +86,3 @@ interface Props {
 
 }
 
-export default categoryPage;
