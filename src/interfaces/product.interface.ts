@@ -8,7 +8,7 @@ interface SeedProduct {
   slug: string;
   tags: string[];
   title: string;
-  category: ValidCategory;
+  category: string;
 }
 
 
