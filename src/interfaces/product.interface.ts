@@ -10,6 +10,15 @@ export interface Product {
   category?: string;
 }
 
+export interface CartProduct {
+  id:string;
+  slug:string;
+  title:string;
+  price:number;
+  quantity: number;
+  image:string;
+}
+
 
 export type ValidCategory = 'papeleria'|'juguetes'|'belleza'|'regalos'|'tecnologia';
 
