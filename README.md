@@ -56,6 +56,20 @@ npx prisma migrate dev --name ProductCategory
 npm i -D ts-node
 
 npx tsc --init
+
+--nexth-auth
+npm install next-auth@beta
+
+openssl rand -base64 32
+
+--zod
+npm install zod
+
+--Bcryptjs
+npm install bcryptjs
+
+--React Hook Form
+npm install react-hook-form
 ```
 
 ## Correr en produccion

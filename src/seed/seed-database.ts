@@ -6,16 +6,24 @@ import { initialData } from "./seed";
 async function main() {
     //borrar registros
     
-
+    await prisma.user.deleteMany();
     await prisma.productImage.deleteMany();
     await prisma.product.deleteMany();
     await prisma.category.deleteMany();
 
-    
+    //usuarios
+
 
     //Categoria
 
-    const {categories, products} = initialData;
+    const {categories, products, users} = initialData;
+
+
+    await prisma.user.createMany({
+        data: users
+    })
+
+
 
     const categoriesData = categories.map(categoria => ({
         name:categoria
