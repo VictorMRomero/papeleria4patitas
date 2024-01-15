@@ -14,7 +14,7 @@ export default async function CheckLayout({children}:{
 
 
 
-    <>
+    return(<>
         {children}
-    </>
+    </>)
 }
