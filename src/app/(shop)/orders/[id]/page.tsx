@@ -1,17 +1,14 @@
 
 import { Title } from "@/components";
-import Link from "next/link";
-import {initialData} from '@/seed/seed'
+
 import Image from "next/image";
 import clsx from "clsx";
 import { IoCardOutline } from "react-icons/io5";
+import { getItemsByOrderId, getOrderById, getProductById, getUserById } from "@/actions";
 
 
-const productsInCart = [
-    initialData.products[0],
-    initialData.products[1],
 
-]
+
 
 interface Props {
     params: {
@@ -20,9 +17,26 @@ interface Props {
 }
 
 
-export default function order({params}:Props) {
+export default async function order({params}:Props) {
+
+
 
     const {id } = params;
+
+    //Traer orden
+    const order = await getOrderById(id);
+    //trar usuario
+    const user = await getUserById(order?.userId ?? '');
+
+    //traer los itemsIds
+    const items = await getItemsByOrderId(order?.id ?? '');
+
+    // const products = await Promise.all(items.map(async (item) => {
+    //     const product = await getProductById(item.productId);
+    //     return product;
+    // }));
+  
+
 
     //redirect
 
@@ -32,7 +46,8 @@ export default function order({params}:Props) {
         <div className="flex justify-center items-center mb-72 px-10 sm:px-0">
             <div className="flex flex-col w-[1000px] ">
 
-                <Title title={`Orden #${id}`}/>
+                <Title title={`Orden #${id.split('-').at(-1)}`}/>
+                
 
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-10">
 
@@ -42,14 +57,20 @@ export default function order({params}:Props) {
                             clsx(
                                 "flex items-center rounded-lg py-2 px-3.5 text-xs font-bold text-white mb-5",
                                 {
-                                    'bg-red-500': false,
-                                    'bg-green-700':true
+                                    
+                                    'bg-red-500': !order?.isPaid,
+                                    'bg-green-700':order?.isPaid
                                 }
                             )
                         }>
                             <IoCardOutline size={30}/>
-                            {/* <span className="mx-2"> Pendiente de pago </span> */}
-                            <span className="mx-2"> Orden Pagada </span>
+                            {
+                                (order?.isPaid)
+                                ? <span className="mx-2"> Orden Pagada </span>
+                                : <span className="mx-2"> Pendiente de pago </span>
+                                
+                            }
+                            
                         </div>
 
 
@@ -57,26 +78,25 @@ export default function order({params}:Props) {
 
                     {/* items */}
                     {
-                        productsInCart.map(product => (
-                            <div key={product.slug} className="flex mb-5">
+                        items.map(item => (
+                            <div key={item.id} className="flex mb-5">
                                 <Image
-                                    src={`/products/${product.images[0]}`}
+                                    src={`/products/${item.product.ProductImage}`}
                                     width={100}
                                     height={100}
                                     style={{
                                         width: '100px',
                                         height: '100px'
                                     }}
-                                    alt={product.title}
+                                    alt={item.product.title}
                                     className="mr-5 rounded"
                                 />
                                 <div>
-                                    <p>{product.title}</p>
-                                    <p>${product.price}</p>
-                                    <p className="font-bold">Subtotal: ${product.price * 3}</p>
-                                    <button className="underline mt-3">
-                                        Remover
-                                    </button>
+                                    <p>{item.product.title}</p>
+                                    <p>Piezas: {item.quantity}</p>
+                                    <p>${item.price}</p>
+                                    <p className="font-bold">Subtotal: ${item.price * item.quantity}</p>
+
                                 </div>
 
                             </div>
@@ -90,42 +110,48 @@ export default function order({params}:Props) {
                         
                         <h2 className="text-2xl mb-2 font-bold">Direccion de entrega</h2>
                         <div className="mb-10">
-                            <p className="text-xl">Vikis Romero</p>
-                            <p>C. Benito Juarez</p>
-                            <p>Cardenas </p>
-                            <p>Cod. Postal 90520</p>
+                            <p><span className="font-bold">Nombre: </span> {user?.name}</p>
+                            <p><span className="font-bold">Direccion: </span>{order?.OrderAddress?.address}</p>
+                            <p><span className="font-bold">Direccion 2: </span>{order?.OrderAddress?.address2}</p>
+                            <p><span className="font-bold">Ciudad: </span> {order?.OrderAddress?.city}</p>
+                            <p><span className="font-bold">Pais </span>{order?.OrderAddress?.countryId}</p>
+                            <p><span className="font-bold">Telefono </span>{order?.OrderAddress?.phone}</p>
                         </div>
                         
                         <div className="w-full h-0.5 bg-gray-200 mb-10"/>
 
-                        <h2 className="text-2xl mb-2">Resumen de orden</h2>
+                        <h2 className="text-2xl font-bold mb-2">Resumen de orden</h2>
 
-                        <div className="grid grid-cols-2">
-                            <span>No.productos</span>
-                            <span className="text-rigth">3 articulos</span>
+                        <div className="mb-5">
                             
-                            <span>Subtotal</span>
-                            <span className="text-rigth">$100</span>
+                            <p><span className="font-bold">No.productos: </span>{order?.itemsInOrder}</p>
+                            
+                            {/* <span className="font-bold">Total: </span>
+                            <span className="text-rigth">${order?.subTotal}</span> */}
 
-                            <span>Impuestos</span>
-                            <span className="text-rigth">$100</span>
+                            
 
-                            <span className="mt-5 text-2xl">Total:</span>
-                            <span className=" mt-5 text-2xl text-rigth">$100</span>
+                            
+                            <p className="mt-5 text-2xl"><span className="text-2xl font-bold">Total a pagar: </span>{order?.subTotal}</p>
+                            <span className="text-rigth">*Iva incluido *</span>
                         </div>
 
                         <div className={
                             clsx(
                                 "flex items-center rounded-lg py-2 px-3.5 text-xs font-bold text-white mb-5",
                                 {
-                                    'bg-red-500': false,
-                                    'bg-green-700':true
+                                    'bg-red-500': !order?.isPaid,
+                                    'bg-green-700':order?.isPaid
                                 }
                             )
                         }>
                             <IoCardOutline size={30}/>
-                            {/* <span className="mx-2"> Pendiente de pago </span> */}
-                            <span className="mx-2"> Orden Pagada </span>
+                            {
+                                (order?.isPaid)
+                                ? <span className="mx-2"> Orden Pagada </span>
+                                : <span className="mx-2"> Pendiente de pago </span>
+                                
+                            }
                         </div>
 
                     </div>

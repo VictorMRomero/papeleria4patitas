@@ -10,8 +10,8 @@ interface State {
     getTotalItems: () => number;
 
     getSumaryInformation: () => {
-    subTotal: number;
-    itemInCart: number;
+        subTotal: number;
+        itemInCart: number;
     }
 
     //add product
@@ -20,6 +20,8 @@ interface State {
     updateProductQuantity: (Product: CartProduct, quantity: number) => void;
     // remove   
     removeProduct: (Product: CartProduct) => void;
+
+    clearCart: () => void;
 }
 
 export const useCartStore = create<State>()(
@@ -32,26 +34,26 @@ export const useCartStore = create<State>()(
             cart: [],
 
             getTotalItems: () => {
-                const {cart} = get();
+                const { cart } = get();
                 return cart.reduce((total, item) => total + item.quantity, 0);
             },
 
             getSumaryInformation: () => {
-                const {cart} = get();
-                const subTotal = cart.reduce((subTotal, product) => product.quantity * product.price + subTotal,0)
+                const { cart } = get();
+                const subTotal = cart.reduce((subTotal, product) => product.quantity * product.price + subTotal, 0)
                 const itemInCart = cart.reduce((total, item) => total + item.quantity, 0);
-                
-                return{
+
+                return {
                     subTotal,
                     itemInCart
                 }
-                
+
             },
 
 
             addProductToCart: (product: CartProduct) => {
                 const { cart } = get();
-                
+
 
                 //verificar si ya existe
                 const productInCart = cart.some(
@@ -75,29 +77,33 @@ export const useCartStore = create<State>()(
             },
 
             updateProductQuantity: (product: CartProduct, quantity: number) => {
-                const {cart} = get();
+                const { cart } = get();
 
                 const updatedCartProducts = cart.map(item => {
-                    if(item.id === product.id){
-                        return{...item, quantity: quantity};
+                    if (item.id === product.id) {
+                        return { ...item, quantity: quantity };
                     }
                     return item;
                 });
-                set({cart: updatedCartProducts})
+                set({ cart: updatedCartProducts })
             },
             removeProduct: (product: CartProduct) => {
-                const {cart} = get();
+                const { cart } = get();
                 const removeProduct = cart.filter(
                     (item) => item.id !== product.id
                 );
-                set({cart: removeProduct});
+                set({ cart: removeProduct });
+            },
+
+            clearCart: () => {
+                set({ cart: [] })
             },
         })
 
 
         , {
             name: 'shoping-card',
-            
+
         }
     )
 

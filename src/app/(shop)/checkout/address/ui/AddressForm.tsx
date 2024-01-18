@@ -4,7 +4,7 @@ import { Address, Country } from "@/interfaces";
 import { useAddressStore } from "@/store";
 import clsx from "clsx";
 import { useSession } from "next-auth/react";
-import Link from "next/link";
+
 import { useRouter } from "next/navigation";
 import { useEffect } from "react";
 import {useForm} from 'react-hook-form';
@@ -59,9 +59,9 @@ export const AddressForm = ({countries, userStoreAddress = {}}:Props) => {
 
 
     const onSubmit = async (data: FormInputs) => {
-        setAddress(data);
-
-        const {rememberAddress, ...restAddress} = data;
+      
+      const {rememberAddress, ...restAddress} = data;
+      setAddress(data);
 
         if(rememberAddress){
           await setUserAddress(restAddress, session!.user.id)
