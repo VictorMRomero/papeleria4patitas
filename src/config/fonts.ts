@@ -1,9 +1,10 @@
-import { Inter, Montserrat_Alternates } from "next/font/google";
+import { Inter, Itim } from "next/font/google";
 
 
 export const inter = Inter({ subsets: ['latin'] })
 
-export const titleFont = Montserrat_Alternates({
+export const titleFont = Itim({
     subsets: ['latin'],
-    weight:['500', '700']
+    weight:['400']
 })
+

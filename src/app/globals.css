@@ -19,12 +19,7 @@
 
 body {
   color: rgb(var(--foreground-rgb));
-  background: linear-gradient(
-      to bottom,
-      transparent,
-      rgb(var(--background-start-rgb))
-      )
-      rgb(var(--background-end-rgb))
+  background: white
 }
 
 
@@ -60,3 +55,7 @@ body {
 .btn-disabled {
   @apply bg-gray-600 text-white py-2 px-4 rounded transition-all;
 }
+.btn-danger {
+  @apply bg-red-500 hover:bg-red-700 text-white py-2 px-4  transition-all;
+}
+

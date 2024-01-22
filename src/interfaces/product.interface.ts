@@ -19,6 +19,12 @@ export interface CartProduct {
   image:string;
 }
 
+export interface ProductImage {
+  id: number;
+  url: string;
+  productId: string;
+}
+
 
 export type ValidCategory = 'papeleria'|'juguetes'|'belleza'|'regalos'|'tecnologia';
 

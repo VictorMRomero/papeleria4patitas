@@ -1,6 +1,5 @@
 export const revalidate = 0;
-import { getOrdersByUser } from '@/actions';
-
+import { getPaginatedOrders } from '@/actions';
 import { Title } from '@/components';
 
 
@@ -10,8 +9,9 @@ import { IoCardOutline } from 'react-icons/io5';
 
 export default async function orders() {
 
-  const { ok, orders } = await getOrdersByUser();
-  
+
+
+  const { ok, orders } = await getPaginatedOrders();
 
   if (!ok) {
     redirect('/auth/login');
@@ -20,7 +20,7 @@ export default async function orders() {
 
   return (
     <>
-      <Title title="Orders" />
+      <Title title="Todas las ordenes" />
 
       <div className="mb-10">
         <table className="min-w-full">

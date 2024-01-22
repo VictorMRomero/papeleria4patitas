@@ -1,7 +1,7 @@
 
 export const revalidate = 60;
 import { getPaginatedProductsWithImages } from '@/actions';
-import { Pagination, ProductGrid, Title } from '@/components'
+import { AdsImages, Pagination, ProductGrid, Title } from '@/components'
 import { redirect } from 'next/navigation';
 
 
@@ -18,7 +18,12 @@ export default async function Home({searchParams}: Props) {
 
   const {products, currentPage, totalPages} = await getPaginatedProductsWithImages({page});
 
-    
+  const images = [
+    '/imgs/screen1.svg',
+    '/imgs/screen2.png',
+    '/imgs/starman_750x750.png',
+
+  ];
 
   if(products.length === 0) {
     redirect('/');
@@ -26,12 +31,17 @@ export default async function Home({searchParams}: Props) {
 
   
   return (
-    <>
+    <div className=''>
+      <AdsImages images={images}/>
+
       <Title 
-        title="tienda"
+        title="Tienda"
         subtitle='Todos los productos'
         className='mb-2'
       />
+
+
+
 
       <ProductGrid 
         products={products}
@@ -40,6 +50,6 @@ export default async function Home({searchParams}: Props) {
       <Pagination totalPages={totalPages}/>
 
 
-    </>
+    </div>
   )
 }
