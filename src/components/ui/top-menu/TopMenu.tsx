@@ -1,11 +1,14 @@
 'use client'
 
+import Search from "@/app/(shop)/search/page";
 import { titleFont } from "@/config/fonts"
 import { useCartStore, useUIStore } from "@/store";
 import Image from "next/image";
 import Link from "next/link"
+import { redirect, usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
-import { IoSearchOutline, IoCartOutline, IoLogoWhatsapp, IoFootballOutline, IoFootball, IoHeadset, IoPrint, IoSparkles, IoGift, IoMedalOutline, IoMenuOutline } from 'react-icons/io5'
+import { IoSearchOutline, IoCartOutline, IoLogoWhatsapp, IoFootball, IoHeadset, IoPrint, IoSparkles, IoGift, IoMenuOutline } from 'react-icons/io5'
+import { SearchBar } from "./SearchBar";
 
 
 export const TopMenu = () => {
@@ -15,23 +18,15 @@ export const TopMenu = () => {
 
     const [loaded, setLoaded] = useState(false);
 
+    
+    
     useEffect(() => {
         setLoaded(true);
     }, [])
 
     return (
         <>
-            <nav className="flex px-5 items-center text-white justify-center  w-full bg-gray-600">
-                <IoLogoWhatsapp className='text-green-300' size={30}/>
-                
-                <span className={`${titleFont.className} ml-4 antialiased  `}> 
-                    2471211858
-                </span>
-                <span className={`${titleFont.className} ml-4 antialiased text-right`}> 
-                    Puedes contactarnos con nosotros, mandanos un mensaje.
-                </span>
 
-            </nav>
             <nav className=" flex px-5 justify-between items-center w-full sm:pl-[300px] sm:pr-[300px] pl-2 pr-2 bg-gray-300">
                 <div className="  flex intems-center">
     
@@ -52,35 +47,11 @@ export const TopMenu = () => {
                     </Link>
                 </div>
 
-                <div className="hidden sm:flex justify-center ">
-                    <Link className="m-2 p-2 rounded-md transition-all hover:bg-blue-100 items-center flex" href='/category/papeleria'>
-                        <IoPrint className='text-green-400' size={60}/>
-                        <span className={`${titleFont.className} antialiased font-semibold`}>Papeleria</span>
-                    </Link>
-                    <Link className="m-2 p-2 rounded-md transition-all hover:bg-blue-100 items-center flex" href='/category/juguetes'>
-                        <IoFootball className='text-red-400' size={60}/> 
-                        <span className={`${titleFont.className} antialiased`}>Juguetes</span>
-                    </Link>
-                    <Link className="m-2 p-2 rounded-md transition-all hover:bg-blue-100 items-center flex" href='/category/belleza'>
-                        <IoSparkles className='text-yellow-400' size={60}/>
-                        <span className={`${titleFont.className} antialiased`}>Belleza</span>
-                    </Link>
-                    <Link className="m-2 p-2 rounded-md transition-all hover:bg-blue-100 items-center flex" href='/category/regalos'>
-                        <IoGift className='text-red-400' size={60} />
-                        <span className={`${titleFont.className} antialiased`}>Regalos</span>
-                    </Link>
-                    <Link className="m-2 p-2 rounded-md transition-all hover:bg-blue-100 items-center flex" href='/category/tecnologia'>
-                        <IoHeadset className='text-blue-400' size={60}/>
-                        <span className={`${titleFont.className} antialiased`}>Tecnologia</span>
-                    </Link>
 
-                </div>
-
+                <SearchBar />
                 
                 <div className="flex items-center">
-                    <Link href="/search" className="mx-2">
-                        <IoSearchOutline className="w-5 h-5" />
-                    </Link>
+
                     <Link href={
                         (totalItemsInCart === 0 && loaded)
                         ? '/empty'
@@ -108,9 +79,37 @@ export const TopMenu = () => {
 
                 </div >
             </nav >
-            <nav className="flex px-5 items-center justify-center  w-full ">
+
+            <nav className="flex px-5 items-center text-white justify-center  w-full bg-gray-600">
+
+                <div className="hidden sm:flex justify-center ">
+                    <Link className="m-2 p-2 rounded-md transition-all hover:bg-blue-100 items-center flex" href='/category/papeleria'>
+
+                        <span className={`${titleFont.className} antialiased font-semibold`}>Papeleria</span>
+                    </Link>
+                    <Link className="m-2 p-2 rounded-md transition-all hover:bg-blue-100 items-center flex" href='/category/juguetes'>
+
+                        <span className={`${titleFont.className} antialiased`}>Juguetes</span>
+                    </Link>
+                    <Link className="m-2 p-2 rounded-md transition-all hover:bg-blue-100 items-center flex" href='/category/belleza'>
+
+                        <span className={`${titleFont.className} antialiased`}>Belleza</span>
+                    </Link>
+                    <Link className="m-2 p-2 rounded-md transition-all hover:bg-blue-100 items-center flex" href='/category/regalos'>
+
+                        <span className={`${titleFont.className} antialiased`}>Regalos</span>
+                    </Link>
+                    <Link className="m-2 p-2 rounded-md transition-all hover:bg-blue-100 items-center flex" href='/category/tecnologia'>
+
+                        <span className={`${titleFont.className} antialiased`}>Tecnologia</span>
+                    </Link>
+
+                </div>
 
             </nav>
+
+
+
 
             
 

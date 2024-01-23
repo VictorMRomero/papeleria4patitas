@@ -16,12 +16,14 @@ export default async function Home({searchParams}: Props) {
 
   const page = searchParams.page ? parseInt(searchParams.page) : 1;
 
-  const {products, currentPage, totalPages} = await getPaginatedProductsWithImages({page});
+  const {products, totalPages} = await getPaginatedProductsWithImages({page});
 
+
+  //todo: cambiar por base de datos
   const images = [
     '/imgs/screen1.svg',
-    '/imgs/screen2.png',
-    '/imgs/starman_750x750.png',
+    '/imgs/pape1.svg',
+
 
   ];
 
@@ -40,14 +42,13 @@ export default async function Home({searchParams}: Props) {
         className='mb-2'
       />
 
-
-
-
       <ProductGrid 
         products={products}
       />
 
-      <Pagination totalPages={totalPages}/>
+      <Pagination 
+        totalPages={totalPages}
+      />
 
 
     </div>

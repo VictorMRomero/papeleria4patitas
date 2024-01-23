@@ -1,7 +1,7 @@
 export const revalidate = 604800; //7 dias
 
 
-import notFound from "../not-found";
+import { notFound} from "next/navigation";
 import { titleFont } from "@/config/fonts";
 import { ProductMobileSlideShow, ProductSlideShow, QuantitySelector, StockLabel } from "@/components";
 import { getProductBySlug } from "@/actions";
@@ -39,11 +39,9 @@ export default async function ProductBySlugPage({params}:Props) {
 
     const {slug} = params;
     const product = await getProductBySlug(slug);
-    //todo arreglar excepcion
-    if(!product){
-
-        notFound();
-    }
+    
+    
+    if(!product){notFound();}
 
 
     return (
@@ -65,7 +63,7 @@ export default async function ProductBySlugPage({params}:Props) {
         </div>
 
         <div className="mt-auto mb-auto col-span-1 px-5 ">
-          <StockLabel slug={product?.slug} />
+          <StockLabel slug={product?.slug ?? ''} />
           <h1 className={`${titleFont.className} antialiased text-xl`}>{product?.title}</h1>
           <p className="text-lg mb-5">$ {product?.price}</p>
 

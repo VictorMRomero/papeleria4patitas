@@ -57,4 +57,44 @@ export const getProductById = async (id: string) => {
   
     return modifiedProduct;
   };
+
+  export const getProductByText = async (texto: string) => {
+    const products = await prisma.product.findMany({
+      include:{
+        ProductImage: {
+          select: {
+            url: true
+          }
+        }
+      },
+      
+      where: {
+        // Utiliza el operador "contains" para buscar productos que contengan el texto en el nombre
+        OR: [
+          {
+            slug: {
+              contains: texto,
+              mode: "insensitive"
+            }
+          },
+
+          {
+            tags:{
+              hasSome: [texto]
+            }
+          }
+        ]
+
+
+      },
+    })
+    
+    return {
+      products: products.map(product => ({
+        
+        ...product,
+        images: product.ProductImage.map(image => image.url)
+    }))
+    }
+  }
   

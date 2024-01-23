@@ -14,7 +14,7 @@ export const Footer = () => {
             <ul className="text-gray-500 dark:text-gray-400 font-medium">
               <li className=" mb-4 flex items-center">
                 <IoLocationOutline size={30} className='w-[50px] mr-1 text-yellow-300 flex-shrink-0'/>
-                <span className={`${titleFont.className} antialiased`}>C. Benito Juarez No.40, Col. Lazaro Cardenas, C.P. 90520, Humantla Tlaxcala</span>
+                <span className={`${titleFont.className} antialiased`}>C. Benito Juárez No. 40, Col. Lázaro Cárdenas, C.P. 90520, Huamantla, Tlaxcala.</span>
               </li>
               <li className="flex items-center mb-1">
                 <IoMailOutline size={30} className='w-[50px] mr-1 text-yellow-300 flex-shrink-0'/>
@@ -36,7 +36,7 @@ export const Footer = () => {
               </li>
               <li className="mb-4 flex items-center">
               <IoPeopleOutline size={30} className='w-[50px] mr-1 text-yellow-300 flex-shrink-0'/>
-              <Link href="/" className={`${titleFont.className} hover:underline hover:text-yellow-300`}>¿Quiénes Somos?</Link>
+              <Link href="/nosotros" className={`${titleFont.className} hover:underline hover:text-yellow-300`}>¿Quiénes Somos?</Link>
               </li>
 
             </ul>
@@ -48,13 +48,10 @@ export const Footer = () => {
                 <IoEyeOffOutline size={30} className='w-[50px] mr-1 text-yellow-300 flex-shrink-0'/>
                 <Link href="/" className={`${titleFont.className} hover:underline hover:text-yellow-300`}>Aviso de privacidad</Link>
               </li>
-              <li className="mb-4 flex items-center">
-              <IoHelpOutline size={30} className='w-[50px] mr-1 text-yellow-300 flex-shrink-0'/>
-              <Link href="/" className={`${titleFont.className} hover:underline hover:text-yellow-300`}>Preguntas Frecuentes</Link>
-              </li>
+
               <li className="mb-4 flex items-center">
               <IoReaderOutline size={30} className='w-[50px] mr-1 text-yellow-300 flex-shrink-0'/>
-              <Link href="/" className={`${titleFont.className} hover:underline hover:text-yellow-300`}>Términos y Condiciones</Link>
+              <Link href="#" className={`${titleFont.className} hover:underline hover:text-yellow-300`}>Términos y Condiciones</Link>
               </li>
 
             </ul>

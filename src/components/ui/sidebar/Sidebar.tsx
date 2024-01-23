@@ -5,17 +5,20 @@ import clsx from 'clsx'
 import { useSession } from 'next-auth/react'
 import Link from 'next/link'
 import {IoCloseOutline, IoLogIn, IoLogOutOutline, IoPeopleOutline, IoPersonOutline, IoSearchOutline, IoShirtOutline, IoTicketOutline} from 'react-icons/io5'
+import { User } from '@/interfaces'
 
 
 export const Sidebar = () => {
     const isSideMenuOpen = useUIStore(state => state.isSideMenuOpen);
     const closeMenu = useUIStore(state => (state.closeSideMenu));
+    
 
     const {data: session} = useSession();
 
     const isAuthenticated = !!session?.user;
 
-    const isAdmin = (session?.user.role === 'admin');
+    const isAdmin = (session?.user && (session.user as User).role === 'admin');
+    
 
 
 
@@ -45,7 +48,7 @@ export const Sidebar = () => {
         <nav 
             className={
                 clsx(
-                    "fixed p-5 right-0 top-0 w-[500px] h-screen bg-white z-20 shadow-2xl transform transition-all duration-300",
+                    "fixed p-5 right-0 top-0 w-[500px] h-screen bg-gray-200 z-20 shadow-2xl transform transition-all duration-300",
                     {
                         "translate-x-full": !isSideMenuOpen
                     }
@@ -55,19 +58,19 @@ export const Sidebar = () => {
         >
             <IoCloseOutline 
                 size={50}
-                className="absolute top-5 right-5 cursor-pointer"
+                className="absolute top-5 right-5 cursor-pointer text-red-500 "
                 onClick={() => closeMenu()}
             />
 
             {/* input de busqueda */}
-            <div className="relative mt-14">
+            {/* <div className="relative mt-14">
                 <IoSearchOutline size={20} className="absolute top-2 left-2" />
                 <input 
                     type="text"
                     placeholder='Buscar'
                     className='w-full bg-gray-50 rounded pl-10 border-b-2 text-xl border-gray-200 focus:outline-none focus:border-blue-500'    
                 />
-            </div>
+            </div> */}
             {/* menu */}
 
 

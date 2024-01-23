@@ -25,7 +25,7 @@ interface Props {
 export const ProductSlideShow = ({ images, title, className }: Props) => {
     const [thumbsSwiper, setThumbsSwiper] = useState<SwiperObject>();
 
-
+ 
 
     return (
         <div className={className}>
@@ -77,7 +77,7 @@ export const ProductSlideShow = ({ images, title, className }: Props) => {
                 freeMode={true}
                 watchSlidesProgress={true}
                 modules={[FreeMode, Navigation, Thumbs]}
-                className="mySwiper"
+                className="mySwiper3"
             >
                 {
                     images.map(image => (

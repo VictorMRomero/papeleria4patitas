@@ -1,41 +1,63 @@
 'use client'
 
+import { Swiper, SwiperSlide } from "swiper/react";
+//import 'swiper/css';
+import 'swiper/css/effect-fade';
+import 'swiper/css/navigation';
+import 'swiper/css/pagination';
+import "./styles.css";
+import Image from "next/image";
+import { EffectFade, Navigation, Pagination } from 'swiper/modules';
+
+interface Props {
+    images: string[];
+
+}
+
+export const AdsImages = ({ images }: Props) => {
 
 
-import { useState } from 'react';
-import Image from 'next/image';
 
 
-export const AdsImages = ({ images }: any) => {
-
-    const [currentIndex, setCurrentIndex] = useState(0);
-
-    const nextSlide = () => {
-        const newIndex = (currentIndex + 1) % images.length;
-        setCurrentIndex(newIndex);
-    };
-
-    
 
     return (
 
-        <div className="flex items-center justify-center  w-full mt-4">
-            {/* {/* <div className="flex items-center justify-center h-[500px]">  */}
-                {images.map((image, index) => (
-                    <Image
-                        key={index}
-                        src={image}
-                        alt={`Slide ${index + 1}`}
-                        onClick={nextSlide}
-                        width={800}
-                        height={600} // Define a fixed height for images
-                        // Ensure images fill the container width
-                        className={`w-full transition-opacity duration-300 ${index === currentIndex ? 'opacity-100' : 'hidden'}`}
-                    />
-                ))}
-            {/* </div>  */}
+        <>
+            <Swiper
+                spaceBetween={30}
+                effect={'fade'}
+                navigation={true}
+                pagination={{
+                    clickable: true,
+                }}
+                modules={[EffectFade, Navigation, Pagination]}
+                className="mySwiperPrincipal w-full"
+            >
+                {
+                    images.map(image => (
 
-        </div>
+                        <SwiperSlide key={image} className="mySwiperPrincipal-slide">
+                            <Image
+
+                                width={600}
+                                height={600}
+                                src={image}
+                                alt={image}
+                                className="myImagen rounded-lg object-fill"
+                            />
+                        </SwiperSlide>
+
+                    ))
+
+                }
+
+                
+            </Swiper>
+        </>
+
+
+
+
 
     )
 }
