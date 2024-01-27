@@ -44,9 +44,8 @@ export const AddressForm = ({ estados, userStoreAddress = {} }: Props) => {
     }
   });
 
-  const { data: session } = useSession({
-    required: true,
-  });
+  const {data: session} = useSession();
+  const userId:string = session?.user?.id ?? '';
 
   const setAddress = useAddressStore(state => state.setAddres);
   const address = useAddressStore(state => state.address);
@@ -57,6 +56,7 @@ export const AddressForm = ({ estados, userStoreAddress = {} }: Props) => {
     }
   }, [address, reset])
 
+  
 
 
 
@@ -67,11 +67,10 @@ export const AddressForm = ({ estados, userStoreAddress = {} }: Props) => {
     
     setAddress(data);
 
-    if (rememberAddress) {
-      await setUserAddress(restAddress, session!.user!.id )
-
+    if ( rememberAddress ) {
+      await setUserAddress(restAddress, userId  );
     } else {
-      await deleteUserAddress(session!.user!.id)
+      await deleteUserAddress(userId);
     }
 
     router.push('/checkout')

@@ -22,7 +22,7 @@ export default async function Home({searchParams}: Props) {
   //todo: cambiar por base de datos
   const images = [
     '/imgs/screen1.svg',
-    '/imgs/pape1.svg',
+    
 
 
   ];

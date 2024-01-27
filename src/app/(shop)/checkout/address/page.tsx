@@ -11,13 +11,14 @@ export default async function AddressPage() {
 
   const session = await auth();
 
-  if(!session?.user){
-    return(
-      <h3 className='text-5xl'> 500 - No hay sesion de usuario</h3>
+  if ( !session?.user ) {
+    return (
+      <h3 className="text-5xl">500 -  No hay sesión de usuario</h3>
     )
-  } 
+  }
 
-  const userAddress = await getUserAddress(session.user.id) ?? undefined;
+  const userAddress = (session?.user?.id) ? await getUserAddress(session.user.id) : undefined;
+  const safeUserAddress = userAddress || undefined;
 
   return (
     
@@ -29,7 +30,7 @@ export default async function AddressPage() {
         
         <Title title="Dirección" subtitle="Dirección de entrega" />
 
-        <AddressForm estados={estados} userStoreAddress={userAddress}/> 
+        <AddressForm estados={estados} userStoreAddress={safeUserAddress}/> 
 
       </div>
 

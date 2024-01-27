@@ -3,6 +3,7 @@
 'use server'
 
 import { auth } from "@/auth.config"
+import { User } from "@/interfaces";
 import prisma from "@/lib/prisma";
 
 
@@ -10,7 +11,7 @@ export const getPaginatedOrders = async() => {
     const session = await auth();
 
     //todo verificar...
-    if( session?.user.role !== 'admin') {
+    if( (session?.user as User).role !== 'admin') {
         return{
             ok: false,
             message: 'Debe de ser admin'

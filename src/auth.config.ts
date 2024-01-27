@@ -1,9 +1,10 @@
-import NextAuth, { type NextAuthConfig } from 'next-auth';
+import NextAuth, { Session, type NextAuthConfig } from 'next-auth';
 import Credentials from 'next-auth/providers/credentials';
 import bcryptjs from 'bcryptjs';
 import { z } from 'zod';
 
 import prisma from './lib/prisma';
+import { JWT } from 'next-auth/jwt';
 
 
 
@@ -15,17 +16,9 @@ export const authConfig: NextAuthConfig = {
 
   callbacks: {
 
-    authorized({ auth, request: { nextUrl } }) {
+    authorized({ auth }) {
       console.log({ auth });
-      // const isLoggedIn = !!auth?.user;
 
-      // const isOnDashboard = nextUrl.pathname.startsWith('/dashboard');
-      // if (isOnDashboard) {
-      //   if (isLoggedIn) return true;
-      //   return false; // Redirect unauthenticated users to login page
-      // } else if (isLoggedIn) {
-      //   return Response.redirect(new URL('/dashboard', nextUrl));
-      // }
       return true;
     },
 
@@ -37,9 +30,12 @@ export const authConfig: NextAuthConfig = {
       return token;
     },
 
-    session({ session, token, user }) {
-      session.user = token.data as any;
+    session({ session, token }: {session: Session; token?:JWT}) {
+      if (token && token.data) {
+        session.user = token.data as any;
+      }
       return session;
+
     },
 
 
@@ -85,3 +81,4 @@ export const authConfig: NextAuthConfig = {
 
 
 export const {  signIn, signOut, auth, handlers } = NextAuth( authConfig );
+
