@@ -1,6 +1,7 @@
 "use client"
 
 import { placeOrder } from '@/actions';
+import { titleFont } from '@/config/fonts';
 import { useAddressStore, useCartStore } from '@/store';
 import { currencyFormat } from '@/utils';
 import clsx from 'clsx';
@@ -17,7 +18,7 @@ export const PlaceOrder = () => {
 
     const address = useAddressStore(state => state.address);
     
-    const {itemInCart, subTotal} = useCartStore(state => state.getSumaryInformation());
+    const {itemInCart, total, subTotal} = useCartStore(state => state.getSumaryInformation());
     
     const cart = useCartStore(state => state.cart)
     const clearCart = useCartStore(state => state.clearCart) 
@@ -26,6 +27,9 @@ export const PlaceOrder = () => {
         setLoaded(true);
     },[])
     
+    // if(total === 0){
+    //     router.replace(`/cart`)
+    // }
  
     
     const onPlaceOrder = async() => {
@@ -48,15 +52,9 @@ export const PlaceOrder = () => {
         }
         // Todo bien
 
-        clearCart();
         router.replace(`/orders/` + resp.order!.id)
+        clearCart();
 
-
-
-
-        
-
-        
         
     }
 
@@ -69,16 +67,17 @@ export const PlaceOrder = () => {
 
 
     return (
-        <div className="bg-white rounded-xl shadow-xl p-7">
+        <div className={`${titleFont.className} bg-white rounded-xl shadow-xl p-7`}>
 
-            <h2 className="text-2xl mb-2 font-bold">Direccion de entrega</h2>
+            <h2 className={` text-4xl mb-2 font-bold`}>Dirección</h2>
             <div className="mb-10">
                 <p className="text-xl">{address.firstName} {address.lastName}</p>
-                <p>{address.address}</p>
-                <p>{address.address2} </p>
+                <p>{address.calle}</p>
+                <p>{address.localidad} </p>
+                <p>{address.estado}, {address.detalle}</p>
                 <p>{address.postalCode}</p>
-                <p>{address.city}, {address.country}</p>
                 <p>{address.phone}</p>
+                <p>{address.referencia}</p>
             </div>
 
             <div className="w-full h-0.5 bg-gray-200 mb-10" />
@@ -89,27 +88,29 @@ export const PlaceOrder = () => {
                 <span>No.productos</span>
                 <span className="text-rigth">{itemInCart}</span>
 
-                {/* <span>Subtotal</span>
-                <span className="text-rigth">$100</span>
+               <span>Subtotal</span>
+                <span className="text-rigth">{currencyFormat(subTotal)}</span>
 
-                <span>Impuestos</span>
+                 {/* <span>Impuestos</span>
                 <span className="text-rigth">$100</span> */}
 
                 <span className="mt-5 text-2xl">Total:</span>
-                <span className=" mt-5 text-2xl text-rigth">{currencyFormat(subTotal)}</span>
+                <span className=" mt-5 text-2xl text-rigth">{currencyFormat(total)}</span>
             </div>
 
             <div className="mt-5 mb-2 w-full">
-                <span className="mb-5">
+                {/* <span className="mb-5">
                     Al hacer click en &quot;Colocar Orden&quot;, aceptas nuestros <a href="#" className="underline"> terminos y condiciones</a>
-                </span>
+                </span> */}
 
             <p className='text-red-500'>{errorMessage}</p>
-                
+                <span className="mb-5">
+                    Actualmente estamos trabajando en poder hacer envíos, por lo que solo está disponible la opción de recoger en tienda.
+                </span>
                 <button 
                     className={
                         clsx(
-                            "flex justify-center" ,
+                            "flex justify-center w-full mt-4" ,
                             {
                              
                             'btn-primary': !isPlacingOrder,
@@ -118,7 +119,7 @@ export const PlaceOrder = () => {
                     }
                     onClick={onPlaceOrder}
                 >
-                    Colocar Orden
+                    Recoger en tienda
                 </button>
             </div>
 

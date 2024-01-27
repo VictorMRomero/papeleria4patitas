@@ -36,15 +36,10 @@ export const initialData: SeedData = {
         {
             email: 'vmrbaez@gmail.com',
             name: 'Victor Manuel',
-            password: bcryptjs.hashSync('123456'),
+            password: bcryptjs.hashSync('Snuff2448'),
             role: 'admin'
         },
-        {
-            email: 'viccuent@gmail.com',
-            name: 'Victor Romero',
-            password: bcryptjs.hashSync('123456'),
-            role: 'user'
-        },
+
     ],
 
 
@@ -54,7 +49,7 @@ export const initialData: SeedData = {
     ],
     products: [
         {
-            description: "Es un producto que se utiliza para tomar",
+            description: "Es un ejemplo",
             images: [
                 'bottle-water.png',
                 'bottle-water-near.png',
@@ -66,35 +61,7 @@ export const initialData: SeedData = {
             category: 'belleza',
             tags: ['pegamento'],
             title: "Pegamento Barra Dixon 8gr",
-        },
-        {
-            description: "Es un producto que se utiliza para pintar.",
-            images: [
-                'lapizero.jpeg',
-                'lapicero-near.jpeg',
-            ],
-            inStock: 7,
-            price: 15,
-
-            slug: "lapizero_negro_gel",
-            category: 'papeleria',
-            tags: ['lapizero'],
-            title: "Lapizero color negro de gel",
-        },
-        {
-            description: "Es un producto que se utiliza para cortar.",
-            images: [
-                'tijeras.jpeg',
-                'tijeras-near.jpeg',
-            ],
-            inStock: 7,
-            price: 12,
-
-            slug: "tijeras_sencillas",
-            category: 'juguetes',
-            tags: ['tijeras'],
-            title: "tijera sencilla-economica",
-        },
-        
+        }
     ]
+
 }

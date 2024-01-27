@@ -10,6 +10,7 @@ interface State {
     getTotalItems: () => number;
 
     getSumaryInformation: () => {
+        total: number;
         subTotal: number;
         itemInCart: number;
     }
@@ -39,12 +40,16 @@ export const useCartStore = create<State>()(
             },
 
             getSumaryInformation: () => {
+
                 const { cart } = get();
+
                 const subTotal = cart.reduce((subTotal, product) => product.quantity * product.price + subTotal, 0)
+                const total = subTotal; //todo, aqui se agregan otros datos
                 const itemInCart = cart.reduce((total, item) => total + item.quantity, 0);
 
                 return {
                     subTotal,
+                    total,
                     itemInCart
                 }
 

@@ -46,7 +46,7 @@ body {
 
 
 .btn-primary {
-  @apply bg-blue-600 hover:bg-blue-800 text-white py-2 px-4 rounded transition-all;
+  @apply bg-blue-800 hover:bg-blue-600 text-white py-2 px-4 rounded transition-all;
 }
 
 .btn-secondary {

@@ -1,17 +1,19 @@
 'use client'
 
-import Search from "@/app/(shop)/search/page";
+
 import { titleFont } from "@/config/fonts"
 import { useCartStore, useUIStore } from "@/store";
 import Image from "next/image";
 import Link from "next/link"
-import { redirect, usePathname } from "next/navigation";
+
 import { useEffect, useState } from "react";
-import { IoSearchOutline, IoCartOutline, IoLogoWhatsapp, IoFootball, IoHeadset, IoPrint, IoSparkles, IoGift, IoMenuOutline } from 'react-icons/io5'
+import { IoCartOutline, IoMenuOutline } from 'react-icons/io5'
 import { SearchBar } from "./SearchBar";
 
 
+
 export const TopMenu = () => {
+
 
     const openSideMenu = useUIStore(state => (state.openSideMenu));
     const totalItemsInCart = useCartStore(state => state.getTotalItems())
@@ -80,7 +82,7 @@ export const TopMenu = () => {
                 </div >
             </nav >
 
-            <nav className="flex px-5 items-center text-white justify-center  w-full bg-gray-600">
+            <nav className="flex px-5 items-center text-white justify-center  w-full bg-gray-600 mb-10">
 
                 <div className="hidden sm:flex justify-center ">
                     <Link className="m-2 p-2 rounded-md transition-all hover:bg-blue-100 items-center flex" href='/category/papeleria'>

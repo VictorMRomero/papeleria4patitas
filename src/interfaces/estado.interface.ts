@@ -1,5 +1,5 @@
 
-export interface Country {
+export interface Estado {
     id: string;
     name: string;
 }

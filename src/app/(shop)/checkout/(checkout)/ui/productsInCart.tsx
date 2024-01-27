@@ -6,6 +6,7 @@ import { useCartStore } from "@/store"
 import { useEffect, useState } from "react";
 
 import { currencyFormat } from "@/utils";
+import { titleFont } from "@/config/fonts";
 
 
 export const ProductsInCart = () => {
@@ -29,7 +30,7 @@ export const ProductsInCart = () => {
     <>
         {
             productsInCart.map((product)=> (
-                <div key={product.slug} className="flex mb-5">
+                <div key={product.slug} className={`${titleFont.className} flex mb-5 rounded-xl shadow-xl bg-slate-100`}>
                     <Image
                         src={`/products/${product.image}`}
                         width={100}
@@ -42,11 +43,15 @@ export const ProductsInCart = () => {
                         className="mr-5 rounded"
                     />
                     <div>
-                        <span >
-                            {product.title} - Cantidad: {product.quantity}
+                        <span className="text-lg" >
+                            {product.title}
+                        </span>
+                        <hr />
+                        <span>
+                            Cantidad: {product.quantity}
                         </span>
                         
-                        <p className="font-bold">{currencyFormat(product.price * product.quantity)}</p>
+                        <p className="text-xl font-bold">{currencyFormat(product.price * product.quantity)}</p>
 
 
                     </div>

@@ -21,22 +21,22 @@ model Category {
   Product Product[]
 }
 
-
 model Product {
-  id           String         @id @default(uuid())
-  title        String
-  description  String
-  inStock      Int
-  price        Float          @default(0)
-  slug         String         @unique
-  tags         String[]       @default([])
+  id          String   @id @default(uuid())
+  title       String
+  description String
+  inStock     Int
+  price       Float    @default(0)
+  slug        String   @unique
+  tags        String[] @default([])
 
   //relaciones
-  category     Category       @relation(fields: [categoryId], references: [id])
-  categoryId   String
+  category   Category @relation(fields: [categoryId], references: [id])
+  categoryId String
 
   ProductImage ProductImage[]
   OrderItem    OrderItem[]
+
 
   //@@index{[category]}  ==> category es el areglo de las categorias
 }
@@ -48,7 +48,6 @@ model ProductImage {
   product   Product @relation(fields: [productId], references: [id])
   productId String
 }
-
 
 model User {
   id            String    @id @default(uuid())
@@ -62,11 +61,13 @@ model User {
   address UserAddress?
   //relaciones
   Order   Order[]
+  //Venta   Venta[]
+  Venta   Venta[]
 }
 
-model Country {
-  id           String         @id
-  name         String         @unique
+model Estado {
+  id   String @id
+  name String @unique
 
   userAddress  UserAddress[]
   OrderAddress OrderAddress[]
@@ -76,30 +77,29 @@ model UserAddress {
   id         String  @id @default(uuid())
   firstName  String
   lastName   String
-  address    String
-  address2   String?
+  calle      String
+  detalle    String?
+  localidad  String
   postalCode String
   phone      String
-  city       String
+  referencia String?
 
   //Relaciones 
-  country   Country @relation(fields: [countryId], references: [id])
-  countryId String
+  estado   Estado @relation(fields: [estadoId], references: [id])
+  estadoId String
 
   //1 a 1
   user   User   @relation(fields: [userId], references: [id])
   userId String @unique
 }
 
-
-
-
 model Order {
   id           String    @id @default(uuid())
-  subTotal     Float
   itemsInOrder Int
   isPaid       Boolean   @default(false)
   paidAt       DateTime?
+  subTotal     Float
+  total        Float
 
   createAt  DateTime @default(now())
   updatedAt DateTime @updatedAt
@@ -114,45 +114,53 @@ model Order {
   transactionId String?
 }
 
-
 model OrderItem {
   id       String @id @default(uuid())
   quantity Int
   price    Float
 
-  order   Order  @relation(fields: [orderId], references: [id])
-  orderId String 
+  order   Order?  @relation(fields: [orderId], references: [id])
+  orderId String?
 
   product   Product @relation(fields: [productId], references: [id])
   productId String
+
+  Venta   Venta?  @relation(fields: [ventaId], references: [id])
+  ventaId String?
 }
 
 model OrderAddress {
   id         String  @id @default(uuid())
   firstName  String
   lastName   String
-  address    String
-  address2   String?
+  calle      String
+  detalle    String?
+  localidad  String
   postalCode String
   phone      String
-  city       String
+  referencia String?
 
   //Relaciones 
-  country   Country @relation(fields: [countryId], references: [id])
-  countryId String
+  estado   Estado @relation(fields: [estadoId], references: [id])
+  estadoId String
 
   //1 a 1
   Order   Order  @relation(fields: [orderId], references: [id])
   orderId String @unique
 }
 
+model Venta {
+  id           String   @id @default(uuid())
+  itemsInOrder Int
+  total        Float
+  createAt     DateTime @default(now())
 
+  transactionId String?
 
+  //Relaciones
+  user   User   @relation(fields: [userId], references: [id])
+  userId String
 
+  OrderItem OrderItem[]
 
-
-
-
-
-
-
+}

@@ -1,4 +1,3 @@
-
 'use server';
 
 import { auth } from "@/auth.config";
@@ -14,7 +13,7 @@ interface ProductToOrder {
 }
 
 
-export const placeOrder = async (productsIds: ProductToOrder[], address: Address) => {
+export const placeVenta = async (productsIds: ProductToOrder[]) => {
 
     const session = await auth();
     const userId = session?.user?.id;
@@ -22,7 +21,7 @@ export const placeOrder = async (productsIds: ProductToOrder[], address: Address
     if (!userId) {
         return {
             ok: false,
-            message: 'no hay sesion de usuario'
+            message: 'No hay sesion de usuario'
         }
     }
 
@@ -90,9 +89,8 @@ export const placeOrder = async (productsIds: ProductToOrder[], address: Address
             });
             
             // 2. Crear la orden - Encabezado - Detalles
-            const order = await tx.order.create({
+            const venta = await tx.venta.create({
               data: {
-                subTotal: total,
                 itemsInOrder: itemsInOrder,
                 userId: userId,
                 total: total,
@@ -101,52 +99,29 @@ export const placeOrder = async (productsIds: ProductToOrder[], address: Address
             
             const orderItem = await tx.orderItem.createMany({
               data: productsIds.map((p) => ({
-                orderId: order.id,
                 quantity: p.quantity,
+                ventaId: venta.id,
                 productId: p.productId,
                 price: products.find((product) => product.id === p.productId)
                 ?.price ?? 0,
               }))
             })
           
-          if(order.subTotal === 0){
+          if(venta.total === 0){
             throw new Error('El total no puede ser cero')
           }
-            
-            // Validar, si el price es cero, entonces, lanzar un error
-      
-            // 3. Crear la direccion de la orden
-            // Address
-            
-            const { estado, detalle, referencia,  ...restAddress } = address;
-            const orderAddress = await tx.orderAddress.create({
-              
-              data: {
-                firstName: restAddress.firstName,
-                lastName: restAddress.lastName,
-                calle: restAddress.calle,
-                detalle: detalle ?? '',
-                localidad: restAddress.localidad,
-                postalCode: restAddress.postalCode,
-                phone: restAddress.phone,
-                referencia: referencia,
-                estadoId: estado,
-                orderId: order.id,
-              },
-            });
-
       
             return {
               updatedProducts: updatedProducts,
-              order: order,
-              orderAddress: orderAddress,
+              venta: venta,
+              
             };
           });
       
       
           return {
             ok: true,
-            order: prismaTx.order,
+            venta: prismaTx.venta,
             prismaTx: prismaTx,
           }
       

@@ -2,8 +2,7 @@
 import { OrderStatus, Title } from "@/components";
 
 import Image from "next/image";
-import clsx from "clsx";
-import { IoCardOutline } from "react-icons/io5";
+
 import { getOrderById } from "@/actions";
 
 import { redirect } from "next/navigation";
@@ -45,17 +44,7 @@ export default async function OrdersByIdPage({params}:Props) {
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-10">
               {/* Carrito */}
               <div className="flex flex-col mt-5">
-
-              {
-                (order?.isPaid)
-                ?(<div className="p-4 mb-4 text-sm text-green-800 rounded-lg bg-green-50 " role="alert">
-                    <span className="font-medium">Tu pedido ha sido entregado!</span> Gracias por tu preferencia.
-                  </div>)
-                :(<div className="p-4 mb-4 text-sm text-blue-800 rounded-lg bg-blue-50 " role="alert">
-                    <span className="font-medium">Pedido Creado!</span> Ya puedes pasar a Tienda a recoger tus articulos.
-                  </div>)
-
-              }
+                <OrderStatus isPaid={order?.isPaid ?? false} />
     
                 {/* Items */}
                 {order!.OrderItem.map((item) => (
@@ -86,8 +75,6 @@ export default async function OrdersByIdPage({params}:Props) {
                     </div>
                   </div>
                 ))}
-
-
               </div>
     
               {/* Checkout - Resumen de orden */}
@@ -128,15 +115,17 @@ export default async function OrdersByIdPage({params}:Props) {
 
     
                   <span className="mt-5 text-2xl">Total:</span>
-                  <span className="mt-5 text-2xl text-right">
+                  <span className="mt-5 text-2xl text-right font-bold">
                     {currencyFormat(order!.total)}
                   </span>
                 </div>
     
                 <div className="mt-5 mb-2 w-full">
-                  
+                  {order?.isPaid ? (
                     <OrderStatus isPaid={order?.isPaid ?? false} />
-                  
+                  ) : (
+                    <TiendaButton  orderId={order!.id} order={order!} />
+                  )}
                 </div>
               </div>
             </div>

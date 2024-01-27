@@ -24,7 +24,7 @@ export default function cart() {
 
                     {/* CArrito */}
                     <div className="flex flex-col mt-5">
-                        <span className="text-xl ">ajustar elementos</span>
+                        <span className="text-xl ">Ajustar elementos</span>
                         <Link href='/cart' className="underline mb-5">
                             Editar carrito
                         </Link>

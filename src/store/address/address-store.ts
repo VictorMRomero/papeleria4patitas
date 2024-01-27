@@ -6,13 +6,14 @@ interface State {
     address: {
         firstName: string;
         lastName: string;
-        address: string;
-        address2?: string;
+        calle: string;
+        detalle?: string;
+        localidad: string;
         postalCode: string;
-        city: string;
-        country: string;
         phone: string;
+        referencia?: string;
         rememberAddress: boolean;
+        estado: string;
     }
 
     //methos
@@ -27,12 +28,13 @@ export const useAddressStore = create<State>()(
             address: {
                 firstName: '',
                 lastName: '',
-                address: '',
-                address2: '',
+                calle: '',
+                detalle: '',
                 postalCode: '',
-                city: '',
-                country: '',
+                localidad: '',
+                estado: '',
                 phone: '',
+                referencia: '',
                 rememberAddress: false,
             },
             setAddres: (address) => {

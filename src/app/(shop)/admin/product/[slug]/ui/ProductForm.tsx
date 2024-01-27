@@ -7,6 +7,7 @@ import clsx from "clsx";
 import { useRouter } from 'next/navigation';
 import { ProductImage } from '@/components';
 import { createUpdateProduct, deleteProductImage } from "@/actions";
+import { useState } from "react";
 
 interface Props {
   product: Partial<Product> & { ProductImage?: ProductWithImage[] };
@@ -30,6 +31,7 @@ interface FormInputs {
 }
 
 export const ProductForm = ({ product, categories }: Props) => {
+  const [loaded, setLoaded] = useState(false);
 
   const router = useRouter();
 
@@ -51,14 +53,15 @@ export const ProductForm = ({ product, categories }: Props) => {
 
 
   const onSubmit = async (data: FormInputs) => {
+    setLoaded(true)
     const formData = new FormData();
 
     const { images, ...productToSave } = data;
 
-    if ( product.id ){
+    if (product.id) {
       formData.append("id", product.id ?? "");
     }
-    
+
     formData.append("title", productToSave.title);
     formData.append("slug", productToSave.slug);
     formData.append("description", productToSave.description);
@@ -69,24 +72,24 @@ export const ProductForm = ({ product, categories }: Props) => {
     formData.append("categoryId", productToSave.categoryId);
 
 
-    
- 
-    if ( images ) {
-      for ( let i = 0; i < images.length; i++  ) {
+
+
+    if (images) {
+      for (let i = 0; i < images.length; i++) {
         formData.append('images', images[i]);
       }
     }
 
 
 
-    const { ok, product:updatedProduct } = await createUpdateProduct(formData);
+    const { ok, product: updatedProduct } = await createUpdateProduct(formData);
 
-    if ( !ok ) {
+    if (!ok) {
       alert('Producto no se pudo actualizar');
       return;
     }
-
-    router.replace(`/admin/product/${ updatedProduct?.slug }`)
+    setLoaded(false)
+    router.replace(`/admin/product/${updatedProduct?.slug}`)
 
 
   };
@@ -160,7 +163,20 @@ export const ProductForm = ({ product, categories }: Props) => {
           </select>
         </div>
 
-        <button className="btn-primary w-full">Guardar</button>
+        <button
+          className={
+            clsx(
+              "flex justify-center w-full mt-4",
+              {
+
+                'btn-primary': !loaded,
+                'btn-disabled': loaded
+              })
+          }
+          
+        >
+          Enviar
+        </button>
       </div>
 
       {/* Selector de tallas y fotos */}
@@ -180,7 +196,7 @@ export const ProductForm = ({ product, categories }: Props) => {
             <span>Fotos</span>
             <input
               type="file"
-              { ...register('images') }
+              {...register('images')}
               multiple
               className="p-2 border rounded-md bg-gray-200"
               accept="image/png, image/jpeg, image/avif"
@@ -192,7 +208,7 @@ export const ProductForm = ({ product, categories }: Props) => {
               <div key={image.id}>
                 <ProductImage
                   alt={product.title ?? ""}
-                  src={ image.url }
+                  src={image.url}
                   width={300}
                   height={300}
                   className="rounded-t shadow-md"
@@ -200,7 +216,7 @@ export const ProductForm = ({ product, categories }: Props) => {
 
                 <button
                   type="button"
-                    onClick={() =>deleteProductImage(image.id, image.url)}
+                  onClick={() => deleteProductImage(image.id, image.url)}
                   className="btn-danger w-full rounded-b-xl"
                 >
                   Eliminar

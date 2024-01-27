@@ -6,7 +6,7 @@ import { ProductImage, Title } from '@/components';
 import Link from 'next/link';
 
 import { Pagination } from '@/components';
-import Image from 'next/image';
+
 import { currencyFormat } from '@/utils';
 
 interface Props {

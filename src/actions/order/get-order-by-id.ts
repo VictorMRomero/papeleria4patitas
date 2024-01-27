@@ -1,55 +1,81 @@
-'use server'
+'use server';
 
-import prisma from "@/lib/prisma"
+import { auth } from '@/auth.config';
+import prisma from '@/lib/prisma';
 
-export const getOrderById =async (id:string) => {
 
-    const order = await prisma.order.findFirst({
-        include:{
-            OrderAddress:true
-        },
 
-        where: {
-            id: id
-        }
+export const getOrderById = async( id: string ) => {
 
-    })
+  const session = await auth();
 
-    return order;
-   
-}
+  if ( !session?.user ) {
+    return {
+      ok: false,
+      message: 'Debe de estar autenticado'
+    }
+  }
 
-export const getItemsByOrderId = async (id: string) => {
-    const items = await prisma.orderItem.findMany({
+
+  try {
+    
+    const order = await prisma.order.findUnique({
+      where: { id },
       include: {
-        product: {
+        OrderAddress: true,
+        OrderItem: {
           select: {
-            title: true,
-            ProductImage: {
-              take: 1,
+            price: true,
+            quantity: true,
+
+
+            product: {
               select: {
-                url: true
+                title: true,
+                slug: true,
+
+                ProductImage: {
+                  select: {
+                    url: true
+                  },
+                  take: 1
+                }
               }
             }
           }
         }
-      },
-      where: {
-        orderId: id
       }
     });
-  
-    // Modificar la estructura de cada item para obtener solo la URL de la imagen
-    const modifiedItems = items.map(item => {
-      const imageUrl = item.product.ProductImage[0]?.url || null;
-      return {
-        ...item,
-        product: {
-          title: item.product.title,
-          ProductImage: imageUrl
-        }
-      };
-    });
-  
-    return modifiedItems;
-  };
+
+    if( !order ) throw `${ id } no existe`;
+
+    if ( session.user.role === 'user' ) {
+      if ( session.user.id !== order.userId ) {
+        throw `${ id } no es de ese usuario`
+      }
+    }
+
+
+
+    return {
+      ok: true,
+      order: order,
+    }
+
+
+  } catch (error) {
+
+    console.log(error);
+
+    return {
+      ok: false,
+      message: 'Orden no existe'
+    }
+
+
+  }
+
+
+
+
+}

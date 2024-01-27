@@ -5,11 +5,12 @@ import { Title } from '@/components';
 
 import Link from 'next/link';
 import { redirect } from 'next/navigation';
+import { useState } from 'react';
 import { IoCardOutline } from 'react-icons/io5';
 
 export default async function orders() {
 
-
+  
 
   const { ok, orders } = await getPaginatedOrders();
 
@@ -70,7 +71,7 @@ export default async function orders() {
 
                   </td>
                   <td className="text-sm text-gray-900 font-light px-6 ">
-                    <Link href={`/orders/${order.id}`} className="hover:underline">
+                    <Link href={`/admin/orders/${order.id}`} className="hover:underline">
                       Ver orden
                     </Link>
                   </td>

@@ -11,14 +11,15 @@ export const getUserAddress = async (userId: string) => {
 
         if(!address)return null;
 
-        const {countryId, address2, ...rest} = address;
+        const {estadoId, detalle, referencia, ...rest} = address;
 
 
 
         return {
             ...rest,
-            country: countryId,
-            address2: address2 ? address2 : '',
+            estado: estadoId,
+            detalle: detalle ? detalle : '',
+            referencia: referencia ? referencia : '',
     
         };
 

@@ -33,16 +33,19 @@ const createOrReplaceAddres = async (address:Address, userId: string) => {
         where: { userId }
     });
 
+
+
     const addressToSave = {
         userId: userId,
-        address: address.address,
-        address2: address.address2,
-        countryId: address.country,
-        city: address.city,
         firstName: address.firstName,
         lastName: address.lastName,
-        phone: address.phone,
+        calle: address.calle,
+        detalle: address.detalle,
+        localidad: address.localidad,
         postalCode: address.postalCode,
+        phone: address.phone,
+        referencia: address.referencia,
+        estadoId:address.estado,
     };
 
     if(!storeAddress) {
