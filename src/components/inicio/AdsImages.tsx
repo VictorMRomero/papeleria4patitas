@@ -15,11 +15,6 @@ interface Props {
 }
 
 export const AdsImages = ({ images }: Props) => {
-
-
-
-
-
     return (
 
         <>
