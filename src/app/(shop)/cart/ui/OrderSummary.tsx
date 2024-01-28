@@ -23,11 +23,7 @@ export const OrderSummary = () => {
     setLoaded(true)
   }, [])
 
-  // useEffect(() => {
-  //   if (itemInCart === 0 && loaded === true) {
-  //     //router.replace('/empty')
-  //   }
-  // }, [itemInCart, loaded, router])
+
 
   if (!loaded) return <p>Cargando...</p>
 
@@ -36,20 +32,25 @@ export const OrderSummary = () => {
 
   return (
 
-
-
-      <div className="relative overflow-x-auto shadow-md sm:rounded-lg">
+    <>
+      <div className="hidden sm:flex  shadow-md sm:rounded-lg">
         <table className="w-full text-sm text-left rtl:text-right ">
 
           <tbody>
             <tr className="border-b border-gray-300">
-              <th scope="row" className="px-6 py-4 font-bold whitespace-nowrap bg-gray-200 ">
-                No. Productos
+              <th scope="row" className="px-4 py-2 font-bold whitespace-nowrap bg-gray-200 ">
+                Productos
               </th>
 
-              <td className="px-6 py-4">
-                {itemInCart}
-              </td>
+              <th className="px-4 py-2">
+                Precion
+              </th>
+              <th className="px-4 py-2">
+                Cantidad
+              </th>
+              <th>
+                Subtotal
+              </th>
             </tr>
 
             {
@@ -58,23 +59,29 @@ export const OrderSummary = () => {
 
 
                 <tr key={product.slug} className="border-b border-gray-300">
-                  <th scope="row" className="grid-cols-2 flex px-6 py-4 font-medium  whitespace-nowrap bg-gray-100 ">
-                    <th className="">
+                  <th scope="row" className="grid-cols-2 flex px-6 py-4 font-medium whitespace-nowrap bg-gray-100 ">
+                    
 
                       <button onClick={() => removeProductInCart(product) } className="underline hover:text-red-400 mt-3 cursor-pointer">
                           <IoCloseCircleOutline size={30} className="mr-2"/>
                         </button>
-                    </th>
+                    
                     {product.title}
                   </th>
 
-                  <td className="px-6 py-4">
-                    {product.price} x {product.quantity}
-                  </td>
+                  <th className="px-6 py-4">
+                    {product.price} 
+                  </th>
+
+                  <th className="px-6 py-4">
+                    {product.quantity}
+                  </th>
+
+                  <th className="px-6 py-4">
+                    {product.price * product.quantity}
+                  </th>
  
-                  <td className="px-6 py-4">
-                    {currencyFormat(product.quantity * product.price)}
-                  </td>
+
 
 
                 </tr>
@@ -83,6 +90,7 @@ export const OrderSummary = () => {
 
               ))
             }
+
             <tr className="border-b border-gray-300">
               <th scope="row" className="px-6 py-4 font-medium text-white whitespace-nowrap bg-blue-800 ">
                 Total:
@@ -96,6 +104,10 @@ export const OrderSummary = () => {
           </tbody>
         </table>
       </div>
+
+      <span className="sm:hidden text-2xl font-bold">Subtotal: {subTotal}</span>
+    </>
+
 
 
 

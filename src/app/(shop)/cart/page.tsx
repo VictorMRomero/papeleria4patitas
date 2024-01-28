@@ -13,41 +13,44 @@ export default function cart() {
     //if(productsInCart.length === 0) redirect('/empty')
 
     return(
-        <div className="flex justify-center items-center mb-72 px-10 sm:px-0">
-            <div className="flex flex-col w-[1000px] ">
+        <div className="w-full   sm:mb-72  mb-10">
+            <div className="flex sm:p-5 flex-col ">
 
-                <Title title="Carrito"/>
+                <Title title="Carrito" subtitle="Agregar mas articulos"/>
 
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-10">
+                <div className={`${titleFont.className} grid grid-cols-1 sm:grid-cols-5 gap-5`}>
 
                     {/* CArrito */}
-                    <div className="flex flex-col mt-5">
-                        <span className="text-xl ">Agregar mas articulos</span>
+                    <div className="flex flex-col sm:col-span-2 mt-5">
+
                         <Link href='/' className="underline mb-5">
                             Continua comprando
                         </Link>
                     
 
                     {/* items */}
-                    <ProductsInCart />
+                        <ProductsInCart />
                     
                     </div>
                     
                     {/* chekck order */}
 
-                    <div className="abosolute bg-white rounded-xl shadow-xl p-7 h-fit">
-                        <h2 className={`${titleFont.className} text-3xl text-bold mb-2`}>Resumen de orden</h2>
-
+                    
+                        
+                    <div className="flex col-span-3 flex-col mt-5">
                         <OrderSummary />
+                        
 
                         <div className="mt-5 mb-2 w-full">
                             <Link className="flex btn-primary justify-center " href='/checkout/address'>
-                                Checkout
+                                Continuar al Pago
 
                             </Link>
                         </div>
-
                     </div>
+
+
+                    
 
 
                 </div>

@@ -1,5 +1,6 @@
 import { Footer, Sidebar, TopMenu } from "@/components";
 import { TopMenuMobile } from "@/components/ui/top-menu/TopMenuMobile";
+import { titleFont } from "@/config/fonts";
 
 export default function ShopLayout({
     children
@@ -7,7 +8,7 @@ export default function ShopLayout({
     children:React.ReactNode;
 }){
     return(
-        <main className="min-w-screen bg-white">
+        <main className={`${titleFont.className} min-w-screen bg-white`}>
             <TopMenu className="hidden md:block"/>
             <TopMenuMobile className="block md:hidden" />
             <Sidebar />
