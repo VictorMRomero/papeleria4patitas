@@ -25,7 +25,7 @@ export default async function ProductMaintance({searchParams}: Props) {
 
   return (
     <>
-      <Title title="Mantenimientp sproductos" />
+      <Title title="Mantenimiento de productos" />
       <div className="flex justify-end mb-5">
         <Link
           href={'/admin/product/new'}

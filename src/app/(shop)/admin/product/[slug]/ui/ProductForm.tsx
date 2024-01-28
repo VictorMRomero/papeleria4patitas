@@ -98,10 +98,10 @@ export const ProductForm = ({ product, categories }: Props) => {
   return (
     <form
       onSubmit={handleSubmit(onSubmit)}
-      className="grid px-5 mb-16 grid-cols-1 sm:px-0 sm:grid-cols-2 gap-3"
+      className="grid px-5 mb-16 grid-cols-1 sm:px-0  gap-3"
     >
       {/* Textos */}
-      <div className="w-full">
+      <div className="w-full sm:grid sm:gap-3 sm:grid-cols-2">
         <div className="flex flex-col mb-2">
           <span>Título</span>
           <input
@@ -147,8 +147,6 @@ export const ProductForm = ({ product, categories }: Props) => {
           />
         </div>
 
-
-
         <div className="flex flex-col mb-2">
           <span>Categoria</span>
           <select
@@ -164,24 +162,6 @@ export const ProductForm = ({ product, categories }: Props) => {
           </select>
         </div>
 
-        <button
-          className={
-            clsx(
-              "flex justify-center w-full mt-4",
-              {
-
-                'btn-primary': !loaded,
-                'btn-disabled': loaded
-              })
-          }
-          
-        >
-          Enviar
-        </button>
-      </div>
-
-      {/* Selector de tallas y fotos */}
-      <div className="w-full">
         <div className="flex flex-col mb-2">
           <span>Inventario</span>
           <input
@@ -190,9 +170,9 @@ export const ProductForm = ({ product, categories }: Props) => {
             {...register("inStock", { required: true, min: 0 })}
           />
         </div>
-
-        {/* As checkboxes */}
-        <div className="flex flex-col">
+        
+        
+        <div className="flex flex-col  p-2 rounded-md">
           <div className="flex flex-col mb-2">
             <span>Fotos</span>
             <input
@@ -204,7 +184,7 @@ export const ProductForm = ({ product, categories }: Props) => {
             />
           </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
+          <div className="grid grid-cols-2 p-2 rounded-md bg-gray-200 sm:grid-cols-3 gap-3">
             {product.ProductImage?.map((image) => (
               <div key={image.id}>
                 <ProductImage
@@ -226,7 +206,28 @@ export const ProductForm = ({ product, categories }: Props) => {
             ))}
           </div>
         </div>
+        
+
+
+        <button
+          className={
+            clsx(
+              "flex justify-center w-full mt-4",
+              {
+
+                'btn-primary': !loaded,
+                'btn-disabled': loaded
+              })
+          }
+          
+        >
+          Enviar
+        </button>
       </div>
+
+
+
+      
     </form>
   );
 };
