@@ -17,8 +17,9 @@ interface Props {
 export const AdsImages = ({ images }: Props) => {
     return (
 
-        <>
+        <div className="w-[100vw] h-[300px] sm:w-full sm:h-auto">
             <Swiper
+
                 spaceBetween={30}
                 effect={'fade'}
                 navigation={true}
@@ -26,7 +27,7 @@ export const AdsImages = ({ images }: Props) => {
                     clickable: true,
                 }}
                 modules={[EffectFade, Navigation, Pagination]}
-                className="mySwiperPrincipal w-full"
+                className="mySwiperPrincipal"
             >
                 {
                     images.map(image => (
@@ -48,7 +49,7 @@ export const AdsImages = ({ images }: Props) => {
 
                 
             </Swiper>
-        </>
+        </div>
 
 
 
