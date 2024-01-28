@@ -23,9 +23,7 @@ export default async function Home({searchParams}: Props) {
   //todo: cambiar por base de datos
   const images = [
     '/imgs/screen1.svg',
-    
-
-
+    'https://res.cloudinary.com/dog6zhxr8/image/upload/f_auto,q_100/v1/Ads/dmc8axuimnvb9ms7c8xr'
   ];
 
   if(products.length === 0) {

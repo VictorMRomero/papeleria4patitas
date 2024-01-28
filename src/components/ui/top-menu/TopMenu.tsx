@@ -10,9 +10,13 @@ import { useEffect, useState } from "react";
 import { IoCartOutline, IoMenuOutline } from 'react-icons/io5'
 import { SearchBar } from "./SearchBar";
 
+interface Props {
+
+    className?: string;
+}
 
 
-export const TopMenu = () => {
+export const TopMenu = ({className} : Props) => {
 
 
     const openSideMenu = useUIStore(state => (state.openSideMenu));
@@ -27,9 +31,9 @@ export const TopMenu = () => {
     }, [])
 
     return (
-        <>
+        <div className={className}>
 
-            <nav className=" flex px-5 justify-between items-center w-full sm:pl-[300px] sm:pr-[300px] pl-2 pr-2 bg-gray-300">
+            <nav className=" flex px-5 justify-between items-center w-full sm:pl-[300px] sm:pr-[300px] pl-2 pr-2 text-white bg-gray-700">
                 <div className="  flex intems-center">
     
                     <Link href="/">
@@ -44,7 +48,7 @@ export const TopMenu = () => {
                                 className="mr-2 hidden sm:flex"
                             />
 
-                            <span className={`${titleFont.className} flex antialiased font-bold text-xl`}> Papeleria 4 patitas</span>
+                            <span className={`${titleFont.className} flex antialiased font-bold text-xl`}> Papelería 4 patitas</span>
                         </div>
                     </Link>
                 </div>
@@ -82,7 +86,7 @@ export const TopMenu = () => {
                 </div >
             </nav >
 
-            <nav className="flex px-5 items-center text-white justify-center  w-full bg-gray-600 mb-10">
+            <nav className="flex px-5 items-center  justify-center  w-full bg-gray-300 mb-10">
 
                 <div className="hidden sm:flex justify-center ">
                     <Link className="m-2 p-2 rounded-md transition-all hover:bg-blue-100 items-center flex" href='/category/papeleria'>
@@ -116,6 +120,6 @@ export const TopMenu = () => {
             
 
 
-        </>
+        </div>
     )
 }
