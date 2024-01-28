@@ -11,9 +11,12 @@ interface Props {
 
 export default async function ProductPage ({params}: Props) {
     const {slug} = params;
+    
+    const slugWithAcentos = decodeURIComponent(slug);
+
 
     const [ product, categories ] = await Promise.all([
-        getProductBySlug(slug),
+        getProductBySlug(slugWithAcentos),
         getCategories()
       ]);
 

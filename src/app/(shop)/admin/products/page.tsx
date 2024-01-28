@@ -1,5 +1,5 @@
 export const revalidate = 0;
-import { getPaginatedOrders, getPaginatedProductsWithImages } from '@/actions';
+import { DeleteById, getPaginatedOrders, getPaginatedProductsWithImages } from '@/actions';
 import { ProductImage, Title } from '@/components';
 
 
@@ -21,15 +21,7 @@ export default async function ProductMaintance({searchParams}: Props) {
 
   const {products, currentPage, totalPages} = await getPaginatedProductsWithImages({page});
 
-  
-    
-
-
-
-  // if (!ok) {
-  //   redirect('/auth/login');
-  // }
-
+ 
 
   return (
     <>
@@ -46,6 +38,7 @@ export default async function ProductMaintance({searchParams}: Props) {
         <table className="min-w-full">
           <thead className="bg-gray-200 border-b">
             <tr>
+
               <th scope="col" className="text-sm font-medium text-gray-900 px-6 py-4 text-left">
                 Imagen
               </th>
@@ -96,8 +89,6 @@ export default async function ProductMaintance({searchParams}: Props) {
                   <td className="font-bold items-center text-sm  text-gray-900  px-6 py-4 whitespace-nowrap">
 
                     {currencyFormat(product.price)}
-                    
-
                   </td>
                   <td className="text-sm font-bold text-gray-900 items-center px-6  ">
                     {product.inStock}
@@ -106,13 +97,9 @@ export default async function ProductMaintance({searchParams}: Props) {
                 </tr>
               ))
             }
-
-
-
-
-
           </tbody>
         </table>
+
         <Pagination totalPages={totalPages} />
       </div>
     </>

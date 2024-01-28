@@ -6,7 +6,7 @@ import clsx from "clsx";
 //import { createUpdateProduct, deleteProductImage } from "@/actions";
 import { useRouter } from 'next/navigation';
 import { ProductImage } from '@/components';
-import { createUpdateProduct, deleteProductImage } from "@/actions";
+import { DeleteById, createUpdateProduct, deleteProductImage } from "@/actions";
 import { useState } from "react";
 
 interface Props {
@@ -52,6 +52,8 @@ export const ProductForm = ({ product, categories }: Props) => {
 
 
 
+
+
   const onSubmit = async (data: FormInputs) => {
     setLoaded(true)
     const formData = new FormData();
@@ -90,7 +92,6 @@ export const ProductForm = ({ product, categories }: Props) => {
     }
     setLoaded(false)
     router.replace(`/admin/product/${updatedProduct?.slug}`)
-
 
   };
 
