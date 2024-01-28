@@ -8,7 +8,7 @@ export const Footer = () => {
 
     <footer className="bg-gray-600">
       <div className="mx-auto w-full max-w-screen-xl">
-        <div className="grid grid-cols-3 gap-8 px-4 py-6 lg:py-8 md:grid-cols-3">
+        <div className="grid grid-cols-1 gap-8 px-4 py-6 lg:py-8 md:grid-cols-3">
           <div>
             <h2 className={`${titleFont.className} mb-6  font-semibold text-gray-900 uppercase dark:text-white text-xl`}>Encuéntranos</h2>
             <ul className="text-gray-500 dark:text-gray-400 font-medium">

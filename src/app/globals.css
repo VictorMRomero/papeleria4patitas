@@ -18,8 +18,9 @@
 } */ 
 
 body {
-  color: rgb(var(--foreground-rgb));
-  background: white
+  //color: rgb(var(--foreground-rgb));
+
+  position: relative;
 }
 
 
