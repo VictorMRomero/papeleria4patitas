@@ -12,7 +12,7 @@ export default function ShopLayout({
             <TopMenu className="hidden md:block"/>
             <TopMenuMobile className="block md:hidden" />
             <Sidebar />
-            <div className="sm:pl-[300px] sm:pr-[300px] ml-2 mr-2 sm:px-10">
+            <div className="lg:pl-[300px] lg:pr-[300px] ml-2 mr-2 sm:px-10">
             
                 {children}
 

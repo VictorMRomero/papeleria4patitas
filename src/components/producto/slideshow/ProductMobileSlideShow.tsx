@@ -30,8 +30,8 @@ export const ProductMobileSlideShow = ({ images, title, className }: Props) => {
 
             <Swiper
                 style={{
-                    width: '100vw',
-                    height: '500px'
+                    width: '95vw',
+                    height: '400px'
                 }}
                 pagination
                 autoplay={{
@@ -47,11 +47,11 @@ export const ProductMobileSlideShow = ({ images, title, className }: Props) => {
                         <SwiperSlide key={image}>   
                             <ProductImage
 
-                                width={600}
-                                height={600}
+                                width={380}
+                                height={380}
                                 src={image}
                                 alt={title}
-                                className="rounded-lg object-fill"
+                                className="rounded-lg object-fill w-full"
                             />
                         </SwiperSlide>
 

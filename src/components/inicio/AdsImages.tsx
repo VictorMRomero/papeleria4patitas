@@ -17,7 +17,7 @@ interface Props {
 export const AdsImages = ({ images }: Props) => {
     return (
 
-        <div className="w-[100vw] h-[300px] sm:w-full sm:h-auto">
+        <div className="w-[95vw] h-[300px] sm:w-full sm:h-auto">
             <Swiper
 
                 spaceBetween={30}
