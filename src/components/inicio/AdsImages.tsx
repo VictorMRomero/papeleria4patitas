@@ -40,6 +40,7 @@ export const AdsImages = ({ images }: Props) => {
                                 src={image}
                                 alt={image}
                                 className="myImagen rounded-lg object-fill"
+                                
                             />
                         </SwiperSlide>
 

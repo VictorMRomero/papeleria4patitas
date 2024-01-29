@@ -32,14 +32,14 @@ export const AddtoCart = ({product}: Props) => {
   return (
     <>
     
-        <QuantitySelector 
+        {/* <QuantitySelector 
            quantity={quantity}
            onQuantityChanged = {setQuantity}
-        />
+        /> */}
 
         <button 
         onClick={addToCart}    
-        className="btn-primary my-5">
+        className="btn-primary w-full mt-2">
            Agregar al carrito
         </button>
     

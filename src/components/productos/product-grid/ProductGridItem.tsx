@@ -6,6 +6,7 @@ import { Product } from "@/interfaces"
 import Link from "next/link";
 import { titleFont } from "@/config/fonts";
 import { AddtoCart } from "@/app/(shop)/product/[slug]/ui/AddtoCart";
+import { currencyFormat } from "@/utils";
 
 
 interface Props {
@@ -18,33 +19,47 @@ export const ProductGridItem = ({ product }: Props) => {
 
 
     return (
-        <div className="rounded-md overflow-hidden fade-in bg-gray-100">
+        <div className="rounded-md overflow-hidden fade-in bg-gray-100 shadow-md duration-500 hover:shadow-xl">
             <Link href={`/product/${product.slug}`} 
                 onMouseEnter={() => setDisplayImage(product.images[1])}
                 onMouseLeave={() => setDisplayImage(product.images[0])}
+                
             >
 
                 <ProductImage
                     src={displayImage}
                     alt={product.title}
-                    className="w-full object-cover rounded"
+                    className="w-full object-cover rounded-top-xl "
                     width={500}
                     height={500}
                 />
             </Link>
 
-            <div className="p-2 flex flex-col items-center">
-                <Link className={`${titleFont.className} text-xl font-bold  hover:text-yellow-600 text-center`} href={`/product/${product.slug}`}>
-                    {product.title}
-                </Link>
-            </div>
-            <div className="p-2 flex flex-col items-center">
 
-                <span className={`${titleFont.className} antialiased font-bold text-lg text-blue-700`}>${product.price}</span>
+            <div className="p-2 flex flex-col items-left ">
+                <Link className={`  hover:text-blue-600 sm:text-lg`} href={`/product/${product.slug}`}>
+                    {(product.title).slice(0, 20)}...
+                </Link>
+                <span className={`text-xl font-bold cursor-auto `}>{currencyFormat(product.price) }</span>
 
                 <AddtoCart product={product}/>
             </div>
 
-        </div>
+            
+
+
+
+           
+      
+
+
+      
+    </div>
+
+
+
+
+
+        
     )
 }
