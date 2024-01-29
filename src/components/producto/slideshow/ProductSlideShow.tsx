@@ -28,13 +28,14 @@ export const ProductSlideShow = ({ images, title, className }: Props) => {
  
 
     return (
-        <div className={className}>
+        <div className={`${className}`}>
 
             <Swiper
 
                 style={{
                     '--swiper-navigation-color': '#fff',
                     '--swiper-pagination-color': '#fff',
+                    
                 } as React.CSSProperties}
                 spaceBetween={10}
                 navigation={true}
@@ -45,7 +46,7 @@ export const ProductSlideShow = ({ images, title, className }: Props) => {
                     swiper: thumbsSwiper
                 }}
                 modules={[FreeMode, Navigation, Thumbs, Autoplay]}
-                className="mySwiper2"
+                className=" w-[500px]  h-[500px]"
             >
                 {
                     images.map(image => (
@@ -53,11 +54,11 @@ export const ProductSlideShow = ({ images, title, className }: Props) => {
                         <SwiperSlide key={image}>
                             <ProductImage
 
-                                width={600}
-                                height={600}
+                                width={80}
+                                height={80}
                                 src={image}
                                 alt={title}
-                                className="rounded-lg object-fill"
+                                className="rounded-lg  w-full"
                             />
                         </SwiperSlide>
 
@@ -77,7 +78,7 @@ export const ProductSlideShow = ({ images, title, className }: Props) => {
                 freeMode={true}
                 watchSlidesProgress={true}
                 modules={[FreeMode, Navigation, Thumbs]}
-                className="mySwiper3"
+                className="mySwiper3 w-[500px]"
             >
                 {
                     images.map(image => (

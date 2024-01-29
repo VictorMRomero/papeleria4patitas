@@ -1,34 +1,18 @@
-.mySwiper2-slide {
-  
-  /* Center slide text vertically */
-  display: flex;
-}
-
-.mySwiper2-slide img {
-  display: block;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-}
 
 
-.mySwiper2 {
-  width: 600px;
-  height: 600px;
-  margin-left: auto;
-  margin-right: auto;
-}
 
-.mySwiper2-slide {
-  background-size: cover;
-  background-position: center;
-}
+
+
+
+
+
 
 
 .mySwiper3 {
-  height: 20%;
+  height: 40%;
   box-sizing: border-box;
   padding: 10px ;
+
 
 
 }
@@ -42,7 +26,7 @@
 
 
 .mySwiper3-slide img {
-  display: block;
+  display: flex;
   width: 100%;
   height: 100%;
   object-fit: cover;
@@ -52,7 +36,7 @@
 }
 
 .mySwiper3-slide img {
-  display: block;
+  display: flex;
   width: 100%;
   height: 100%;
   object-fit: cover;
