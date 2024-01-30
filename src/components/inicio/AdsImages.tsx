@@ -7,7 +7,7 @@ import 'swiper/css/navigation';
 import 'swiper/css/pagination';
 import "./styles.css";
 import Image from "next/image";
-import { EffectFade, Navigation, Pagination } from 'swiper/modules';
+import { Autoplay, EffectFade, Navigation, Pagination } from 'swiper/modules';
 
 interface Props {
     images: string[];
@@ -17,16 +17,23 @@ interface Props {
 export const AdsImages = ({ images }: Props) => {
     return (
 
-        <div className="w-[95vw] h-[300px] sm:w-full sm:h-auto">
+        <div className="w-[95vw] h-[300px] lg:w-full sm:h-auto">
             <Swiper
+                style={{
+                    '--swiper-navigation-color': '#fff',
+                    '--swiper-pagination-color': '#fff',
 
+                } as React.CSSProperties}
                 spaceBetween={30}
                 effect={'fade'}
                 navigation={true}
+                autoplay={{
+                    delay: 3500
+                }}
                 pagination={{
                     clickable: true,
                 }}
-                modules={[EffectFade, Navigation, Pagination]}
+                modules={[EffectFade, Navigation, Pagination, Autoplay]}
                 className="mySwiperPrincipal"
             >
                 {
@@ -35,12 +42,12 @@ export const AdsImages = ({ images }: Props) => {
                         <SwiperSlide key={image} className="mySwiperPrincipal-slide">
                             <Image
 
-                                width={600}
-                                height={600}
+                                width={1500}
+                                height={500}
                                 src={image}
                                 alt={image}
                                 className="myImagen rounded-lg object-fill"
-                                
+
                             />
                         </SwiperSlide>
 
@@ -48,7 +55,7 @@ export const AdsImages = ({ images }: Props) => {
 
                 }
 
-                
+
             </Swiper>
         </div>
 

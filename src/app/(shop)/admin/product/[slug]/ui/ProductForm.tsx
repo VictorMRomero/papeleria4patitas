@@ -1,12 +1,13 @@
-'use client'
+"use client";
+
 import { useForm } from "react-hook-form";
 import { Category, Product, ProductImage as ProductWithImage } from "@/interfaces";
-import Image from "next/image";
+
 import clsx from "clsx";
-//import { createUpdateProduct, deleteProductImage } from "@/actions";
+
 import { useRouter } from 'next/navigation';
 import { ProductImage } from '@/components';
-import { DeleteById, createUpdateProduct, deleteProductImage } from "@/actions";
+import { createUpdateProduct, deleteProductImage } from "@/actions";
 import { useState } from "react";
 
 interface Props {

@@ -54,8 +54,8 @@ export const ProductSlideShow = ({ images, title, className }: Props) => {
                         <SwiperSlide key={image}>
                             <ProductImage
 
-                                width={80}
-                                height={80}
+                                width={400}
+                                height={400}
                                 src={image}
                                 alt={title}
                                 className="rounded-lg  w-full"

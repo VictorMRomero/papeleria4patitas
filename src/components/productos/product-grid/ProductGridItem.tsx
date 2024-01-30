@@ -29,7 +29,7 @@ export const ProductGridItem = ({ product }: Props) => {
                 <ProductImage
                     src={displayImage}
                     alt={product.title}
-                    className="w-full object-cover rounded-top-xl "
+                    className="w-full object-cover rounded-top-xl"
                     width={500}
                     height={500}
                 />
