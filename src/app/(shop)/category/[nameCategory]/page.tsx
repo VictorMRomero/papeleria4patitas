@@ -57,7 +57,7 @@ export default async function categoryPage({ params, searchParams }: Props) {
                     height={320}
                     src='https://res.cloudinary.com/dog6zhxr8/image/upload/v1706763864/Ads/bu0xxz15orrumrqsukzs.png'
                     alt='imagen busqueda'
-                    className="object-fill"
+                    className="object-fill mt-2"
 
                 />
                 <Title
