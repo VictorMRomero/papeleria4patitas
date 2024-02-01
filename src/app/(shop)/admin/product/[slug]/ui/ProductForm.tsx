@@ -2,7 +2,7 @@
 
 import { useForm } from "react-hook-form";
 import { Category, Product, ProductImage as ProductWithImage } from "@/interfaces";
-
+import './style.css'
 import clsx from "clsx";
 
 import { useRouter } from 'next/navigation';
@@ -95,6 +95,8 @@ export const ProductForm = ({ product, categories }: Props) => {
     router.replace(`/admin/product/${updatedProduct?.slug}`)
 
   };
+
+
 
   return (
     <form
@@ -222,8 +224,24 @@ export const ProductForm = ({ product, categories }: Props) => {
           }
           
         >
-          Enviar
+          <span className={
+            clsx(
+              {
+                'hidden': loaded
+              }
+            )
+          }>Guardar</span>
+          <div className={
+            clsx(
+              " justify-center w-full mt-4 loader",
+              {
+
+                'hidden': !loaded,
+                
+              })
+          }></div>
         </button>
+
       </div>
 
 

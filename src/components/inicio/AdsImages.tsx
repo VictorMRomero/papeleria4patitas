@@ -28,7 +28,7 @@ export const AdsImages = ({ images }: Props) => {
                 effect={'fade'}
                 navigation={true}
                 autoplay={{
-                    delay: 3500
+                    delay: 4500
                 }}
                 pagination={{
                     clickable: true,

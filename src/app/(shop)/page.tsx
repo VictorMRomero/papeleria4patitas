@@ -18,13 +18,13 @@ export default async function Home({searchParams}: Props) {
 
   const {products, totalPages} = await getPaginatedProductsWithImages({page});
   
-
+  
 
   //todo: cambiar por base de datos
   const images = [
     
     'https://res.cloudinary.com/dog6zhxr8/image/upload/f_auto,q_100/v1/Ads/dmc8axuimnvb9ms7c8xr',
-    'https://res.cloudinary.com/dog6zhxr8/image/upload/f_auto,q_100/v1/Ads/fysdhmjq99j9yhtnf1ha'
+    'https://res.cloudinary.com/dog6zhxr8/image/upload/v1706763865/Ads/noyqdsawx5a2l6o11a30.png'
   ];
 
   if(products.length === 0) {
@@ -37,18 +37,18 @@ export default async function Home({searchParams}: Props) {
       <AdsImages images={images}/>
 
       <Title 
-        title="Tienda"
-        subtitle='Todos los productos'
+        title="Principal"
+        subtitle='Productos mas vendidos'
         className='mb-2'
       />
 
       <ProductGrid 
-        products={products}
+        products={products.slice(0,10)}
       />
 
-      <Pagination 
+      {/* <Pagination 
         totalPages={totalPages}
-      />
+      /> */}
 
 
     </div>
