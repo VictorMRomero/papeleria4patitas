@@ -45,7 +45,12 @@ export const getProductById = async (id: string) => {
           select: {
             url: true
           }
-        }
+        },
+        descuento: {
+          select:{
+            valor: true
+          }
+        },
       },
       where: {
         id: id
@@ -61,7 +66,11 @@ export const getProductById = async (id: string) => {
       ProductImage: imageUrl
     };
   
-    return modifiedProduct;
+    return {
+      modifiedProduct,
+      descuento: product?.descuento?.valor
+    }
+
   };
 
   export const getProductByText = async (texto: string) => {
