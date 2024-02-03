@@ -29,6 +29,7 @@ model Product {
   price       Float    @default(0)
   slug        String   @unique
   tags        String[] @default([])
+  createAt     DateTime @default(now())
 
   //relaciones
   category   Category @relation(fields: [categoryId], references: [id])
@@ -37,8 +38,19 @@ model Product {
   ProductImage ProductImage[]
   OrderItem    OrderItem[]
 
+  descuento Descuento?
+
 
   //@@index{[category]}  ==> category es el areglo de las categorias
+}
+
+model Descuento{
+    id  String @id @default(uuid())
+    valor Int
+
+
+    product   Product   @relation(fields: [productId], references: [id])
+    productId String @unique
 }
 
 model ProductImage {
@@ -57,6 +69,7 @@ model User {
   password      String
   role          Role      @default(user)
   image         String?
+  createAt     DateTime @default(now())
 
   address UserAddress?
   //relaciones

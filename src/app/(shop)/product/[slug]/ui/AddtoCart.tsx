@@ -23,7 +23,8 @@ export const AddtoCart = ({product}: Props) => {
           title: product.title,
           price: product.price,
           quantity: quantity,
-          image: product.images[0]
+          image: product.images[0],
+          descuento: product.descuento,
         }
         addProductToCart(cartProduct);
         setQuantity(1);
@@ -39,7 +40,7 @@ export const AddtoCart = ({product}: Props) => {
 
         <button 
         onClick={addToCart}    
-        className="btn-primary w-full mt-2">
+        className="btn-primary w-full mt-2 rounded-lg">
            Agregar al carrito
         </button>
     

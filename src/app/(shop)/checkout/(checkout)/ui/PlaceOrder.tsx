@@ -38,6 +38,7 @@ export const PlaceOrder = () => {
         const productsToOrder = cart.map(producto => ({
             productId: producto.id,
             quantity: producto.quantity,
+            descuento: producto.descuento ?? 0,
             
         }))
         
@@ -67,7 +68,7 @@ export const PlaceOrder = () => {
 
 
     return (
-        <div className={`${titleFont.className} bg-white rounded-xl shadow-xl p-7`}>
+        <div className={`bg-white rounded-xl shadow-xl p-7`}>
 
             <h2 className={` text-4xl mb-2 font-bold`}>Dirección</h2>
             <div className="mb-10">

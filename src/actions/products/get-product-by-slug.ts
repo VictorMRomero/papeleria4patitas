@@ -8,7 +8,12 @@ export const getProductBySlug = async(slug: string) => {
 
         const product = await prisma.product.findFirst({
             include: {
-                ProductImage: true
+                ProductImage: true,
+                descuento: {
+                  select:{
+                    valor: true
+                  }
+                }
                 
             },
             where: {
@@ -21,7 +26,8 @@ export const getProductBySlug = async(slug: string) => {
 
         return{
             ...product,
-            images: product.ProductImage.map(image => image.url)
+            images: product.ProductImage.map(image => image.url),
+            descuento: product.descuento?.valor
         }
 
     }catch(error){
@@ -65,8 +71,15 @@ export const getProductById = async (id: string) => {
           select: {
             url: true
           }
+        },
+        descuento: {
+          select:{
+            valor: true
+          }
         }
+        
       },
+      
       
       where: {
         // Utiliza el operador "contains" para buscar productos que contengan el texto en el nombre
@@ -93,7 +106,8 @@ export const getProductById = async (id: string) => {
       products: products.map(product => ({
         
         ...product,
-        images: product.ProductImage.map(image => image.url)
+        images: product.ProductImage.map(image => image.url),
+        descuento: product.descuento?.valor,
     }))
     }
   }

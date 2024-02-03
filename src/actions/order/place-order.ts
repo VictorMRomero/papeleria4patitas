@@ -10,6 +10,7 @@ import { error } from "console";
 interface ProductToOrder {
     productId: string;
     quantity: number;
+    descuento: number;
 
 }
 
@@ -32,6 +33,13 @@ export const placeOrder = async (productsIds: ProductToOrder[], address: Address
             id: {
                 in: productsIds.map(p => p.productId)
             }
+        },
+        include:{
+          descuento:{
+            select:{
+              valor: true
+            }
+          }
         }
     })
 
@@ -46,8 +54,9 @@ export const placeOrder = async (productsIds: ProductToOrder[], address: Address
 
         if (!product) throw new Error(`${item.productId} no existe - 500`)
 
-        const totalQuantity = product.price * productQuantity;
-
+        const totalQuantity = product.price *((100 - (product.descuento?.valor ?? 0))/100) *productQuantity;
+        
+        
         totals.total += totalQuantity;
 
         return totals

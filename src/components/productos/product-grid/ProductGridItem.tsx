@@ -14,20 +14,17 @@ interface Props {
 }
 
 export const ProductGridItem = ({ product }: Props) => {
-
-    const [displayImage, setDisplayImage] = useState(product.images[0]);
-
-
+    
+    
+    
     return (
         <div className="rounded-md overflow-hidden fade-in bg-gray-100 shadow-md duration-500 hover:shadow-xl">
             <Link href={`/product/${product.slug}`} 
-                // onMouseEnter={() => setDisplayImage(product.images[1])}
-                // onMouseLeave={() => setDisplayImage(product.images[0])}
-                
+             
             >
 
                 <ProductImage
-                    src={displayImage}
+                    src={product.images[0]}
                     alt={product.title}
                     className="w-full object-cover rounded-top-xl hover:scale-110"
                     width={500}
@@ -40,26 +37,19 @@ export const ProductGridItem = ({ product }: Props) => {
                 <Link className={`  hover:text-blue-600 sm:text-lg`} href={`/product/${product.slug}`}>
                     {(product.title).slice(0, 20)}...
                 </Link>
-                <span className={`text-xl font-bold cursor-auto `}>{currencyFormat(product.price) }</span>
+                {
+                    (!!product.descuento) 
+                    ? <>
+                        <span className={`text-xl font-bold cursor-auto line-through text-gray-400`}>{currencyFormat(product.price) }</span> 
+                        <span className={`text-xl font-bold cursor-auto text-red-500 `}>{currencyFormat(Math.round(product.price * (100 - product.descuento)/100)) }</span>
+                    </>
+                    
+                    :<span className={`text-xl font-bold cursor-auto `}>{currencyFormat(product.price) }</span>
+                }
 
                 <AddtoCart product={product}/>
             </div>
+        </div>
 
-            
-
-
-
-           
-      
-
-
-      
-    </div>
-
-
-
-
-
-        
     )
 }

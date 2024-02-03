@@ -8,6 +8,7 @@ export interface Product {
   tags: string[];
   title: string;
   category?: string;
+  descuento?: number;
 }
 
 export interface CartProduct {
@@ -17,6 +18,7 @@ export interface CartProduct {
   price:number;
   quantity: number;
   image:string;
+  descuento?: number;
 }
 
 export interface ProductImage {

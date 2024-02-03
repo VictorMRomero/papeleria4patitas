@@ -41,7 +41,13 @@ export const getOrderById = async( id: string ) => {
                   select: {
                     url: true
                   },
+              
                   take: 1
+                },
+                descuento: {
+                  select: {
+                    valor: true
+                  }
                 }
               }
             }

@@ -43,10 +43,13 @@ export const OrderSummary = () => {
               </th>
 
               <th className="px-4 py-2">
-                Precion
+                Precio
               </th>
               <th className="px-4 py-2">
                 Cantidad
+              </th>
+              <th className="px-4 py-2">
+                Descuento
               </th>
               <th>
                 Subtotal
@@ -78,7 +81,13 @@ export const OrderSummary = () => {
                   </th>
 
                   <th className="px-6 py-4">
-                    {product.price * product.quantity}
+                    %{product.descuento ?? 'Sin Descuento'}
+                  </th>
+
+                  <th className="px-6 py-4">
+                    {
+                    currencyFormat(((product.price * ((100 - (product.descuento ?? 0))/100))* product.quantity))
+                    }
                   </th>
  
 
