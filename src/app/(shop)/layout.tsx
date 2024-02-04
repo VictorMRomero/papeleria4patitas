@@ -9,10 +9,10 @@ export default function ShopLayout({
 }){
     return(
         <main className={`${titleFont.className} min-w-screen bg-white`}>
-            <TopMenu className="hidden md:block"/>
-            <TopMenuMobile className="block md:hidden" />
+            <TopMenu className="hidden xl:block"/>
+            <TopMenuMobile className="block xl:hidden" />
             <Sidebar />
-            <div className="lg:pl-[300px] lg:pr-[300px] ml-2 mr-2 sm:px-10">
+            <div className="xl:pl-[300px] xl:pr-[300px] ml-2 mr-2 sm:px-10">
             
                 {children}
 

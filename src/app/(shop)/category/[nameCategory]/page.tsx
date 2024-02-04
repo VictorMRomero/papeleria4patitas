@@ -40,6 +40,7 @@ export default async function categoryPage({ params, searchParams }: Props) {
             id: id
         });
 
+        
 
 
         // if(products.length === 0) {

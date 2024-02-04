@@ -37,7 +37,10 @@ export const getPaginatedProductsWithImages = async ({
             },
             where: {
                 categoryId: id,
-            }
+            },
+            orderBy: {
+                title: 'asc' // Ordenar por fecha de creación en orden descendente
+              },
         })
         // total pages
 

@@ -1,7 +1,8 @@
 
 export const revalidate = 60;
 import { getNewProducts, getPaginatedProductsWithImages, getProductosWithOffer } from '@/actions';
-import { AdsImages, Pagination, ProductGrid, Title } from '@/components'
+import { AdsImages, CategoriaGrid, Pagination, ProductGrid, Title } from '@/components'
+
 import Image from 'next/image';
 import Link from 'next/link';
 import { redirect } from 'next/navigation';
@@ -37,8 +38,10 @@ export default async function Home({ searchParams }: Props) {
     <div className=''>
       <AdsImages images={images} />
 
+      {/* //<CategoriaGrid /> */}
+
       <Title
-        title="Productos principales..."
+        title="Principales Novedades..."
         
         className='mb-2'
       />
@@ -58,7 +61,7 @@ export default async function Home({ searchParams }: Props) {
       />
       
       <Title
-        title="Principales Novedades..."
+        title="Principales Descuentos..."
         
         className='mb-2'
       />

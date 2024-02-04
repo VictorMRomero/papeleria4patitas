@@ -33,7 +33,7 @@ export const TopMenu = ({className} : Props) => {
     return (
         <div className={className}>
 
-            <nav className=" flex px-5 justify-between items-center w-full sm:pl-[300px] sm:pr-[300px] pl-2 pr-2 text-white bg-gray-700">
+            <nav className=" flex px-5 justify-between items-center w-full xl:pl-[300px] xl:pr-[300px] pl-2 pr-2 text-white bg-gray-700">
                 <div className="  flex intems-center">
     
                     <Link href="/">

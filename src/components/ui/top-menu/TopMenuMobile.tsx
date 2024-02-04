@@ -36,7 +36,7 @@ export const TopMenuMobile = ({ className }: Props) => {
     return (
         <div className={className}>
 
-            <nav className=" flex px-5 justify-between items-center w-full sm:pl-[300px] sm:pr-[300px] pl-2 pr-2 bg-gray-700">
+            <nav className=" flex px-5 justify-between items-center w-full  pl-2 pr-2 bg-gray-700">
                 <Link href="/">
                     <div className="flex items-center">
 
