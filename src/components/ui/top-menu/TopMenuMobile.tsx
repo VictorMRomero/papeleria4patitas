@@ -49,7 +49,7 @@ export const TopMenuMobile = ({ className }: Props) => {
                             className="p-1 flex"
                         />
 
-                        
+
                     </div>
                 </Link>
 
@@ -103,17 +103,21 @@ export const TopMenuMobile = ({ className }: Props) => {
                             })
                     } id="navbar-hamburger">
                         <ul className="flex flex-col font-medium mt-4 rounded-lg bg-gray-300  border-gray-700">
-                            <Link className="rounded-md transition-all  items-center flex" href='/'>
-                                <span className={`${titleFont.className} block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 focus:bg-gray-200`}>Inicio</span>
+                            <Link className="rounded-md transition-all  items-center flex" href='/category/all'>
+                                <span className={`${titleFont.className} block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 focus:bg-gray-200`}>Todos los Productos</span>
                             </Link>
-                            <Link className="rounded-md transition-all  items-center flex" href='/category/papeleria'>
-                                <span className={`${titleFont.className} block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 focus:bg-gray-200`}>Papeleria</span>
+                            <Link className="rounded-md transition-all  items-center flex" href='/category/ofertas'>
+                                <span className={`${titleFont.className} block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 focus:bg-gray-200`}>Ofertas</span>
                             </Link>
-                            <Link className="rounded-md transition-all  items-center flex" href='/category/juguetes'>
+                            <Link className="rounded-md transition-all  items-center flex" href='/category/arte'>
 
-                                <span className={`${titleFont.className} block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 focus:bg-gray-200`}>Juguetes</span>
+                                <span className={`${titleFont.className} block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 focus:bg-gray-200`}>Arte</span>
                             </Link>
-                            <Link className="rounded-md transition-all  items-center flex" href='/category/belleza'>
+                            <Link className="rounded-md transition-all  items-center flex" href='/category/cuadernos'>
+
+                                <span className={`${titleFont.className} block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 focus:bg-gray-200`}>Cuadernos</span>
+                            </Link>
+                            <Link className="rounded-md transition-all  items-centear flex" href='/category/belleza'>
 
                                 <span className={`${titleFont.className} block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 focus:bg-gray-200`}>Belleza</span>
                             </Link>
@@ -121,9 +125,33 @@ export const TopMenuMobile = ({ className }: Props) => {
 
                                 <span className={`${titleFont.className} block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 focus:bg-gray-200`}>Regalos</span>
                             </Link>
-                            <Link className="rounded-md transition-all  items-center flex" href='/category/tecnologia'>
+                            <Link className="rounded-md transition-all  items-center flex" href='/category/electronica'>
 
-                                <span className={`${titleFont.className} block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 focus:bg-gray-200`}>Tecnologia</span>
+                                <span className={`${titleFont.className} block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 focus:bg-gray-200`}>Electronica</span>
+                            </Link>
+                            <Link className="rounded-md transition-all  items-center flex" href='/category/escolar'>
+
+                                <span className={`${titleFont.className} block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 focus:bg-gray-200`}>Escolar</span>
+                            </Link>
+                            <Link className="rounded-md transition-all  items-center flex" href='/category/fiesta'>
+
+                                <span className={`${titleFont.className} block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 focus:bg-gray-200`}>Fiesta</span>
+                            </Link>
+                            <Link className="rounded-md transition-all  items-center flex" href='/category/juguetes'>
+
+                                <span className={`${titleFont.className} block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 focus:bg-gray-200`}>Juguetes</span>
+                            </Link>
+                            <Link className="rounded-md transition-all  items-center flex" href='/category/oficina'>
+
+                                <span className={`${titleFont.className} block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 focus:bg-gray-200`}>Oficina</span>
+                            </Link>
+                            <Link className="rounded-md transition-all  items-center flex" href='/category/papel'>
+
+                                <span className={`${titleFont.className} block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 focus:bg-gray-200`}>Papel</span>
+                            </Link>
+                            <Link className="rounded-md transition-all  items-center flex" href='/category/ropa'>
+
+                                <span className={`${titleFont.className} block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 focus:bg-gray-200`}>Ropa</span>
                             </Link>
 
                         </ul>
