@@ -1,0 +1,91 @@
+.card {
+
+  height:100%;
+
+
+}
+
+.card svg {
+  margin-top:2px;
+  height: 80px;
+  width: 100%;
+  font-size: 24px;
+  font-weight: 700;
+  opacity: 1;
+  transition: opacity 0.25s;
+  z-index: 2;
+  cursor: pointer;
+}
+
+.card .social-link1,.card .social-link2,.card .social-link3,.card .social-link4, .card .social-link5, .card .social-link6, .card .social-link7, .card .social-link8 {
+    display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  color: whitesmoke;
+  font-size: 24px;
+  text-decoration: none;
+  transition: 0.25s;
+  border-radius: 50px;
+}
+
+.card svg {
+  transform: scale(1);
+}
+
+.card .social-link1:hover {
+  background-color: #ff4856;
+  animation: bounce_613 0.4s linear;
+}
+
+.card .social-link2:hover {
+  background-color: #64b130;
+  animation: bounce_613 0.4s linear;
+}
+
+.card .social-link3:hover {
+  background-color: #ffbd59;
+  animation: bounce_613 0.4s linear;
+}
+
+.card .social-link4:hover {
+  background-color: #3782ee;
+  animation: bounce_613 0.4s linear;
+}
+.card .social-link5:hover {
+  background-color: #ff6604;
+  animation: bounce_613 0.4s linear;
+}
+.card .social-link6:hover {
+  background-color: #8c52ff;
+  animation: bounce_613 0.4s linear;
+}
+.card .social-link7:hover {
+  background-color: #ff914d;
+  animation: bounce_613 0.4s linear;
+}
+.card .social-link8:hover {
+  background-color: #0cc0df;
+  animation: bounce_613 0.4s linear;
+}
+@keyframes bounce_613 {
+  40% {
+    transform: scale(1.4);
+  }
+
+  60% {
+    transform: scale(0.8);
+  }
+
+  80% {
+    transform: scale(1.2);
+  }
+
+  100% {
+    transform: scale(1);
+  }
+}

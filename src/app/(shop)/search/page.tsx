@@ -56,10 +56,6 @@ export default async function Search({ searchParams }: Props) {
                 products={products}
             />
 
-
-
-
-
         </div>
     )
 }
