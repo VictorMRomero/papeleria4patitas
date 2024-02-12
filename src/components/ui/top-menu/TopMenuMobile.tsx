@@ -65,6 +65,7 @@ export const TopMenuMobile = ({ className }: Props) => {
                         <IoMenuOutline size={30} />
                     </button>
 
+
                     <div className="inline-flex items-center justify-center p-2 text-sm text-gray-500 rounded-lg hover:bg-gray-100 ">
 
                         <Link href={
@@ -94,7 +95,8 @@ export const TopMenuMobile = ({ className }: Props) => {
 
                     </div >
 
-
+                     
+              
                     <div className={
                         clsx(
                             "w-full",
@@ -103,57 +105,65 @@ export const TopMenuMobile = ({ className }: Props) => {
                             })
                     } id="navbar-hamburger">
                         <ul className="flex flex-col font-medium mt-4 rounded-lg bg-gray-300  border-gray-700">
-                            <Link className="rounded-md transition-all  items-center flex" href='/category/all'>
+                            <Link onClick={() => setMenuOpen(true)} className="m-2 p-2 rounded-[50px] transition-all hover:bg-red-400 items-center flex" href='/search?productSearch=Amor'>
+                            <svg className="w-[20px] h-[20px] text-gray-800 " aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6C6.5 1 1 8 5.8 13l6.2 7 6.2-7C23 8 17.5 1 12 6Z" />
+                            </svg>
+
+
+                            <span className={`${titleFont.className} antialiased font-semibold`}>Amor y Amistad</span>
+                        </Link> 
+                            <Link onClick={() => setMenuOpen(true)} className="rounded-md transition-all  items-center flex" href='/category/all'>
                                 <span className={`${titleFont.className} block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 focus:bg-gray-200`}>Todos los Productos</span>
                             </Link>
-                            <Link className="rounded-md transition-all  items-center flex" href='/category/ofertas'>
+                            <Link onClick={() => setMenuOpen(true)} className="rounded-md transition-all  items-center flex" href='/category/ofertas'>
                                 <span className={`${titleFont.className} block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 focus:bg-gray-200`}>Ofertas</span>
                             </Link>
-                            <Link className="rounded-md transition-all  items-center flex" href='/category/arte'>
+                            <Link onClick={() => setMenuOpen(true)} className="rounded-md transition-all  items-center flex" href='/category/arte'>
 
                                 <span className={`${titleFont.className} block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 focus:bg-gray-200`}>Arte</span>
                             </Link>
-                            <Link className="rounded-md transition-all  items-center flex" href='/category/cuadernos'>
+                            <Link onClick={() => setMenuOpen(true)} className="rounded-md transition-all  items-center flex" href='/category/cuadernos'>
 
                                 <span className={`${titleFont.className} block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 focus:bg-gray-200`}>Cuadernos</span>
                             </Link>
-                            <Link className="rounded-md transition-all  items-centear flex" href='/category/belleza'>
+                            <Link onClick={() => setMenuOpen(true)} className="rounded-md transition-all  items-centear flex" href='/category/belleza'>
 
                                 <span className={`${titleFont.className} block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 focus:bg-gray-200`}>Belleza</span>
                             </Link>
-                            <Link className="rounded-md transition-all  items-center flex" href='/category/regalos'>
+                            <Link onClick={() => setMenuOpen(true)} className="rounded-md transition-all  items-center flex" href='/category/regalos'>
 
                                 <span className={`${titleFont.className} block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 focus:bg-gray-200`}>Regalos</span>
                             </Link>
-                            <Link className="rounded-md transition-all  items-center flex" href='/category/electronica'>
+                            <Link onClick={() => setMenuOpen(true)} className="rounded-md transition-all  items-center flex" href='/category/electronica'>
 
                                 <span className={`${titleFont.className} block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 focus:bg-gray-200`}>Electronica</span>
                             </Link>
-                            <Link className="rounded-md transition-all  items-center flex" href='/category/escolar'>
+                            <Link onClick={() => setMenuOpen(true)} className="rounded-md transition-all  items-center flex" href='/category/escolar'>
 
                                 <span className={`${titleFont.className} block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 focus:bg-gray-200`}>Escolar</span>
                             </Link>
-                            <Link className="rounded-md transition-all  items-center flex" href='/category/fiesta'>
+                            <Link onClick={() => setMenuOpen(true)} className="rounded-md transition-all  items-center flex" href='/category/fiesta'>
 
                                 <span className={`${titleFont.className} block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 focus:bg-gray-200`}>Fiesta</span>
                             </Link>
-                            <Link className="rounded-md transition-all  items-center flex" href='/category/juguetes'>
+                            <Link onClick={() => setMenuOpen(true)} className="rounded-md transition-all  items-center flex" href='/category/juguetes'>
 
                                 <span className={`${titleFont.className} block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 focus:bg-gray-200`}>Juguetes</span>
                             </Link>
-                            <Link className="rounded-md transition-all  items-center flex" href='/category/oficina'>
+                            <Link onClick={() => setMenuOpen(true)} className="rounded-md transition-all  items-center flex" href='/category/oficina'>
 
                                 <span className={`${titleFont.className} block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 focus:bg-gray-200`}>Oficina</span>
                             </Link>
-                            <Link className="rounded-md transition-all  items-center flex" href='/category/papel'>
+                            <Link onClick={() => setMenuOpen(true)} className="rounded-md transition-all  items-center flex" href='/category/papel'>
 
                                 <span className={`${titleFont.className} block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 focus:bg-gray-200`}>Papel</span>
                             </Link>
-                            <Link className="rounded-md transition-all  items-center flex" href='/category/ropa'>
+                            <Link onClick={() => setMenuOpen(true)} className="rounded-md transition-all  items-center flex" href='/category/ropa'>
 
                                 <span className={`${titleFont.className} block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 focus:bg-gray-200`}>Ropa</span>
                             </Link>
-                            <Link className="rounded-md transition-all  items-center flex" href='/category/joyeria'>
+                            <Link onClick={() => setMenuOpen(true)} className="rounded-md transition-all  items-center flex" href='/category/joyeria'>
 
                                 <span className={`${titleFont.className} block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 focus:bg-gray-200`}>Joyeria</span>
                             </Link>
