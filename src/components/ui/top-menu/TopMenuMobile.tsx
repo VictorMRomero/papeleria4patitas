@@ -153,6 +153,10 @@ export const TopMenuMobile = ({ className }: Props) => {
 
                                 <span className={`${titleFont.className} block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 focus:bg-gray-200`}>Ropa</span>
                             </Link>
+                            <Link className="rounded-md transition-all  items-center flex" href='/category/joyeria'>
+
+                                <span className={`${titleFont.className} block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 focus:bg-gray-200`}>Joyeria</span>
+                            </Link>
 
                         </ul>
                     </div>

@@ -18,6 +18,7 @@ export default async function Search({ searchParams }: Props) {
 
     const productSearch = searchParams.productSearch;
 
+
     if (productSearch === '') {
         return (
             <NoEncontrado />
@@ -25,7 +26,7 @@ export default async function Search({ searchParams }: Props) {
     }
 
 
-    const { products } = await getProductByText(productSearch)
+    const { products } = await getProductByText(productSearch.toLowerCase())
 
 
     if (products.length === 0) {
@@ -48,7 +49,7 @@ export default async function Search({ searchParams }: Props) {
 
             />
             <Title
-                title={`Resultado de busqueda para: ${productSearch}`}
+                title={` ${productSearch}`}
                 subtitle=''
 
             />
