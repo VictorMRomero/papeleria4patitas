@@ -1,10 +1,9 @@
 
 export const revalidate = 60;
-import { getNewProducts, getPaginatedProductsWithImages, getProductosWithOffer } from '@/actions';
-import { AdsImages, CategoriaGrid, Pagination, ProductGrid, Title } from '@/components'
+import { getNewProducts, getProductsWithOffer } from '@/actions';
+import { AdsImages, ProductGrid, Title } from '@/components'
 
 import Image from 'next/image';
-import Link from 'next/link';
 import { redirect } from 'next/navigation';
 
 
@@ -17,8 +16,8 @@ interface Props {
 
 export default async function Home({ searchParams }: Props) {
 
-    const {products} = await getNewProducts();
-    const {productsWithOffer} = await getProductosWithOffer();
+    const {newProducts} = await getNewProducts();
+    const {productsWithOffer} = await getProductsWithOffer();
 
 
 
@@ -29,7 +28,7 @@ export default async function Home({ searchParams }: Props) {
     'https://res.cloudinary.com/dog6zhxr8/image/upload/v1706763865/Ads/noyqdsawx5a2l6o11a30.png'
   ];
 
-  if (products.length === 0) {
+  if (newProducts.length === 0) {
     redirect('/');
   }
 
@@ -47,7 +46,7 @@ export default async function Home({ searchParams }: Props) {
       />
 
       <ProductGrid
-        products={products}
+        products={newProducts}
       />
 
       <Image
@@ -67,7 +66,7 @@ export default async function Home({ searchParams }: Props) {
       />
 
       <ProductGrid
-        products={productsWithOffer.slice(0, 10)}
+        products={productsWithOffer}
       />
 
 
