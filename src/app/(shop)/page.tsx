@@ -16,14 +16,13 @@ interface Props {
 
 export default async function Home({ searchParams }: Props) {
 
-    const {newProducts} = await getNewProducts();
-    const {productsWithOffer} = await getProductsWithOffer();
+    const {newProducts} = await getNewProducts({});
+    const {productsWithOffer} = await getProductsWithOffer({});
 
 
 
   //todo: cambiar por base de datos
   const images = [
-
     'https://res.cloudinary.com/dog6zhxr8/image/upload/f_auto,q_100/v1/Ads/dmc8axuimnvb9ms7c8xr',
     'https://res.cloudinary.com/dog6zhxr8/image/upload/v1706763865/Ads/noyqdsawx5a2l6o11a30.png'
   ];

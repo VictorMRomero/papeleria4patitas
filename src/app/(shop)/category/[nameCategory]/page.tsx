@@ -1,6 +1,6 @@
 export const revalidate = 60;
 
-import {getPaginatedProductsWithImages, getProductosWithOffer } from "@/actions";
+import {getAllProducts, getPaginatedProductsWithImages, getProductsWithOffer } from "@/actions";
 import { Pagination, ProductGrid, Title } from "@/components";
 import prisma from "@/lib/prisma";
 import Image from "next/image";
@@ -20,9 +20,6 @@ interface Props {
 }
 
 
-
-
-
 export default async function categoryPage({ params, searchParams }: Props) {
 
 
@@ -32,7 +29,7 @@ export default async function categoryPage({ params, searchParams }: Props) {
         if(nameCategory === 'ofertas'){
 
 
-            const {productsWithOffer} = await getProductosWithOffer();
+            const {productsWithOffer, totalPages} = await getProductsWithOffer({page});
 
             return(
 
@@ -54,6 +51,7 @@ export default async function categoryPage({ params, searchParams }: Props) {
                     <ProductGrid
                         products={productsWithOffer}
                     />
+                    <Pagination totalPages={totalPages} />
 
                 </div>
             )
@@ -62,7 +60,7 @@ export default async function categoryPage({ params, searchParams }: Props) {
         if(nameCategory === 'all'){
 
 
-            const {products, totalPages} = await getPaginatedProductsWithImages({page});
+            const {products, totalPages} = await getAllProducts({page});
 
             return(
 
