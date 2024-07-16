@@ -1,24 +1,33 @@
 export interface Product {
   id: string;
+  title: string;
   description: string;
-  images: string[];
   inStock: number;
   price: number;
   slug: string;
   tags: string[];
-  title: string;
-  category?: string;
-  descuento?: number;
+  discount?: number;
+  createAt?: Date;
+  isActive?: boolean;
+  views?: number;
+  images?: string[];
+  categories?: string[];
 }
 
 export interface CartProduct {
-  id:string;
-  slug:string;
-  title:string;
-  price:number;
-  quantity: number;
-  image:string;
-  descuento?: number;
+  id: string;
+  title: string;
+  description: string;
+  inStock: number;
+  price: number;
+  slug: string;
+  tags: string[];
+  discount?: number;
+  createAt?: Date;
+  isActive?: boolean;
+  views?: number;
+  images?: string[];
+  categories?: string[];
 }
 
 export interface ProductImage {

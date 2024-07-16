@@ -4,11 +4,12 @@ export const revalidate = 604800; //7 dias
 import { notFound } from "next/navigation";
 import { titleFont } from "@/config/fonts";
 import { ProductGrid, ProductMobileSlideShow, ProductSlideShow, QuantitySelector, StockLabel, Title } from "@/components";
-import { getProductBySlug, getProductByText } from "@/actions";
+import { getProductBySlug, getProductByTerm, getProductByText, getProductsByText } from "@/actions";
 import { Metadata, ResolvingMetadata } from "next";
 import { AddtoCart } from "./ui/AddtoCart";
 import Image from "next/image";
 import { currencyFormat } from "@/utils";
+import { Product } from "@/interfaces";
 
 
 interface Props {
@@ -24,7 +25,7 @@ export async function generateMetadata(
 
   const slug = params.slug;
 
-  const product = await getProductBySlug(slug);
+  const product = await getProductByTerm(slug);
 
   return {
     title: (product?.title ?? 'Producto no encontrado'),
@@ -32,7 +33,7 @@ export async function generateMetadata(
     openGraph: {
       title: product?.title ?? 'Producto no encontrado',
       description: product?.description ?? '',
-      images: [`${product?.images[1]}`]
+      images: [`${product?.image[1]}`]
     }
   }
 }
@@ -40,13 +41,14 @@ export async function generateMetadata(
 export default async function ProductBySlugPage({ params }: Props) {
 
   const { slug } = params;
-  const product = await getProductBySlug(slug);
-
+  const product = await getProductByTerm(slug);
+  console.log(product)
 
   if (!product) { notFound(); }
 
-  const {products} = await getProductByText(product.tags[0]);
-  const filteredProducts = products.filter((productResult) => productResult.id !== product.id);
+  const products = await getProductsByText(product.tags[0])
+  console.log(products)
+  const filteredProducts = products.filter((productResult: Product) => productResult.id !== product.id);
 
 
 
@@ -59,14 +61,14 @@ export default async function ProductBySlugPage({ params }: Props) {
 
         <ProductMobileSlideShow
           title={product?.title as string}
-          images={product?.images as string[]}
+          images={product?.image as string[]}
           className="block md:hidden"
         />
 
 
         <ProductSlideShow
           title={product?.title as string}
-          images={product?.images as string[]}
+          images={product?.image as string[]}
           className="hidden md:block"
         />
       </div>

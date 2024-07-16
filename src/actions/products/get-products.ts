@@ -1,5 +1,5 @@
 import api from "@/config/api";
-import prisma from "@/lib/prisma";
+
 
 export const getAllProducts = async({
   page = 1,
@@ -93,4 +93,19 @@ export const getProductsWithOffer = async({
       throw new Error ('Error al obtener los nuevos productos')
   }
 
+}
+
+export const getProductByTerm = async(term: string) => {
+
+  const response = await api.get(`products/${term}`)
+  const product = response.data;
+  return product
+
+}
+
+export const getProductsByText = async (text: string) => {
+
+  const response = await api.get(`products/search/${text}`)
+  const products = response.data;
+  return products
 }
