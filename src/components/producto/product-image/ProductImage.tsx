@@ -18,12 +18,16 @@ export const ProductImage = ({
   height
 }: Props) => {
 
-  const localSrc = ( src ) 
-    ? src.startsWith('http') // https://urlcompletodelaimagen.jpg
-      ? src
-      : `/products/${ src }`
-    : '/imgs/placeholder.jpg';
-
+  const localSrc = (() => {
+    if (typeof src === 'string' && src.trim() !== '') {
+      if (src.startsWith('http')) {
+        return src;
+      } else {
+        return `/products/${src}`;
+      }
+    }
+    return '/imgs/placeholder.jpg';
+  })();
   return (
     <Image
       src={ localSrc }

@@ -1,7 +1,7 @@
 
 
 
-import { getProductByText } from "@/actions";
+import { getProductByText, getProductsByText } from "@/actions";
 import { ProductGrid, Title } from "@/components";
 import { NoEncontrado } from "./ui/NoEncontrado";
 import Image from "next/image";
@@ -26,8 +26,9 @@ export default async function Search({ searchParams }: Props) {
     }
 
 
-    const { products } = await getProductByText(productSearch.toLowerCase())
+    const products  = await getProductsByText(productSearch)
 
+    // JSON.stringify(products)
 
     if (products.length === 0) {
         return (

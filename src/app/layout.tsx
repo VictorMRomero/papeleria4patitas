@@ -3,6 +3,8 @@ import { inter } from '@/config/fonts'
 
 import './globals.css'
 import { Provider } from '@/components'
+import { ThemeProvider } from 'next-themes'
+
 
 
 
@@ -19,15 +21,18 @@ export default function RootLayout({
 }: {
   children: React.ReactNode
 }) {
+
   return (
     <html lang="es">
-      <body className={inter.className}>
-        <Provider>
-        
-          {children}
+      <ThemeProvider attribute="class">
+        <body className={inter.className}>
+          <Provider>
           
-        </Provider>  
-      </body>
+            {children}
+            
+          </Provider>  
+        </body>
+      </ThemeProvider>
     </html>
   )
 }

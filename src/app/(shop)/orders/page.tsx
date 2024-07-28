@@ -1,21 +1,21 @@
+
 export const revalidate = 0;
 import { getOrdersByUser } from '@/actions';
 
 import { Title } from '@/components';
+import { getUser } from '@/config/token';
+import { Order, User } from '@/interfaces';
 
 
 import Link from 'next/link';
 import { redirect } from 'next/navigation';
+import { useEffect, useState } from 'react';
 import { IoCardOutline } from 'react-icons/io5';
 
 export default async function orders() {
 
-  const { ok, orders } = await getOrdersByUser();
-  
+  const { orders } = await getOrdersByUser();
 
-  if (!ok) {
-    redirect('/auth/login');
-  }
 
 
   return (
@@ -43,13 +43,14 @@ export default async function orders() {
           <tbody>
 
 
+
             {
-              orders?.map((order) => ( 
+              orders?.map((order: Order) => ( 
                 <tr key = {order.id} className="bg-white border-b transition duration-300 ease-in-out hover:bg-gray-100">
 
                   <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">1</td>
                   <td className="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
-                    {order.OrderAddress?.firstName}
+                    {order.status}
                   </td>
                   <td className="flex items-center text-sm  text-gray-900 font-light px-6 py-4 whitespace-nowrap">
                     {

@@ -1,10 +1,14 @@
+//todo actualizar la interfaz
+
 export interface User {
     id: string;
-    name: string;
+    fullName: string;
     email: string;
     emailVerified?: string | null;
     password: string;
-    role: string;
+    roles: string;
+    createAt: string;
+    isActive: boolean;
     image?: string | null;
 
 }

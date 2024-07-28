@@ -1,13 +1,29 @@
-import { titleFont } from '@/config/fonts';
+'use client'
+
+import Link from 'next/link';
 import { RegisterForm } from './ui/RegisterForm';
+import { useEffect, useState } from 'react';
+import { Loader } from '@/components/ui/loader/Loader';
 
 export default function NewAccountPage() {
+  
+  const [mounted, setMounted] = useState(false);
+  
+  useEffect(() => setMounted(true), []);
+  
+  if (!mounted) return <Loader/>;
+
   return (
-    <div className="flex flex-col min-h-screen pt-32 sm:pt-52">
+    <div className="bg-gray-300 dark:bg-gray-700 p-8 max-w-md mx-auto rounded-lg transition-colors duration-300">
 
-      <h1 className={ `${ titleFont.className } text-4xl mb-5` }>Nueva cuenta</h1>
+      <h1 className={`text-sm sm:text-2xl font-bold text-gray-800 dark:text-white mb-2`}>COMIENZA A GANAR</h1>
+      <h2 className={`text-2xl sm:text-4xl font-bold text-gray-900 dark:text-white mb-4`}>Crea una nueva cuenta<span className="text-blue-500">.</span></h2>
+      <p className={`text-gray-600 dark:text-gray-400 mb-6`}>Ya tienes una cuenta? <Link href="/auth/login" className="text-blue-500 hover:underline">Iniciar Sesi&oacute;n</Link></p>
 
+    
       <RegisterForm />
+
+
     </div>
   );
 }

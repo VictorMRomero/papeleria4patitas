@@ -5,14 +5,16 @@ import clsx from 'clsx';
 import Link from 'next/link';
 import { SubmitHandler, useForm } from 'react-hook-form';
 
-import { login, registerUser } from '@/actions';
+import { registerUser } from '@/actions';
 import { useState } from 'react';
+import { setCookie } from 'cookies-next';
 
 
 type FormInputs = {
   name: string;
   email: string;
   password: string;  
+  passwordVerified: string;
 }
 
 
@@ -21,20 +23,33 @@ export const RegisterForm = () => {
 
   const [errorMessage, setErrorMessage] = useState('')
   const { register, handleSubmit, formState: {errors} } = useForm<FormInputs>();
-
+  const [status, setStatus] = useState(false);
   const onSubmit: SubmitHandler<FormInputs> = async(data) => {
+    setStatus(true)
     setErrorMessage('');
-    const { name, email, password } = data;
+    const { name, email, password, passwordVerified } = data;
+
+    if(password != passwordVerified){
+      setErrorMessage('Por favor, verifica que coincidan las contraseñas')
+      setStatus(false)
+      return
+    }
     
     // Server action
-    const resp = await registerUser( name, email, password );
 
-    if ( !resp.ok ) {
-      setErrorMessage( resp.message );
+    const {ok, user, message} = await registerUser( name, email, password );
+
+
+    if ( !ok ) {
+      setErrorMessage(message);
+      setStatus(false)
       return;
     }
 
-    await login( email.toLowerCase(), password );
+    setCookie('token', user.token, { maxAge: 24 * 60 * 60 }); // 1 día
+    setCookie('user', JSON.stringify(user), { maxAge: 24 * 60 * 60 });
+
+
     window.location.replace('/');
 
 
@@ -42,7 +57,7 @@ export const RegisterForm = () => {
 
 
   return (
-    <form onSubmit={ handleSubmit( onSubmit ) }  className="flex flex-col">
+    <form onSubmit={ handleSubmit( onSubmit ) }  className="grid grid-cols-1 gap-4 mb-4">
 
       {/* {
         errors.name?.type === 'required' && (
@@ -51,11 +66,11 @@ export const RegisterForm = () => {
       } */}
 
 
-      <label htmlFor="email">Nombre completo</label>
+      <label htmlFor="name" className='dark:text-cyan-400'>Nombre completo</label>
       <input
         className={
           clsx(
-            "px-5 py-2 border bg-gray-200 rounded mb-5",
+            "w-full bg-gray-100 dark:bg-gray-800 text-gray-800 dark:text-white rounded-md p-3 focus:outline-none focus:ring-2 focus:ring-blue-500",
             {
               'border-red-500': errors.name
             }
@@ -66,11 +81,11 @@ export const RegisterForm = () => {
         { ...register('name', { required: true }) }
       />
 
-      <label htmlFor="email">Correo electrónico</label>
+      <label htmlFor="email" className="dark:text-cyan-400">Correo electrónico</label>
       <input
         className={
           clsx(
-            "px-5 py-2 border bg-gray-200 rounded mb-5",
+            "w-full bg-gray-100 dark:bg-gray-800 text-gray-800 dark:text-white rounded-md p-3 focus:outline-none focus:ring-2 focus:ring-blue-500",
             {
               'border-red-500': errors.email
             }
@@ -80,11 +95,11 @@ export const RegisterForm = () => {
         { ...register('email', { required: true, pattern: /^\S+@\S+$/i }) }
       />
 
-      <label htmlFor="email">Contraseña</label>
+      <label htmlFor="password" className="dark:text-cyan-400">Contraseña</label>
       <input
         className={
           clsx(
-            "px-5 py-2 border bg-gray-200 rounded mb-5",
+            "w-full bg-gray-100 dark:bg-gray-800 text-gray-800 dark:text-white rounded-md p-3 focus:outline-none focus:ring-2 focus:ring-blue-500",
             {
               'border-red-500': errors.password
             }
@@ -94,23 +109,41 @@ export const RegisterForm = () => {
         { ...register('password', { required: true, minLength: 6 }) }
       />
 
+      <label htmlFor="verifiedPassword" className="dark:text-cyan-400">Repite la contraseña</label>
+      <input
+        className={
+          clsx(
+            "w-full bg-gray-100 dark:bg-gray-800 text-gray-800 dark:text-white rounded-md p-3 focus:outline-none focus:ring-2 focus:ring-blue-500",
+            {
+              'border-red-500': errors.passwordVerified
+            }
+          )
+        }
+        type="password"
+        { ...register('passwordVerified', { required: true, minLength: 6, }) }
+      />
+
       
-        <span className="text-red-500">{ errorMessage } </span>
-        
+      <span className="text-red-500">{ errorMessage } </span>
       
+    
 
-      <button className="btn-primary">Crear cuenta</button>
+      <button
+          type="submit"
+          className={clsx({
+              "bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500":!status,
+              "btn-disabled": status
+          })}
+          disabled={status}
 
-      {/* divisor l ine */}
-      <div className="flex items-center my-5">
-        <div className="flex-1 border-t border-gray-500"></div>
-        <div className="px-2 text-gray-800">O</div>
-        <div className="flex-1 border-t border-gray-500"></div>
-      </div>
+          
+      >
+          {(status === false) 
+          ? "Crear Cuenta"
+          : "Cargando..."
+      }
+      </button>
 
-      <Link href="/auth/login" className="btn-secondary text-center">
-        Ingresar
-      </Link>
     </form>
   );
 };

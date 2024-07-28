@@ -9,6 +9,7 @@ import { getOrderById } from "@/actions";
 import { redirect } from "next/navigation";
 import { currencyFormat } from "@/utils";
 import { TiendaButton } from "@/components/order/TiendaButton";
+import { Product } from "@/interfaces";
 
 
 
@@ -30,7 +31,7 @@ export default async function OrdersByIdPage({ params }: Props) {
   const { ok, order } = await getOrderById(id);
 
   if (!ok) {
-    redirect("/");
+    return <h1>{id}</h1>
   }
 
 
@@ -58,12 +59,12 @@ export default async function OrdersByIdPage({ params }: Props) {
             }
 
             {/* Items */}
-            {order!.OrderItem.map((item) => (
+            {order!.items.map((item: Product) => (
               <div
-                key={item.product.slug}
+                key={item.slug}
                 className="flex mb-5"
               >
-                <ProductImage
+                {/* <ProductImage
                   src={item.product.ProductImage[0].url}
                   width={100}
                   height={100}
@@ -73,15 +74,15 @@ export default async function OrdersByIdPage({ params }: Props) {
                   }}
                   alt={item.product.title}
                   className="mr-5 rounded"
-                />
+                /> */}
 
                 <div>
-                  <p>{item.product.title}</p>
+                  <p>{item.title}</p>
                   <p>
-                    ${item.price * ((100 - (item.product.descuento?.valor ?? 0))/100) } x {item.quantity}
+                    ${item.discount}
                   </p>
                   <p className="font-bold">
-                    Subtotal: {currencyFormat(item.price * ((100 - (item.product.descuento?.valor ?? 0))/100) * item.quantity)}
+                    Subtotal: {currencyFormat(item.price)}
                   </p>
                 </div>
               </div>
@@ -93,7 +94,7 @@ export default async function OrdersByIdPage({ params }: Props) {
           {/* Checkout - Resumen de orden */}
           <div className="bg-white rounded-xl shadow-xl p-7">
             <h2 className="text-2xl mb-2">Dirección de entrega</h2>
-            <div className="mb-10">
+            {/* <div className="mb-10">
               <p className="text-xl">
                 {address!.firstName} {address!.lastName}
               </p>
@@ -105,7 +106,7 @@ export default async function OrdersByIdPage({ params }: Props) {
               </p>
               <p>{address!.postalCode}</p>
               <p>{address!.phone}</p>
-            </div>
+            </div> */}
 
             {/* Divider */}
             <div className="w-full h-0.5 rounded bg-gray-200 mb-10" />

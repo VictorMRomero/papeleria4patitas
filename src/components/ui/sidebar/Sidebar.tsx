@@ -1,23 +1,27 @@
 'use client'
+
 import { logout } from '@/actions'
 import { useUIStore } from '@/store'
 import clsx from 'clsx'
-import { useSession } from 'next-auth/react'
 import Link from 'next/link'
 import {IoBagHandleOutline, IoCloseOutline, IoLogIn, IoLogOutOutline, IoPeopleOutline, IoPersonOutline, IoPricetagOutline, IoSearchOutline, IoShirtOutline, IoStorefrontOutline, IoTicketOutline} from 'react-icons/io5'
 import { User } from '@/interfaces'
+import { getUser } from '@/config/token'
+
 
 
 export const Sidebar = () => {
     const isSideMenuOpen = useUIStore(state => state.isSideMenuOpen);
     const closeMenu = useUIStore(state => (state.closeSideMenu));
+
+    const user: User | null  = getUser()
+    const isAuthenticated: Boolean = !!user;
+
+    let isAdmin: Boolean = false;//(session?.user && (session.user as User).role === 'admin');
     
-
-    const {data: session} = useSession();
-
-    const isAuthenticated = !!session?.user;
-
-    const isAdmin = (session?.user && (session.user as User).role === 'admin');
+    if(user){
+        isAdmin = user.roles.includes('admin'); 
+    }
     
 
 
@@ -82,7 +86,7 @@ export const Sidebar = () => {
                         </Link>
             
                         <Link
-                            href='/orders'
+                            href='/orders' //todo modificar y mostrar una orden correctamente
                             onClick={() => closeMenu()}
                             className='flex items-center mt-10 p-2 hover:bg-gray-100 rounded transition-all'    
                         >
@@ -110,9 +114,6 @@ export const Sidebar = () => {
             {
                 !isAuthenticated && (
                     <>
-                    
-
-                        
                         <Link
                             href='/auth/login'
                             className='flex items-center mt-10 p-2 hover:bg-gray-100 rounded transition-all'    

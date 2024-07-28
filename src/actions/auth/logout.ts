@@ -1,11 +1,8 @@
-'use server'
+import { deleteCookie } from "cookies-next";
 
-import { signOut } from "@/auth.config"
 
 export const logout = async() => {
 
-    await signOut();
-
-
-
+    deleteCookie('user');
+    deleteCookie('token');
 } 

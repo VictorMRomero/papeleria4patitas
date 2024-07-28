@@ -1,5 +1,5 @@
 export const revalidate = 0;
-import { DeleteById, getPaginatedOrders, getPaginatedProductsWithImages } from '@/actions';
+import { getAllProducts} from '@/actions';
 import { ProductImage, Title } from '@/components';
 
 
@@ -8,6 +8,7 @@ import Link from 'next/link';
 import { Pagination } from '@/components';
 
 import { currencyFormat } from '@/utils';
+import { Product } from '@/interfaces';
 
 interface Props {
   searchParams: {
@@ -19,7 +20,11 @@ export default async function ProductMaintance({searchParams}: Props) {
 
   const page = searchParams.page ? parseInt(searchParams.page) : 1;
 
-  const {products, currentPage, totalPages} = await getPaginatedProductsWithImages({page});
+  const {products, currenPage, totalPages} = await getAllProducts({page});
+
+  if(!products){
+    return <h1>Error al obtener los productos</h1>
+  }
 
  
 
@@ -57,14 +62,18 @@ export default async function ProductMaintance({searchParams}: Props) {
 
 
             {
-              products?.map((product) => ( 
+              products?.map((product: Product) => ( 
                 <tr key = {product.id} className="bg-white border-b transition duration-300 ease-in-out hover:bg-gray-100">
 
                   <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
                     <Link href={`/product/${product.slug}`}>
 
                       <ProductImage 
-                        src={product.ProductImage[0]?.url}
+                        src={
+                          (!!product.images)
+                          ? product.images[0]
+                          : 'localImage'
+                        }
                         width={80}
                         height={80}
                         alt={product.title}

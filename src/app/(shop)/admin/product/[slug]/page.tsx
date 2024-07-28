@@ -1,4 +1,4 @@
-import { getCategories, getProductBySlug } from "@/actions";
+import { getCategories, getProductByTerm } from "@/actions";
 import { Title } from "@/components";
 import { redirect } from "next/navigation";
 import { ProductForm } from "./ui/ProductForm";
@@ -16,7 +16,7 @@ export default async function ProductPage ({params}: Props) {
 
 
     const [ product, categories ] = await Promise.all([
-        getProductBySlug(slugWithAcentos),
+        getProductByTerm(slugWithAcentos),
         getCategories()
       ]);
 

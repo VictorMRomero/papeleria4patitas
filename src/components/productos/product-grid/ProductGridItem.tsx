@@ -15,7 +15,8 @@ interface Props {
 
 export const ProductGridItem = ({ product }: Props) => {
     
-    
+
+
     
     return (
         <div className="rounded-md overflow-hidden fade-in bg-gray-100 shadow-md duration-500 hover:shadow-xl">
@@ -24,7 +25,11 @@ export const ProductGridItem = ({ product }: Props) => {
             >
 
                 <ProductImage
-                    src={product.images[0]}
+                    src={
+                        (!!product.images)
+                        ? product.images[0]
+                        : 'localImage'
+                    }
                     alt={product.title}
                     className="w-full object-cover rounded-top-xl hover:scale-110"
                     width={500}
@@ -38,10 +43,10 @@ export const ProductGridItem = ({ product }: Props) => {
                     {(product.title).slice(0, 20)}...
                 </Link>
                 {
-                    (!!product.descuento) 
+                    (!!product.discount && product.discount > 1) 
                     ? <>
                         <span className={`text-xl font-bold cursor-auto line-through text-gray-400`}>{currencyFormat(product.price) }</span> 
-                        <span className={`text-xl font-bold cursor-auto text-red-500 `}>{currencyFormat(Math.round(product.price * (100 - product.descuento)/100)) }</span>
+                        <span className={`text-xl font-bold cursor-auto text-red-500 `}>{currencyFormat(Math.round(product.price * (100 - product.discount)/100)) }</span>
                     </>
                     
                     :<span className={`text-xl font-bold cursor-auto `}>{currencyFormat(product.price) }</span>

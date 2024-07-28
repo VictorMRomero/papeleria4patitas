@@ -10,15 +10,20 @@ import { IoCardOutline } from "react-icons/io5";
 import { UsersTable } from './ui/UsersTable';
 import { User } from "@/interfaces";
 
-export default async function OrdersPage() {
 
-  const { ok, users = [] } = await getPaginationUsers();
-  const convertedUsers: User[] = users.map((user) => ({
-    ...user,
-    emailVerified: user.emailVerified?.toISOString() || null,
-  }));
+interface Props {
+  searchParams: {
+    page?: string;
+  }
+}
 
-  if (!ok) {
+export default async function UsersPage({searchParams}: Props) {
+
+  const page = searchParams.page ? parseInt(searchParams.page) : 1;
+  const { users, currenPage, totalPages } = await getPaginationUsers({page});
+
+
+  if (!users) {
     redirect("/auth/login");
   }
 
@@ -27,9 +32,9 @@ export default async function OrdersPage() {
       <Title title="Mantenimiento de usuarios" />
 
       <div className="mb-10">
-        <UsersTable users={ convertedUsers } />
+        <UsersTable users={ users } />
 
-        <Pagination totalPages={ 1 } />
+        <Pagination totalPages={ totalPages } />
       </div>
     </>
   );

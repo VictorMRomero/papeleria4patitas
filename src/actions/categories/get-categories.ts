@@ -1,5 +1,6 @@
 'use server';
 
+import api from '@/config/api';
 import prisma from '@/lib/prisma';
 
 
@@ -7,19 +8,14 @@ import prisma from '@/lib/prisma';
 export const getCategories =  async()=> {
 
   try {
-      const categories = await prisma.category.findMany({
-        orderBy: {
-          name: 'asc'
-        }
-      });
+      const response = await api.get(`/category`)
+      const {ok, total, allCategories} = response.data;
 
-
-      return categories;
+      return allCategories;
 
 
 
   } catch (error) {
-    console.log(error);
     return [];
   }
 

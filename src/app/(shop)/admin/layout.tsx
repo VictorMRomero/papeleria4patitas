@@ -1,20 +1,24 @@
-import { auth } from "@/auth.config";
+
+import { cookies } from "next/headers";
+import { redirect } from "next/navigation";
 import { User } from "@/interfaces";
 
-import { redirect } from "next/navigation";
-import { Children } from "react";
+
 
 export default async function AdminLayout({children}:{
     children: React.ReactNode;
 }){
 
-    const session = await auth();
+    const cookieStore = cookies();
+    const userCookie = cookieStore.get('user');
 
-    if(!session){
+    if(!userCookie){
         redirect('/auth/login')
     }
 
-    if((session?.user as User).role !== 'admin'){
+    const user: User = JSON.parse(userCookie.value);
+
+    if(!user.roles.includes('admin')){
         redirect('/auth/login')
     }
 

@@ -1,40 +1,29 @@
 'use server';
 
-import prisma from "@/lib/prisma";
-import bcryptjs from 'bcryptjs'
+import api from "@/config/api";
 
 
 
 export const registerUser = async(name: string, email:string, password:string) => {
 
     try{
+        const response = await api.post('auth/register', {email: email, password, fullName:name})
+        const user = response.data;
 
-        const user = await prisma.user.create({
-            data:{
-                name: name,
-                email: email.toLowerCase(),
-                password: bcryptjs.hashSync(password)
-            },
-            select:{
-                id: true,
-                name: true,
-                email: true,
-            }
-        })
+        if(!user){
+            throw new Error('algo salio mal')
+        }
 
         return{
             ok: true,
-            user: user,
-            message:'usuario creado'
+            user
         }
 
+    }catch(error: any){
 
-
-    }catch(error){
-        console.log(error);
         return{
             ok: false,
-            message:'No se pudo registrar'
+            message: error.response.data.message
         }
     }
 
