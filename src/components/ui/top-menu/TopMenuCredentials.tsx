@@ -11,7 +11,7 @@ export const TopMenuCredentials = () => {
     const { theme, setTheme } = useTheme();
 
     return (
-        <nav className="flex items-center justify-between w-full px-2 text-white dark:bg-gray-700 bg-gray-600 xl:px-[300px]">
+        <nav className="flex items-center justify-between w-full px-2 text-white dark:bg-gray-900 bg-indigo-900 xl:px-[300px]">
             
             <div className="flex intems-center">
 

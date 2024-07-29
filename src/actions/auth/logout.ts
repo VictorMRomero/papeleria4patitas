@@ -5,4 +5,6 @@ export const logout = async() => {
 
     deleteCookie('user');
     deleteCookie('token');
+
+    window.location.reload();
 } 

@@ -1,6 +1,5 @@
 'use server'
 import api from '@/config/api';
-import { getAllProducts, getNewProducts } from '../products/get-products';
 import { User } from '@/interfaces';
 
 

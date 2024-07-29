@@ -1,43 +1,103 @@
 'use client'
 
-
-import { titleFont } from "@/config/fonts"
 import { useCartStore, useUIStore } from "@/store";
 import Image from "next/image";
 import Link from "next/link"
 
 import { useEffect, useState } from "react";
-import { IoCartOutline, IoMenuOutline } from 'react-icons/io5'
+import { IoCartOutline, IoKeyOutline, IoLogInOutline, IoLogOutOutline, IoMenuOutline, IoMoonOutline, IoPersonOutline, IoPricetag, IoPricetagOutline, IoReaderOutline, IoSunnyOutline} from 'react-icons/io5'
 import { SearchBar } from "./SearchBar";
 
-import './style.css'
-import clsx from "clsx";
+import { useTheme } from "next-themes";
+import { Category, User } from "@/interfaces";
+import { getUser } from "@/config/token";
+import { useRouter } from "next/navigation";
+import { logout } from "@/actions";
 
 interface Props {
-
     className?: string;
+    categorias: Category[];
 }
 
 
-export const TopMenu = ({ className }: Props) => {
+export const TopMenu = ({ className, categorias }: Props) => {
 
-
-    const openSideMenu = useUIStore(state => (state.openSideMenu));
     const totalItemsInCart = useCartStore(state => state.getTotalItems())
-    const [menuOpen, setMenuOpen] = useState(true);
     const [loaded, setLoaded] = useState(false);
+    const { theme, setTheme } = useTheme();
+    const router = useRouter();
 
+    // user 
+    const user: User | null  = getUser()
+    const isAuthenticated: Boolean = !!user;
+    let isAdmin: Boolean = false;//(session?.user && (session.user as User).role === 'admin');
+    
+    if(user){
+        isAdmin = user.roles.includes('admin'); 
+    }
+
+    const items = [
+      {
+        title: "Perfil",
+        icon: <IoPersonOutline className="text-2xl"/>,
+        color: "bg-indigo-300 dark:bg-indigo-800",
+        onclick: () => {router.push('/profile')},
+      },
+      {
+        title: theme === "light" ? "Dark theme" : "Light theme",
+        icon: theme === "light" ? <IoMoonOutline className="text-2xl"/> : <IoSunnyOutline className="text-2xl"/>,
+        color: "bg-teal-300 dark:bg-teal-800",
+        onclick: () => setTheme(theme === 'dark' ? 'light' : 'dark'),
+      },
+      {
+        title: "Mis ordenes",
+        icon: <IoReaderOutline className="text-2xl"/>,
+        color: "bg-fuchsia-300 dark:bg-fuchsia-800",
+        onclick: () => {router.push('/orders')},
+      },
+      {
+        title: "Logout",
+        icon: <IoLogOutOutline className="text-2xl"/>,
+        color: "bg-red-300 dark:bg-red-800",
+        onclick: () => { logout() },
+      },
+    ];
+
+    const adminItem = {
+        title: "Administrador",
+        icon: <IoKeyOutline className="text-2xl"/>,
+        color: "bg-fuchsia-300 dark:bg-fuchsia-800",
+        onclick: () => {router.push('/admin/products')},
+    }
+
+    if(isAdmin){
+        items.push(adminItem);
+    }
+
+    const itemsNoAuth = [
+        {
+          title: "Iniciar Sesion",
+          icon: <IoLogInOutline className="text-2xl"/>,
+          color: "bg-indigo-300 dark:bg-indigo-800",
+          onclick: () => {router.push('/auth/login')},
+        },
+        {
+          title: theme === "light" ? "Dark theme" : "Light theme",
+          icon: theme === "light" ? <IoMoonOutline className="text-2xl"/> : <IoSunnyOutline className="text-2xl"/>,
+          color: "bg-teal-300 dark:bg-teal-800",
+          onclick: () => setTheme(theme === 'dark' ? 'light' : 'dark'),
+        },
+      ];
 
 
     useEffect(() => {
         setLoaded(true);
-        setMenuOpen(true);
     }, [])
 
     return (
         <div className={className}>
 
-            <nav className=" flex px-5 justify-between items-center w-full xl:pl-[300px] xl:pr-[300px] pl-2 pr-2 text-white bg-gray-700">
+            <nav className=" flex px-5 justify-between items-center w-full xl:pl-[300px] xl:pr-[300px] pl-2 pr-2 text-white dark:bg-gray-900 bg-indigo-900">
                 <div className="  flex intems-center">
 
                     <Link href="/">
@@ -52,7 +112,7 @@ export const TopMenu = ({ className }: Props) => {
                                 className="mr-2 hidden sm:flex"
                             />
 
-                            <span className={`flex antialiased font-bold text-xl`}> Papelería 4 patitas</span>
+                            <span className={`flex antialiased font-bold text-xl`}> Papeler&iacute;a 4 patitas</span>
                         </div>
                     </Link>
                 </div>
@@ -78,40 +138,101 @@ export const TopMenu = ({ className }: Props) => {
                             <IoCartOutline className="w-6 h-6" />
                         </div>
                     </Link>
-
-                    <button
-                        className={`${titleFont.className} antialiased m-2 p-2 rounded-md  transition-all hover:bg-yellow-200 text-xl`}
-                        onClick={() => openSideMenu()}
-                    >
-                        <IoMenuOutline className='' size={30} />
-                    </button>
-
+                {
+                    isAuthenticated && (
+                        <div className="relative group">
+                            <div className="flex items-center h-10 gap-3 rounded-lg cursor-pointer w-fit hover:bg-slate-400 dark:hover:bg-slate-800">
+                                <img
+                                src={`https://api.dicebear.com/9.x/identicon/svg`}
+                                className="my-auto ml-3 rounded-full w-7 h-7 bg-gray-600"
+                                />
+                                <p className="mr-3 font-bold text-gray-200">{user?.fullName}</p>
+                            </div>
+                        <ul className="z-10 absolute w-72 p-2 bg-slate-200 dark:bg-gray-900 shadow-[rgba(0,_0,_0,_0.24)_0px_0px_40px] shadow-slate-400 dark:shadow-slate-700 hidden md:group-hover:flex flex-col -left-[8em] rounded-xl ">
+                            {items.map((item) => (
+                            <li
+                                key={item.title}
+                                className="flex items-center justify-start h-16 font-bold cursor-pointer hover:bg-slate-400 dark:hover:bg-slate-800 rounded-xl"
+                                onClick={item.onclick}
+                            >
+                                <div
+                                className={`h-10 w-10 ml-5 flex items-center justify-center rounded-lg ${item.color}`}
+                                >
+                                <div className="w-3/5 text-gray-800 h-3/5 dark:text-gray-200">
+                                    {item.icon}
+                                </div>
+                                </div>
+                                <p className="ml-5 text-gray-600 dark:text-gray-200">
+                                {item.title}
+                                </p>
+                            </li>
+                            ))}
+                        </ul>
+                    </div>
+                    )
+                }   
+                {
+                    !isAuthenticated && (
+                        <div className="relative group">
+                            <div className="flex items-center h-10 gap-3 rounded-lg curso    const openSideMenu = useUIStore(state => (state.openSideMenu));r-pointer w-fit hover:bg-slate-400 dark:hover:bg-slate-800">
+                                <IoLogInOutline className="text-2xl"/>
+                                <p className="mr-3 font-bold text-white dark:text-gray-200">Log in</p>
+                            </div>
+                            <ul className="z-10 absolute w-72 p-2 bg-slate-50 dark:bg-gray-900 shadow-[rgba(0,_0,_0,_0.24)_0px_0px_40px] shadow-slate-400 dark:shadow-slate-700 hidden md:group-hover:flex flex-col -left-[8em] rounded-xl ">
+                                {itemsNoAuth.map((item) => (
+                                <li
+                                    key={item.title}
+                                    className="flex items-center justify-start h-16 font-bold cursor-pointer hover:bg-slate-400 dark:hover:bg-slate-800 rounded-xl"
+                                    onClick={item.onclick}
+                                >
+                                    <div
+                                    className={`h-10 w-10 ml-5 flex items-center justify-center rounded-lg ${item.color}`}
+                                    >
+                                    <div className="w-3/5 text-gray-800 h-3/5 dark:text-gray-200">
+                                        {item.icon}
+                                    </div>
+                                    </div>
+                                    <p className="ml-5 text-gray-600 dark:text-gray-200">
+                                    {item.title}
+                                    </p>
+                                </li>
+                                ))}
+                            </ul>
+                        </div>
+                    )
+                }         
 
                 </div >
             </nav >
+
             {/* <ListCategory/> */}
 
-            <nav className="flex pl-[300px] px-5 w-full bg-gray-300">
+            <nav className="flex pl-[300px] w-full dark:bg-gray-700 shadow-custom-bottom shadow-slate-200 dark:shadow-slate-800">
 
-                <div className="flex">
-
-                    <Link className="m-2 p-2 rounded-[50px] transition-all hover:bg-blue-400 items-center flex" href='/category/all'>
-                        <svg className="w-[38px] h-[38px]" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-                            <path stroke="currentColor" strokeLinecap="round" strokeWidth="2" d="M9 8h10M9 12h10M9 16h10M5 8h0m0 4h0m0 4h0" />
-                        </svg>
-
-
-                        <span className={`${titleFont.className} antialiased font-semibold`}>Todos</span>
-                    </Link>
-                    <Link className="m-2 p-2 rounded-[50px] transition-all hover:bg-red-100 items-center flex text-red-500" href='/category/ofertas'>
-                        <svg className="w-[30px] h-[30px] " aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24">
-                            <path d="M18 3h-5.7a2 2 0 0 0-1.4.6L3.6 11a2 2 0 0 0 0 2.8l6.6 6.6a2 2 0 0 0 2.8 0l7.4-7.5a2 2 0 0 0 .6-1.4V6a3 3 0 0 0-3-3Zm-2.4 6.4a1 1 0 1 1 0-2 1 1 0 0 1 0 2Z" />
-                        </svg>
-
-                        <span className={`${titleFont.className} antialiased`}>Ofertas</span>
-                    </Link>
-
+            <div className="relative group">
+                <div className="flex items-center h-10 pl-3 cursor-pointer w-fit hover:bg-slate-200 dark:hover:bg-slate-800">
+                    <p className="mr-3 text-gray-800 dark:text-gray-200">Categorias</p>
                 </div>
+                <ul className="z-10 absolute w-72 p-2 bg-slate-50 dark:bg-gray-900 shadow-[rgba(0,_0,_0,_0.24)_0px_0px_40px] shadow-slate-400 dark:shadow-slate-700 hidden md:group-hover:flex flex-col -left-[8em] rounded-xl ">
+                    {categorias.map((categoria) => (
+                    <li
+                        key={categoria.title}
+                        className="flex items-center justify-start h-12 font-bold cursor-pointer hover:bg-slate-200 dark:hover:bg-slate-800 rounded-xl"
+                    >
+                        <Link className="ml-5 text-gray-600 dark:text-gray-200" href={`/category/${categoria.title}`}>
+                            {categoria.title}
+                        </Link>
+                    </li>
+                    ))}
+                </ul>
+            </div>
+            <div className="flex items-center h-10 pl-3 cursor-pointer w-fit hover:bg-slate-200 dark:hover:bg-slate-800">
+                <Link className="mr-3 text-gray-800 dark:text-gray-200" href={'/category/all'}>Todos los productos</Link>
+            </div>
+            <div className="flex items-center h-10 pl-3 cursor-pointer w-fit hover:bg-slate-200 dark:hover:bg-slate-800">
+                <IoPricetag className="text-bold text-red-600"/>
+                <Link className="mr-3 text-red-600" href={'/category/ofertas'}>Offers</Link>
+            </div>
 
 
             </nav >

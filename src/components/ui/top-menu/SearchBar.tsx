@@ -1,73 +1,54 @@
 'use client';
 
-
-import { User } from "@/interfaces";
-import {  useSession } from "next-auth/react";
-import Link from "next/link"
 import { useRouter } from "next/navigation";
-import { useState } from "react";
-
-
-
-
+import { useRef, useState } from "react";
 
 export const SearchBar = () => {
-    const router = useRouter()
-    const {data: session} = useSession();
-    const isAdmin = (session?.user && (session.user as User).role === 'admin');
-    
-    let path = 'search';
-
-
-    if(isAdmin){
-        path = 'admin/ventas'
-    }
-    
-
     const [searchText, setSearchText] = useState('');
-
-    // Función para manejar cambios en el campo de búsqueda
-    const handleSearchChange = (event:any) => {
-        setSearchText(event.target.value);
+    const inputRef = useRef<HTMLInputElement>(null);
+    const router = useRouter();
+  
+    const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+      setSearchText(e.target.value);
     };
-
-    // Función para manejar el envío del formulario
-    
-    const handleSubmit = (event:any) => {
-        event.preventDefault();
-
-
-
+  
+    const handleSearch = () => {
+      if (searchText.trim().length >= 3) {
+        router.push(`/search?productSearch=${encodeURIComponent(searchText.trim())}`);
+        setSearchText('');
         
-        // Puedes usar searchText aquí para realizar la búsqueda o cualquier otra acción
-        
+        if (inputRef.current) {
+            inputRef.current.blur();
+          }
+      }
+    };
+  
+    const handleKeyPress = (e: React.KeyboardEvent<HTMLInputElement>) => {
+      if (e.key === 'Enter') {
+        handleSearch();
+      }
     };
     
-
-
-
-
     return (
-        <form className="w-full pt-3 pb-3 xl:pl-10 xl:pr-10" onSubmit={handleSubmit}>
-            <label className="mb-2 p-6 text-sm font-medium text-gray-900 sr-only">Buscar</label>
-            <div className="relative">
-                <div className="text-gray-400 absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
-                    <svg className="w-4 h-4 " aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
-                        <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z" />
-                    </svg>
-                </div>
-                <input 
-                    value={searchText} 
-                    onChange={handleSearchChange} 
-                    type="search" id="default-search" 
-                    pattern=".{3,}"  // Expresión regular que requiere al menos 3 caracteres
-                    title="Ingresa al menos 3 letras"
-                    className="block w-full p-4 ps-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-300 focus:ring-blue-500 focus:border-blue-500 " placeholder="Buscar..." required>
-                </input>
-                <Link href={`/${path}?productSearch=${searchText}`}>
-                    <button type="submit" className="text-gray-200 absolute end-2.5 bottom-2.5 bg-blue-700 hover:bg-blue-800  font-medium rounded-lg text-sm px-4 py-2">Ir</button>
-                </Link>
-            </div>
-        </form>
+      <div className="w-full max-w-2xl mx-auto rounded-full overflow-hidden flex items-center bg-gray-300 dark:bg-gray-700 shadow-md">
+        <input
+          ref={inputRef}
+          value={searchText}
+          onChange={handleSearchChange}
+          onKeyDown={handleKeyPress}
+          type="text"
+          className="flex-grow px-2 sm:px-4 sm:py-2  text-gray-700 dark:text-gray-200 placeholder-gray-500 dark:placeholder-gray-400 bg-transparent focus:outline-none"
+          placeholder="Buscar..."
+        />
+        <button
+          onClick={handleSearch}
+          className="p-2 focus:outline-none bg-blue-500 hover:bg-blue-600 transition-colors duration-300 "
+          aria-label="Search"
+        >
+          <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+          </svg>
+        </button>
+      </div>
     )
 }
