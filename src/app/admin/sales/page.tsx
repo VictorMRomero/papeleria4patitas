@@ -1,11 +1,11 @@
-import { getSales } from "@/actions"
-import { titleFont } from "@/config/fonts";
+// import { getSales } from "@/actions"
+// import { titleFont } from "@/config/fonts";
 
 
 
 export default async function Sales() {
 
-    const ventas = await getSales();
+    // const ventas = await getSales();
 
 
     return (

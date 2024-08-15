@@ -164,7 +164,7 @@ export const TopMenu = ({ className, categorias }: Props) => {
                         </ul>
                     </Link>
                     {
-                        isAuthenticated && (
+                        isAuthenticated && loaded && (
                             <div className="relative group">
                                 <div className="flex items-center h-10 gap-3 rounded-lg cursor-pointer w-fit hover:bg-slate-400 dark:hover:bg-slate-800">
                                     {/* <Image
@@ -200,7 +200,7 @@ export const TopMenu = ({ className, categorias }: Props) => {
                         )
                     }
                     {
-                        !isAuthenticated && (
+                        !isAuthenticated && loaded &&(
                             <div className="relative group">
                                 <div className="flex items-center h-10 gap-3 rounded-lg curso    const openSideMenu = useUIStore(state => (state.openSideMenu));r-pointer w-fit hover:bg-slate-400 dark:hover:bg-slate-800">
                                     <IoLogInOutline className="text-2xl" />

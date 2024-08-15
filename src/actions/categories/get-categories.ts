@@ -1,7 +1,6 @@
 'use server';
 
 import api from '@/config/api';
-import prisma from '@/lib/prisma';
 
 
 

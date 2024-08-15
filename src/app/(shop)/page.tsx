@@ -6,14 +6,10 @@ import { AdsImages, ProductGrid, Title } from '@/components'
 import Image from 'next/image';
 
 
-interface Props {
-  searchParams: {
-    page: string;
-  }
-}
 
 
-export default async function Home({ searchParams }: Props) {
+
+export default async function Home() {
 
     const {newProducts} = await getNewProducts({});
     const {productsWithOffer} = await getProductsWithOffer({});

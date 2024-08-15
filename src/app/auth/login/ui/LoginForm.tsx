@@ -44,7 +44,8 @@ export const LoginForm = () => {
                 <input
                     className="w-full bg-gray-100 dark:bg-gray-800 text-gray-800 dark:text-white rounded-md p-3 focus:outline-none focus:ring-2 focus:ring-blue-500"
                     type="password"
-                    name="password" />
+                    name="password" 
+                    autoComplete="current-password"/>
 
                 <div
                     className="flex h-8 items-end space-x-1"
