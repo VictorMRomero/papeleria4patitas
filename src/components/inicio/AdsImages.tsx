@@ -17,7 +17,7 @@ interface Props {
 export const AdsImages = ({ images }: Props) => {
     return (
 
-        <div className="w-[95vw] h-[300px] lg:w-full sm:h-auto">
+        <div className="w-[95vw] h-[300px] sm:w-full sm:h-auto rounded-lg">
             <Swiper
                 style={{
                     '--swiper-navigation-color': '#fff',
@@ -28,7 +28,7 @@ export const AdsImages = ({ images }: Props) => {
                 effect={'fade'}
                 navigation={true}
                 autoplay={{
-                    delay: 4500
+                    delay: 5500
                 }}
                 pagination={{
                     clickable: true,
@@ -46,7 +46,7 @@ export const AdsImages = ({ images }: Props) => {
                                 height={500}
                                 src={image}
                                 alt={image}
-                                className="myImagen rounded-lg object-fill"
+                                className="myImagen  object-fill"
 
                             />
                         </SwiperSlide>

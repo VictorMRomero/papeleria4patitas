@@ -1,6 +1,5 @@
 'use client'
 
-import Image from "next/image";
 import { SwiperSlide, Swiper } from "swiper/react"
 import 'swiper/css';
 import 'swiper/css/free-mode';
@@ -43,7 +42,6 @@ export const ProductMobileSlideShow = ({ images, title, className }: Props) => {
             >
                 {
                     images.map(image => (
-
                         <SwiperSlide key={image}>   
                             <ProductImage
 
@@ -54,13 +52,8 @@ export const ProductMobileSlideShow = ({ images, title, className }: Props) => {
                                 className="rounded-lg object-fill w-full"
                             />
                         </SwiperSlide>
-
                     ))
-
                 }
-
-
-
             </Swiper>
 
         </div>

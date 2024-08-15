@@ -1,6 +1,6 @@
 export const revalidate = 60;
 
-import {getAllProducts, getPaginatedProductsWithImages, getProductsWithOffer } from "@/actions";
+import {getAllProducts, getProductsWithOffer } from "@/actions";
 import { Pagination, ProductGrid, Title } from "@/components";
 import prisma from "@/lib/prisma";
 import Image from "next/image";
@@ -15,8 +15,6 @@ interface Props {
     searchParams: {
         page?: string;
     }
-
-
 }
 
 
@@ -90,48 +88,48 @@ export default async function categoryPage({ params, searchParams }: Props) {
 
 
 
-        const { id, name } = (await prisma.category.findUnique({
-            where: { name: nameCategory }
-        })) as { id: string; name: string; };
+        // const { id, name } = (await prisma.category.findUnique({
+        //     where: { name: nameCategory }
+        // })) as { id: string; name: string; };
 
 
 
-        const { products, currentPage, totalPages } = await getPaginatedProductsWithImages({
-            page,
-            id: id
-        });
+        // const { products, currentPage, totalPages } = await getPaginatedProductsWithImages({
+        //     page,
+        //     id: id
+        // });
         
 
-        if (products.length === 0) { notFound(); }
+        // if (products.length === 0) { notFound(); }
 
 
-        return (
-            <>
-                <Image
+        // return (
+        //     <>
+        //         <Image
 
-                    width={1500}
-                    height={320}
-                    src='https://res.cloudinary.com/dog6zhxr8/image/upload/v1706763864/Ads/bu0xxz15orrumrqsukzs.png'
-                    alt='imagen busqueda'
-                    className="object-fill mt-2"
+        //             width={1500}
+        //             height={320}
+        //             src='https://res.cloudinary.com/dog6zhxr8/image/upload/v1706763864/Ads/bu0xxz15orrumrqsukzs.png'
+        //             alt='imagen busqueda'
+        //             className="object-fill mt-2"
 
-                />
-                <Title
+        //         />
+        //         <Title
 
-                    title={name.charAt(0).toUpperCase() + name.slice(1)}
-                    subtitle={`Productos de ${name.charAt(0).toUpperCase() + name.slice(1)}`}
-                    className='mb-2'
-                />
+        //             title={name.charAt(0).toUpperCase() + name.slice(1)}
+        //             subtitle={`Productos de ${name.charAt(0).toUpperCase() + name.slice(1)}`}
+        //             className='mb-2'
+        //         />
 
-                <ProductGrid
-                    products={products}
-                />
+        //         <ProductGrid
+        //             products={products}
+        //         />
 
-                <Pagination totalPages={totalPages} />
-            </>
+        //         <Pagination totalPages={totalPages} />
+        //     </>
 
 
-        )
+        // )
 
 
     } catch (error) {

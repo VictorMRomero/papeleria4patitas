@@ -1,142 +1,142 @@
-'use server';
+// 'use server';
 
-import { auth } from "@/auth.config";
-import type { Address } from "@/interfaces";
-import prisma from "@/lib/prisma";
-import { error } from "console";
-
-
-interface ProductToOrder {
-    productId: string;
-    quantity: number;
-
-}
+// import { auth } from "@/auth.config";
+// import type { Address } from "@/interfaces";
+// import prisma from "@/lib/prisma";
+// import { error } from "console";
 
 
-export const placeVenta = async (productsIds: ProductToOrder[]) => {
+// interface ProductToOrder {
+//     productId: string;
+//     quantity: number;
 
-    const session = await auth();
-    const userId = session?.user?.id;
+// }
 
-    if (!userId) {
-        return {
-            ok: false,
-            message: 'No hay sesion de usuario'
-        }
-    }
 
-    //Obtener la informacion de los productos
-    const products = await prisma.product.findMany({
-        where: {
-            id: {
-                in: productsIds.map(p => p.productId)
-            }
-        }
-    })
+// export const placeVenta = async (productsIds: ProductToOrder[]) => {
 
-    //calcular montos
-    const itemsInOrder = productsIds.reduce((count, p) => count + p.quantity, 0);
+//     const session = await auth();
+//     const userId = session?.user?.id;
 
-    //total
-    const { total } = productsIds.reduce((totals, item) => {
+//     if (!userId) {
+//         return {
+//             ok: false,
+//             message: 'No hay sesion de usuario'
+//         }
+//     }
 
-        const productQuantity = item.quantity;
-        const product = products.find(p => p.id === item.productId);
+//     //Obtener la informacion de los productos
+//     const products = await prisma.product.findMany({
+//         where: {
+//             id: {
+//                 in: productsIds.map(p => p.productId)
+//             }
+//         }
+//     })
 
-        if (!product) throw new Error(`${item.productId} no existe - 500`)
+//     //calcular montos
+//     const itemsInOrder = productsIds.reduce((count, p) => count + p.quantity, 0);
 
-        const totalQuantity = product.price * productQuantity;
+//     //total
+//     const { total } = productsIds.reduce((totals, item) => {
 
-        totals.total += totalQuantity;
+//         const productQuantity = item.quantity;
+//         const product = products.find(p => p.id === item.productId);
 
-        return totals
-    }, { total: 0 });
+//         if (!product) throw new Error(`${item.productId} no existe - 500`)
 
-    //transaccion
+//         const totalQuantity = product.price * productQuantity;
 
-    try {
+//         totals.total += totalQuantity;
 
-        const prismaTx = await prisma.$transaction(async (tx) => {
-            // 1. Actualizar el stock de los productos
-            const updatedProductsPromises = products.map((product) => {
-              //  Acumular los valores
-              const productQuantity = productsIds
-                .filter((p) => p.productId === product.id)
-                .reduce((acc, item) => item.quantity + acc, 0);
+//         return totals
+//     }, { total: 0 });
+
+//     //transaccion
+
+//     try {
+
+//         const prismaTx = await prisma.$transaction(async (tx) => {
+//             // 1. Actualizar el stock de los productos
+//             const updatedProductsPromises = products.map((product) => {
+//               //  Acumular los valores
+//               const productQuantity = productsIds
+//                 .filter((p) => p.productId === product.id)
+//                 .reduce((acc, item) => item.quantity + acc, 0);
       
-              if (productQuantity === 0) {
-                throw new Error(`${product.id} no tiene cantidad definida`);
-              }
+//               if (productQuantity === 0) {
+//                 throw new Error(`${product.id} no tiene cantidad definida`);
+//               }
       
-              return tx.product.update({
-                where: { id: product.id },
-                data: {
-                  // inStock: product.inStock - productQuantity // no hacer
-                  inStock: {
-                    decrement: productQuantity,
-                  },
-                },
-              });
-            });
+//               return tx.product.update({
+//                 where: { id: product.id },
+//                 data: {
+//                   // inStock: product.inStock - productQuantity // no hacer
+//                   inStock: {
+//                     decrement: productQuantity,
+//                   },
+//                 },
+//               });
+//             });
       
-            const updatedProducts = await Promise.all(updatedProductsPromises);
+//             const updatedProducts = await Promise.all(updatedProductsPromises);
       
-            // Verificar valores negativos en las existencia = no hay stock
-            updatedProducts.forEach((product) => {
-              if (product.inStock < 0) {
-                throw new Error(`${product.title} no tiene inventario suficiente`);
-              }
-            });
+//             // Verificar valores negativos en las existencia = no hay stock
+//             updatedProducts.forEach((product) => {
+//               if (product.inStock < 0) {
+//                 throw new Error(`${product.title} no tiene inventario suficiente`);
+//               }
+//             });
             
-            // 2. Crear la orden - Encabezado - Detalles
-            const venta = await tx.venta.create({
-              data: {
-                itemsInOrder: itemsInOrder,
-                userId: userId,
-                total: total,
-              },
-            });
+//             // 2. Crear la orden - Encabezado - Detalles
+//             const venta = await tx.venta.create({
+//               data: {
+//                 itemsInOrder: itemsInOrder,
+//                 userId: userId,
+//                 total: total,
+//               },
+//             });
             
-            const orderItem = await tx.orderItem.createMany({
-              data: productsIds.map((p) => ({
-                quantity: p.quantity,
-                ventaId: venta.id,
-                productId: p.productId,
-                price: products.find((product) => product.id === p.productId)
-                ?.price ?? 0,
-              }))
-            })
+//             const orderItem = await tx.orderItem.createMany({
+//               data: productsIds.map((p) => ({
+//                 quantity: p.quantity,
+//                 ventaId: venta.id,
+//                 productId: p.productId,
+//                 price: products.find((product) => product.id === p.productId)
+//                 ?.price ?? 0,
+//               }))
+//             })
           
-          if(venta.total === 0){
-            throw new Error('El total no puede ser cero')
-          }
+//           if(venta.total === 0){
+//             throw new Error('El total no puede ser cero')
+//           }
       
-            return {
-              updatedProducts: updatedProducts,
-              venta: venta,
+//             return {
+//               updatedProducts: updatedProducts,
+//               venta: venta,
               
-            };
-          });
+//             };
+//           });
       
       
-          return {
-            ok: true,
-            venta: prismaTx.venta,
-            prismaTx: prismaTx,
-          }
+//           return {
+//             ok: true,
+//             venta: prismaTx.venta,
+//             prismaTx: prismaTx,
+//           }
       
 
 
-    } catch (error: any) {
+//     } catch (error: any) {
 
-        return {
-            ok: false,
-            message: error.message,
-        }
-    }
-
-
+//         return {
+//             ok: false,
+//             message: error.message,
+//         }
+//     }
 
 
 
-}
+
+
+// }

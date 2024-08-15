@@ -3,130 +3,55 @@
 
 import { useCartStore } from "@/store";
 import { currencyFormat } from "@/utils";
-import { useRouter } from "next/navigation";
+import Link from "next/link";
+import { redirect, useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { IoCloseCircleOutline } from "react-icons/io5";
 
 
 
 export const OrderSummary = () => {
-  const router = useRouter();
-  const productsInCart = useCartStore(state => state.cart);
+
   const [loaded, setLoaded] = useState(false);
-  const removeProductInCart = useCartStore(state => state.removeProduct)
 
-  //todo utilizar total
-  const { itemInCart, subTotal } = useCartStore(state => state.getSumaryInformation());
-
+  const { itemInCart, subTotal, total } = useCartStore(state => state.getSumaryInformation());
 
   useEffect(() => {
     setLoaded(true)
-  }, [])
-
-
+    if(itemInCart === 0) redirect('/empty')
+  }, [itemInCart])
 
   if (!loaded) return <p>Cargando...</p>
 
-
-
-
   return (
-
-    <>
-      <div className="hidden sm:flex  shadow-md sm:rounded-lg">
-        <table className="w-full text-sm text-left rtl:text-right ">
-
-          <tbody>
-            <tr className="border-b border-gray-300">
-              <th scope="row" className="px-4 py-2 font-bold whitespace-nowrap bg-gray-200 ">
-                Productos
-              </th>
-
-              <th className="px-4 py-2">
-                Precio
-              </th>
-              <th className="px-4 py-2">
-                Cantidad
-              </th>
-              <th className="px-4 py-2">
-                Descuento
-              </th>
-              <th>
-                Subtotal
-              </th>
-            </tr>
-
-            {
-              productsInCart.map((product) => (
-
-
-
-                <tr key={product.slug} className="border-b border-gray-300">
-                  <th scope="row" className="grid-cols-2 flex px-6 py-4 font-medium whitespace-nowrap bg-gray-100 ">
-                    
-
-                      <button onClick={() => removeProductInCart(product) } className="underline hover:text-red-400 mt-3 cursor-pointer">
-                          <IoCloseCircleOutline size={30} className="mr-2"/>
-                        </button>
-                    
-                    {product.title}
-                  </th>
-
-                  <th className="px-6 py-4">
-                    {product.price} 
-                  </th>
-
-                  <th className="px-6 py-4">
-                    {product.quantity}
-                  </th>
-
-                  <th className="px-6 py-4">
-                    %{product.descuento ?? 'Sin Descuento'}
-                  </th>
-
-                  <th className="px-6 py-4">
-                    {
-                    currencyFormat(((product.price * ((100 - (product.descuento ?? 0))/100))* product.quantity))
-                    }
-                  </th>
- 
-
-
-
-                </tr>
-
-
-
-              ))
-            }
-
-            <tr className="border-b border-gray-300">
-              <th scope="row" className="px-6 py-4 font-medium text-white whitespace-nowrap bg-blue-800 ">
-                Total:
-              </th>
-
-              <td className="px-6 py-4 text-2xl font-bold">
-                {currencyFormat(subTotal)}  
-              </td>
-            </tr>
-
-          </tbody>
-        </table>
+    <div className="border text-black dark:text-white dark:bg-gray-800 rounded-lg p-4 mb-4">
+      <h2 className="text-xl font-bold mb-4">Orden</h2>
+      <div className="space-y-2">
+        <div className="flex justify-between">
+          <span>Precio original</span>
+          <span>{currencyFormat(subTotal)}</span>
+        </div>
+        <div className="flex justify-between text-green-400">
+          <span>Ahorras</span>
+          <span>{currencyFormat(total - subTotal)}</span>
+        </div>
+        <div className="flex justify-between">
+          <span>No. de productos</span>
+          <span>{itemInCart}</span>
+        </div>
+        <div className="flex justify-between">
+          <span>Iva</span>
+          <span>Ya incluido</span>
+        </div>
+        <div className="flex justify-between font-bold text-xl mt-4">
+          <span>Total</span>
+          <span>{currencyFormat(total)}</span>
+        </div>
       </div>
-
-      <span className="sm:hidden text-2xl font-bold">Subtotal: {subTotal}</span>
-    </>
-
-
-
-
-
-
-
-
-
-
-
-
+      <button className="w-full bg-blue-600 text-white py-2 rounded-md mt-4 hover:bg-blue-700">
+        Proceder al pago
+      </button>
+      <Link href="/" className="block text-center text-blue-400 mt-2">Continua comprando →</Link>
+    </div>
   )
 }

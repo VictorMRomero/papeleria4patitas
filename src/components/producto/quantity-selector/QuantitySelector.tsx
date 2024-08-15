@@ -1,42 +1,25 @@
 'use client'
 
-
-import { IoAddCircleOutline, IoRemoveCircleOutline } from "react-icons/io5";
-
 interface Props {
-
-    quantity: number;
-    onQuantityChanged: (value: number) => void;
+  quantity: number;
+  inStock: number;
+  onQuantityChanged: (value: number) => void;
 }
 
-
-
-
-export const QuantitySelector = ({quantity, onQuantityChanged}: Props) => {
-  
-
+export const QuantitySelector = ({ quantity, inStock, onQuantityChanged }: Props) => {
 
   const onValueChanged = (value: number) => {
-    if(quantity + value <= 0)return;
-    onQuantityChanged( quantity + value);
+    if (quantity + value <= 0) return;
+    if (quantity + value >= inStock) return;
+    
+    onQuantityChanged(quantity + value);
   }
-  
-  
+
   return (
-    <div className="flex">
-        <button onClick={() => onValueChanged(-1)}>
-            <IoRemoveCircleOutline size={30}/>
-
-        </button>
-
-        <span className="w-20 mx-3 px-5 bg-gray-100 text-center rounded">
-            {quantity}
-        </span>
-
-        <button onClick={() => onValueChanged(+1)}>
-            <IoAddCircleOutline size={30}/>
-
-        </button>
+    <div className="flex items-center">
+      <button className="bg-gray-400 border hover:bg-blue-500 dark:hover:bg-blue-500 dark:bg-gray-700 text-xl px-3 py-1 rounded-l" onClick={() => onValueChanged(-1)}>-</button>
+      <span className="bg-gray-500 dark:bg-gray-700 px-4 py-1"> {quantity}</span>
+      <button className="bg-gray-400 border dark:border-disabled hover:bg-green-400 dark:hover:bg-green-400 dark:bg-gray-700 text-xl px-3 py-1 rounded-r" onClick={() => onValueChanged(+1)}>+</button>
     </div>
   )
 }

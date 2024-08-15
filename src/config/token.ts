@@ -1,8 +1,6 @@
 
-import { User } from "@/interfaces";
 import { deleteCookie, getCookie } from "cookies-next";
-import { useEffect, useState } from "react";
-// import { cookies } from "next/headers";
+
 
 
 export function getToken() {

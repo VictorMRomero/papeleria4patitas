@@ -1,7 +1,7 @@
 
 
 
-import { getProductByText, getProductsByText } from "@/actions";
+import { getProductsByText } from "@/actions";
 import { ProductGrid, Title } from "@/components";
 import { NoEncontrado } from "./ui/NoEncontrado";
 import Image from "next/image";

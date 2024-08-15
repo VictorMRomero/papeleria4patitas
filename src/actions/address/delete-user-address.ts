@@ -1,26 +1,26 @@
-'use server';
+// 'use server';
 
-import prisma from "@/lib/prisma";
+// import prisma from "@/lib/prisma";
 
-export const deleteUserAddress = async(userId: string) => {
-    try{
+// export const deleteUserAddress = async(userId: string) => {
+//     try{
         
         
-        const deleteAddress = await prisma.userAddress.delete({
-        where: {userId}
-    });
+//         const deleteAddress = await prisma.userAddress.delete({
+//         where: {userId}
+//     });
 
-    return{
-        ok: true
-    }
+//     return{
+//         ok: true
+//     }
 
 
-    } catch (error) {
+//     } catch (error) {
 
-    return{
-        ok: false,
-        message: 'no se pudo borrar'    
-    }
-}
+//     return{
+//         ok: false,
+//         message: 'no se pudo borrar'    
+//     }
+// }
 
-}
+// }

@@ -15,16 +15,16 @@ export const AddtoCart = ({product}: Props) => {
     const [quantity, setQuantity] = useState<number>(1);
 
     const addToCart = () => {
-        
-        
         const cartProduct: CartProduct = {
           id: product.id,
-          slug: product.slug,
           title: product.title,
+          description: product.description,
+          inStock: product.inStock,
           price: product.price,
+          slug: product.slug,
           quantity: quantity,
-          image: product.images[0],
-          descuento: product.discount,
+          descuento: product.discount ?? 1,
+          image: (product.images) ? product.images[0] : 'nohay'
         }
         addProductToCart(cartProduct);
         setQuantity(1);
@@ -32,12 +32,6 @@ export const AddtoCart = ({product}: Props) => {
     }
   return (
     <>
-    
-        {/* <QuantitySelector 
-           quantity={quantity}
-           onQuantityChanged = {setQuantity}
-        /> */}
-
         <button 
         onClick={addToCart}    
         className="btn-primary w-full mt-2 rounded-lg">

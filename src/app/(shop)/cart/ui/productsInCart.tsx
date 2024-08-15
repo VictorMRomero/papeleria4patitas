@@ -17,6 +17,7 @@ export const ProductsInCart = () => {
 
     useEffect(() => {
         setLoaded(true);
+
     }, [])
 
     if (!loaded) {
@@ -30,40 +31,48 @@ export const ProductsInCart = () => {
         <>
             {
                 productsInCart.map((product) => (
-                    <div key={product.slug} className="flex mb-5">
-                        <ProductImage
-                            src={product.image}
-                            width={100}
-                            height={100}
-                            style={{
-                                width: '100px',
-                                height: '100px'
-                            }}
-                            alt={product.title}
-                            className="mr-5 rounded"
-                        />
-                        <div>
+                    <div key={product.slug} className="bg-gray-100 border dark:border-red dark:bg-gray-800 rounded-lg p-4 flex flex-col sm:flex-row items-start sm:items-center">
+                        <div className="w-full sm:w-24 h-24 dark:bg-gray-700 grid-background bg-gray-300 rounded-md mb-4 sm:mb-0 sm:mr-4 flex justify-center items-center">
+                            <ProductImage
+                                src={product.image}
+                                width={100}
+                                height={100}
+                                style={{
+                                    width: '100%',
+                                    height: '100%',
+                                    objectFit: 'cover'
+                                }}
+                                alt={product.title}
+                                className="rounded"
+                            />
+                        </div>
+                        <div className="flex-grow mb-4 sm:mb-0">
                             <Link
-                                className="hover:underline cursor-pointer text-xl font-bold"
-                                href={`/product/${product.slug}`}>
+                                className="text-black dark:text-white hover:underline cursor-pointer text-lg font-semibold"
+                                href={`/product/${product.slug}`}
+                            >
                                 {product.title}
                             </Link>
-
-                            {
-                                (!!product.descuento)
-                                    ? <p className={`text-xl font-bold cursor-auto text-red-500 `}>{currencyFormat((product.price * (100 - product.descuento) / 100))}</p>
-                                    : <p className={`text-xl font-bold cursor-auto `}>{currencyFormat(product.price)}</p>
-                            }
+                            <p className="text-sm text-gray-400 mt-1">{product.description}</p>
+                            <div className="flex items-center mt-2">
+                                <button onClick={() => removeProductInCart(product)} className="text-red-400">✕ Remove</button>
+                            </div>
+                        </div>
+                        <div className="flex flex-col sm:flex-row items-start sm:items-center mt-4 sm:mt-0">
                             <QuantitySelector
+                                inStock={product.inStock}
                                 quantity={product.quantity}
                                 onQuantityChanged={quantity => updateProductQuantity(product, quantity)}
                             />
-                            <button onClick={() => removeProductInCart(product)} className="underline mt-3 cursor-pointer">
-                                Remover
-                            </button>
+                            <span className={`mt-2 sm:mt-0 sm:ml-6 text-xl font-bold ${product.descuento ? 'text-red-500' : ''}`}>
+                                {product.descuento
+                                    ? currencyFormat((product.price * (100 - product.descuento) / 100))
+                                    : currencyFormat(product.price)
+                                }
+                            </span>
                         </div>
-
                     </div>
+
                 ))
             }
         </>

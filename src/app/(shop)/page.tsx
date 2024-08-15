@@ -4,7 +4,6 @@ import { getNewProducts, getProductsWithOffer } from '@/actions';
 import { AdsImages, ProductGrid, Title } from '@/components'
 
 import Image from 'next/image';
-import { redirect } from 'next/navigation';
 
 
 interface Props {
@@ -27,21 +26,16 @@ export default async function Home({ searchParams }: Props) {
     'https://res.cloudinary.com/dog6zhxr8/image/upload/v1706763865/Ads/noyqdsawx5a2l6o11a30.png'
   ];
 
-  if (newProducts.length === 0) {
-    redirect('/');
-  }
-
 
   return (
     <div className=''>
       <AdsImages images={images} />
 
-      {/* //<CategoriaGrid /> */}
 
       <Title
         title="Principales Novedades..."
         
-        className='mb-2'
+        className='mb-2 '
       />
 
       <ProductGrid

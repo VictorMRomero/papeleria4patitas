@@ -3,13 +3,12 @@ export const revalidate = 0;
 import { getOrdersByUser } from '@/actions';
 
 import { Title } from '@/components';
-import { getUser } from '@/config/token';
-import { Order, User } from '@/interfaces';
+
+import { Order } from '@/interfaces';
 
 
 import Link from 'next/link';
-import { redirect } from 'next/navigation';
-import { useEffect, useState } from 'react';
+
 import { IoCardOutline } from 'react-icons/io5';
 
 export default async function orders() {

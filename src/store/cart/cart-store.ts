@@ -43,8 +43,8 @@ export const useCartStore = create<State>()(
 
                 const { cart } = get();
 
-                const subTotal = cart.reduce((subTotal, product) => ((product.price * (100 - (product.descuento ?? 0)) / 100)) * product.quantity + subTotal, 0)
-                const total = subTotal ; //todo, aqui se agregan otros datos
+                const subTotal = cart.reduce((subTotal, product) => product.price * product.quantity + subTotal, 0)
+                const total = cart.reduce((total, product) => ((product.price * product.quantity) - (( product.descuento / 100) * product.price * product.quantity)) + total, 0) //todo, aqui se agregan otros datos
                 const itemInCart = cart.reduce((total, item) => total + item.quantity, 0);
 
                 return {
@@ -65,6 +65,7 @@ export const useCartStore = create<State>()(
                     (item) => item.id === product.id
                 );
 
+                //almacena el producto
                 if (!productInCart) {
                     set({ cart: [...cart, product] });
                     return;
@@ -108,7 +109,6 @@ export const useCartStore = create<State>()(
 
         , {
             name: 'shoping-card',
-
         }
     )
 

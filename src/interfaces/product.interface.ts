@@ -1,3 +1,5 @@
+import { Category } from "./category.interface";
+
 export interface Product {
   id: string;
   title: string;
@@ -11,8 +13,10 @@ export interface Product {
   isActive?: boolean;
   views?: number;
   images?: string[];
-  categories?: string[];
+  categories?: Category[];
 }
+
+
 
 export interface CartProduct {
   id: string;
@@ -21,13 +25,14 @@ export interface CartProduct {
   inStock: number;
   price: number;
   slug: string;
-  tags: string[];
-  discount?: number;
+  // tags: string[];
+  descuento: number;
   createAt?: Date;
   isActive?: boolean;
   views?: number;
-  images?: string[];
+  image?: string;
   categories?: string[];
+  quantity: number;
 }
 
 export interface ProductImage {
@@ -36,6 +41,12 @@ export interface ProductImage {
   productId: string;
 }
 
+export interface ProductCategories {
+  id: string,
+  title: string,
+  description: string
+}
 
-export type ValidCategory = 'papeleria'|'juguetes'|'belleza'|'regalos'|'tecnologia';
+
+
 

@@ -1,16 +1,16 @@
-'use server'
+// 'use server'
 
-import prisma from "@/lib/prisma"
+// import prisma from "@/lib/prisma"
 
-export const getUserById =async (id:string) => {
-    const user = await prisma.user.findUnique({
+// export const getUserById =async (id:string) => {
+//     const user = await prisma.user.findUnique({
 
-        where: {
-            id: id,
+//         where: {
+//             id: id,
 
-        }
+//         }
 
-    })
+//     })
 
-    return user;
-}
+//     return user;
+// }

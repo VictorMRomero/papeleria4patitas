@@ -45,6 +45,18 @@ body {
   animation-name: fadeIn;
 }
 
+.grid-background {
+  background-image: 
+    linear-gradient(to right, #e5e7eb 1px, transparent 1px),
+    linear-gradient(to bottom, #e5e7eb 1px, transparent 1px);
+  background-size: 20px 20px;
+}
+
+.dark .grid-background {
+  background-image: 
+  linear-gradient(to right, #50525a 1px, transparent 1px),
+  linear-gradient(to bottom, #50525a 1px, transparent 1px);
+}
 
 .btn-primary {
   @apply bg-blue-800 hover:bg-blue-600 text-white py-2 px-4 rounded transition-all;

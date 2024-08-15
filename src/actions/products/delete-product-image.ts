@@ -1,47 +1,37 @@
 'use server';
 
-import prisma from '@/lib/prisma';
-import {v2 as cloudinary} from 'cloudinary'
+import api from '@/config/api';
 import { revalidatePath } from 'next/cache';
+import { getUserServer } from '../user/get-user';
 
-cloudinary.config(process.env.CLOUDINARY_URL ?? '');
 
 
-export const deleteProductImage = async( imageId: number, imageUrl: string) => {
+
+export const deleteProductImage = async( imageUrl: string) => {
     if(!imageUrl.startsWith('http')){
         return{
             ok: false,
             error: 'No se pueden eliminar'
         }
-    }
-    
-    const imageName = imageUrl.split('/').pop()?.split('.')[0] ?? '';
-    
+    }    
     
     try {
-        await cloudinary.uploader.destroy(imageName);
-        
-        const deletedImage = await prisma.productImage.delete({
-            where: {
-                id: imageId
-            },
-            select:{
-                product: {
-                    select:{
-                        slug: true
-                    } 
-                }
-            }
-        })
-        console.log(deletedImage)
-        
+        const {token} = await getUserServer();
+
+        const cadena = imageUrl.split('/');
+        const publicId = cadena[cadena.length - 1].split('.')[0]
+        const response = await api.delete(`/files/product/${publicId}`,{
+            headers: { 'Authorization': `Bearer ${token}` }
+          });
+
+        const {ok, product} = response.data;
+        if(!ok){
+            throw new Error
+        }
         //revalidar los paths
         revalidatePath(`/admin/products`);
-        revalidatePath(`/admin/product/${deletedImage.product.slug}`);
-        revalidatePath(`/product/${deletedImage.product.slug}`);
-        
-        console.log('hecho')
-
+        revalidatePath(`/admin/product/${product.slug}`);
+        revalidatePath(`/product/${product.slug}`);
 
     } catch (error) {
         return{

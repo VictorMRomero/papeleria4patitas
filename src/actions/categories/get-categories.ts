@@ -21,25 +21,3 @@ export const getCategories =  async()=> {
 
 
 }
-
-export const getCategoriesById =  async(id: string)=> {
-
-  try {
-      const categoria = await prisma.category.findUnique({
-        where: {
-          id: id
-        }
-      });
-
-
-      return categoria;
-
-
-
-  } catch (error) {
-    console.log(error);
-    return error;
-  }
-
-
-}

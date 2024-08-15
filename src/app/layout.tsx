@@ -2,7 +2,7 @@ import type { Metadata } from 'next'
 import { inter } from '@/config/fonts'
 
 import './globals.css'
-import { Provider } from '@/components'
+// import { Provider } from '@/components'
 import { ThemeProvider } from 'next-themes'
 
 
@@ -24,15 +24,15 @@ export default function RootLayout({
 
   return (
     <html lang="es">
-      <ThemeProvider attribute="class">
         <body className={inter.className}>
-          <Provider>
-          
-            {children}
-            
-          </Provider>  
+          <ThemeProvider attribute="class">
+              {/* <Provider> */}
+              
+                {children}
+    {/*             
+              </Provider>   */}
+          </ThemeProvider>
         </body>
-      </ThemeProvider>
     </html>
   )
 }
