@@ -6,11 +6,11 @@ import { useEffect, useState } from 'react';
 import { Loader } from '@/components/ui/loader/Loader';
 
 export default function login() {
-  const [mounted, setMounted] = useState(false);
+  // const [mounted, setMounted] = useState(false);
   
-  useEffect(() => setMounted(true), []);
+  // useEffect(() => setMounted(true), []);
   
-  if (!mounted) return <Loader/>;
+  // if (!mounted) return <Loader/>;
   
   return (
 

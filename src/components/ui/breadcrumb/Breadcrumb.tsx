@@ -18,7 +18,7 @@ export const Breadcrumb = ({data, actual}: Props) => {
             </svg>
 
             {data.map(item => (
-            <li>
+            <li key={item.name}>
                 <div className="flex items-center">
                 <Link href={item.url} className="ms-1 text-sm font-medium text-gray-700 hover:text-blue-600 md:ms-2 dark:text-gray-400 dark:hover:text-white">{item.name}</Link>
                 <svg className="rtl:rotate-180 w-3 h-3 text-gray-400 mx-1" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 6 10">
