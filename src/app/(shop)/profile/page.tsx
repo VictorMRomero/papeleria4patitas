@@ -1,11 +1,11 @@
 'use client'
 
-import { auth } from "@/auth.config";
+
 import { Title } from "@/components";
-import { titleFont } from "@/config/fonts";
+
 import { getUser } from "@/config/token";
 import { User } from "@/interfaces";
-import Image from "next/image";
+
 import { redirect } from "next/navigation";
 import { useEffect, useState } from "react";
 

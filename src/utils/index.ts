@@ -1,3 +1,3 @@
 
-export * from './generatePaginationNumbers'
-export * from './currencyFormat'
+export {geratePagination} from './generatePaginationNumbers'
+export {currencyFormat} from './currencyFormat'

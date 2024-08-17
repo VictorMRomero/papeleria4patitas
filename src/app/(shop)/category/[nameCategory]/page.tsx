@@ -2,7 +2,6 @@ export const revalidate = 60;
 
 import {getAllProducts, getProductsWithOffer } from "@/actions";
 import { Pagination, ProductGrid, Title } from "@/components";
-import prisma from "@/lib/prisma";
 import Image from "next/image";
 
 

@@ -45,20 +45,20 @@ npm install clsx
 --swiper
 npm install swiper
 
---Prisma
-npm install prisma --save-dev
+# --Prisma
+# npm install prisma --save-dev
 
-npx prisma init --datasource-provider PostgreSQL
+# npx prisma init --datasource-provider PostgreSQL
 
-npx prisma migrate dev --name ProductCategory
+# npx prisma migrate dev --name ProductCategory
 
 --ts-node
 npm i -D ts-node
 
 npx tsc --init
 
---nexth-auth
-npm install next-auth@beta
+# --nexth-auth
+# npm install next-auth@beta
 
 openssl rand -base64 32
 

@@ -1,81 +1,72 @@
 "use client"
-import { deleteUserAddress, getEstados, setUserAddress } from "@/actions";
-import { Address, Estado } from "@/interfaces";
-
-import { useAddressStore } from "@/store";
-import clsx from "clsx";
-import { useSession } from "next-auth/react";
-
-import { redirect, useRouter } from "next/navigation";
-import { useEffect } from "react";
-import { useForm } from 'react-hook-form';
 
 
-type FormInputs = {
-  firstName: string;
-  lastName: string;
-  calle: string;
-  detalle?: string;
-  localidad: string;
-  postalCode: string;
-  phone: string;
-  referencia?: string;
-  rememberAddress: boolean;
-  estado: string;
-}
 
-interface Props {
-  estados: Estado[];
-  userStoreAddress?: Partial<Address>;
-}
+// type FormInputs = {
+//   firstName: string;
+//   lastName: string;
+//   calle: string;
+//   detalle?: string;
+//   localidad: string;
+//   postalCode: string;
+//   phone: string;
+//   referencia?: string;
+//   rememberAddress: boolean;
+//   estado: string;
+// }
+
+// interface Props {
+//   estados: Estado[];
+//   userStoreAddress?: Partial<Address>;
+// }
 
 
 
 
-export const AddressForm = ({ estados, userStoreAddress = {} }: Props) => {
+export const AddressForm = () => {
 
-  const router = useRouter();
+  // const router = useRouter();
 
 
-  const { handleSubmit, register, formState: { isValid }, reset } = useForm<FormInputs>({
-    defaultValues: {
-      ...(userStoreAddress as any),
-      rememberAddress: false,
-    }
-  });
+  // const { handleSubmit, register, formState: { isValid }, reset } = useForm<FormInputs>({
+  //   defaultValues: {
+  //     ...(userStoreAddress as any),
+  //     rememberAddress: false,
+  //   }
+  // });
 
-  const {data: session} = useSession();
-  const userId:string = session?.user?.id ?? '';
+  // const {data: session} = useSession();
+  // const userId:string = session?.user?.id ?? '';
 
-  const setAddress = useAddressStore(state => state.setAddres);
-  const address = useAddressStore(state => state.address);
+  // const setAddress = useAddressStore(state => state.setAddres);
+  // const address = useAddressStore(state => state.address);
 
-  useEffect(() => {
-    if (address.firstName) {
-      reset(address)
-    }
-  }, [address, reset])
+  // useEffect(() => {
+  //   if (address.firstName) {
+  //     reset(address)
+  //   }
+  // }, [address, reset])
 
   
 
 
 
 
-  const onSubmit = async (data: FormInputs) => {
+  // const onSubmit = async (data: FormInputs) => {
 
-    const { rememberAddress, ...restAddress } = data;
+  //   const { rememberAddress, ...restAddress } = data;
     
-    setAddress(data);
+  //   setAddress(data);
 
-    if ( rememberAddress ) {
-      await setUserAddress(restAddress, userId  );
-    } else {
-      await deleteUserAddress(userId);
-    }
+  //   if ( rememberAddress ) {
+  //     await setUserAddress(restAddress, userId  );
+  //   } else {
+  //     await deleteUserAddress(userId);
+  //   }
 
-    router.push('/checkout')
+  //   router.push('/checkout')
 
-  }
+  // }
 
 
 
@@ -86,149 +77,150 @@ export const AddressForm = ({ estados, userStoreAddress = {} }: Props) => {
 
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)} className="grid grid-cols-1 gap-2 sm:gap-5 sm:grid-cols-2">
-      <div className="flex flex-col mb-2">
-        <span>Nombre (s)</span>
-        <input type="text" className="p-2 border rounded-md bg-gray-200" {...register('firstName', { required: true })} />
-      </div>
+    <h1>formulario</h1>
+    // <form onSubmit={handleSubmit(onSubmit)} className="grid grid-cols-1 gap-2 sm:gap-5 sm:grid-cols-2">
+    //   <div className="flex flex-col mb-2">
+    //     <span>Nombre (s)</span>
+    //     <input type="text" className="p-2 border rounded-md bg-gray-200" {...register('firstName', { required: true })} />
+    //   </div>
 
-      <div className="flex flex-col mb-2">
-        <span>Apellidos</span>
+    //   <div className="flex flex-col mb-2">
+    //     <span>Apellidos</span>
 
-        <input
-          type="text"
-          className={`p-2 border rounded-md bg-gray-200 `}
-          {...register('lastName', { required: 'El campo de apellidos es obligatorio' })}
-        />
-
-
-      </div>
+    //     <input
+    //       type="text"
+    //       className={`p-2 border rounded-md bg-gray-200 `}
+    //       {...register('lastName', { required: 'El campo de apellidos es obligatorio' })}
+    //     />
 
 
-      <div className="flex flex-col mb-2">
-        <span>Dirección de la calle</span>
-        <input placeholder="Número de la casa y nombre de la calle" type="text" className="p-2 border rounded-md bg-gray-200" {...register('calle', { required: true })} />
-      </div>
-
-      <div className="flex flex-col mb-2">
-        <span>Municipio</span>
-        <input type="text" className="p-2 border rounded-md bg-gray-200" {...register('detalle')} />
-      </div>
-
-      <div className="flex flex-col mb-2">
-        <span>Localidad</span>
-        <input type="text" className="p-2 border rounded-md bg-gray-200" {...register('localidad', { required: true })} />
-      </div>
-
-      <div className="flex flex-col mb-2">
-        <span>Código postal </span>
-        <input
-          type="text"
-          inputMode="numeric"  // Asegura que el teclado sea numérico en dispositivos móviles
-          pattern="[0-9]*"     // Solo permite caracteres numéricos
-          maxLength={5}         // Limita la longitud a 5 caracteres
-          className={`p-2 border rounded-md bg-gray-200 `}
-          {...register('postalCode', {
-            required: 'El código postal es obligatorio',
-            pattern: {
-              value: /^\d{5}$/, // Expresión regular para 5 dígitos numéricos
-              message: 'Ingrese un código postal válido con 5 números'
-            }
-          })}
-        />
-      </div>
+    //   </div>
 
 
-      <div className="flex flex-col mb-2">
-        <span>Estado</span>
-        <select className="p-2 border rounded-md bg-gray-200" {...register('estado', { required: true })}>
-          <option value="huamantla">[ Seleccione ]</option>
+    //   <div className="flex flex-col mb-2">
+    //     <span>Dirección de la calle</span>
+    //     <input placeholder="Número de la casa y nombre de la calle" type="text" className="p-2 border rounded-md bg-gray-200" {...register('calle', { required: true })} />
+    //   </div>
 
-          {
-            estados.map(estado => (
-              <option key={estado.id} value={estado.id}>{estado.name}</option>
-            ))
-          }
-        </select>
-      </div>
+    //   <div className="flex flex-col mb-2">
+    //     <span>Municipio</span>
+    //     <input type="text" className="p-2 border rounded-md bg-gray-200" {...register('detalle')} />
+    //   </div>
 
-      <div className="flex flex-col mb-2">
-        <span>Teléfono</span>
-        <input
-          type="text"
-          inputMode="numeric"  // Asegura que el teclado sea numérico en dispositivos móviles
-          pattern="[0-9]*"     // Solo permite caracteres numéricos
-          maxLength={10}         // Limita la longitud a 5 caracteres
-          className={`p-2 border rounded-md bg-gray-200 `}
-          {...register('phone', {
-            required: 'El código postal es obligatorio',
-            pattern: {
-              value: /^\d{10}$/, // Expresión regular para 5 dígitos numéricos
-              message: 'Ingrese un código postal válido con 5 números'
-            }
-          })}
-        />
+    //   <div className="flex flex-col mb-2">
+    //     <span>Localidad</span>
+    //     <input type="text" className="p-2 border rounded-md bg-gray-200" {...register('localidad', { required: true })} />
+    //   </div>
+
+    //   <div className="flex flex-col mb-2">
+    //     <span>Código postal </span>
+    //     <input
+    //       type="text"
+    //       inputMode="numeric"  // Asegura que el teclado sea numérico en dispositivos móviles
+    //       pattern="[0-9]*"     // Solo permite caracteres numéricos
+    //       maxLength={5}         // Limita la longitud a 5 caracteres
+    //       className={`p-2 border rounded-md bg-gray-200 `}
+    //       {...register('postalCode', {
+    //         required: 'El código postal es obligatorio',
+    //         pattern: {
+    //           value: /^\d{5}$/, // Expresión regular para 5 dígitos numéricos
+    //           message: 'Ingrese un código postal válido con 5 números'
+    //         }
+    //       })}
+    //     />
+    //   </div>
+
+
+    //   <div className="flex flex-col mb-2">
+    //     <span>Estado</span>
+    //     <select className="p-2 border rounded-md bg-gray-200" {...register('estado', { required: true })}>
+    //       <option value="huamantla">[ Seleccione ]</option>
+
+    //       {
+    //         estados.map(estado => (
+    //           <option key={estado.id} value={estado.id}>{estado.name}</option>
+    //         ))
+    //       }
+    //     </select>
+    //   </div>
+
+    //   <div className="flex flex-col mb-2">
+    //     <span>Teléfono</span>
+    //     <input
+    //       type="text"
+    //       inputMode="numeric"  // Asegura que el teclado sea numérico en dispositivos móviles
+    //       pattern="[0-9]*"     // Solo permite caracteres numéricos
+    //       maxLength={10}         // Limita la longitud a 5 caracteres
+    //       className={`p-2 border rounded-md bg-gray-200 `}
+    //       {...register('phone', {
+    //         required: 'El código postal es obligatorio',
+    //         pattern: {
+    //           value: /^\d{10}$/, // Expresión regular para 5 dígitos numéricos
+    //           message: 'Ingrese un código postal válido con 5 números'
+    //         }
+    //       })}
+    //     />
         
-      </div>
+    //   </div>
 
-      <div className="flex flex-col mb-2">
-        <span>Referencia de su hogar (opcional)</span>
-        <textarea
-          className="p-2 border rounded-md bg-gray-200 w-full"
-          rows={4} // Ajusta la cantidad de filas
-          cols={50} // Ajusta la cantidad de columnas
-          {...register('referencia')}
-        />
-      </div>
+    //   <div className="flex flex-col mb-2">
+    //     <span>Referencia de su hogar (opcional)</span>
+    //     <textarea
+    //       className="p-2 border rounded-md bg-gray-200 w-full"
+    //       rows={4} // Ajusta la cantidad de filas
+    //       cols={50} // Ajusta la cantidad de columnas
+    //       {...register('referencia')}
+    //     />
+    //   </div>
 
-      <div className="flex flex-col mb-2 sm:mt-1">
+    //   <div className="flex flex-col mb-2 sm:mt-1">
 
-        <div className="inline-flex items-center mb-10 ">
-          <label
-            className="relative flex cursor-pointer items-center rounded-full p-3"
-            htmlFor="checkbox"
-          >
-            <input
-              type="checkbox"
-              className="border-gray-500 before:content[''] peer relative h-5 w-5 cursor-pointer appearance-none rounded-md border border-blue-gray-200 transition-all before:absolute before:top-2/4 before:left-2/4 before:block before:h-12 before:w-12 before:-translate-y-2/4 before:-translate-x-2/4 before:rounded-full before:bg-blue-gray-500 before:opacity-0 before:transition-opacity checked:border-blue-500 checked:bg-blue-500 checked:before:bg-blue-500 hover:before:opacity-10"
-              id="checkbox"
-              {...register('rememberAddress')}
-            />
-            <div className="pointer-events-none absolute top-2/4 left-2/4 -translate-y-2/4 -translate-x-2/4 text-white opacity-0 transition-opacity peer-checked:opacity-100">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                className="h-3.5 w-3.5"
-                viewBox="0 0 20 20"
-                fill="currentColor"
-                stroke="currentColor"
-                strokeWidth="1"
-              >
-                <path
-                  fillRule="evenodd"
-                  d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
-                  clipRule="evenodd"
-                ></path>
-              </svg>
-            </div>
-          </label>
+    //     <div className="inline-flex items-center mb-10 ">
+    //       <label
+    //         className="relative flex cursor-pointer items-center rounded-full p-3"
+    //         htmlFor="checkbox"
+    //       >
+    //         <input
+    //           type="checkbox"
+    //           className="border-gray-500 before:content[''] peer relative h-5 w-5 cursor-pointer appearance-none rounded-md border border-blue-gray-200 transition-all before:absolute before:top-2/4 before:left-2/4 before:block before:h-12 before:w-12 before:-translate-y-2/4 before:-translate-x-2/4 before:rounded-full before:bg-blue-gray-500 before:opacity-0 before:transition-opacity checked:border-blue-500 checked:bg-blue-500 checked:before:bg-blue-500 hover:before:opacity-10"
+    //           id="checkbox"
+    //           {...register('rememberAddress')}
+    //         />
+    //         <div className="pointer-events-none absolute top-2/4 left-2/4 -translate-y-2/4 -translate-x-2/4 text-white opacity-0 transition-opacity peer-checked:opacity-100">
+    //           <svg
+    //             xmlns="http://www.w3.org/2000/svg"
+    //             className="h-3.5 w-3.5"
+    //             viewBox="0 0 20 20"
+    //             fill="currentColor"
+    //             stroke="currentColor"
+    //             strokeWidth="1"
+    //           >
+    //             <path
+    //               fillRule="evenodd"
+    //               d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
+    //               clipRule="evenodd"
+    //             ></path>
+    //           </svg>
+    //         </div>
+    //       </label>
 
-          <span>¿Recordar dirección?</span>
-        </div>
+    //       <span>¿Recordar dirección?</span>
+    //     </div>
 
-        <button
-          disabled={!isValid}
-          // href="/checkout"
-          type="submit"
-          // className="btn-primary flex w-full sm:w-1/2 justify-center "
-          className={clsx({
-            'btn-primary': isValid,
-            'btn-disabled': !isValid,
-          })}
-        >
-          Siguiente
-        </button>
-      </div>
-    </form>
+    //     <button
+    //       disabled={!isValid}
+    //       // href="/checkout"
+    //       type="submit"
+    //       // className="btn-primary flex w-full sm:w-1/2 justify-center "
+    //       className={clsx({
+    //         'btn-primary': isValid,
+    //         'btn-disabled': !isValid,
+    //       })}
+    //     >
+    //       Siguiente
+    //     </button>
+    //   </div>
+    // </form>
   )
 
 
