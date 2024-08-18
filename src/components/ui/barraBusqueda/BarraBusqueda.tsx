@@ -1,4 +1,5 @@
 'use client'
+import { getProductsByText, getViewProducts } from "@/actions";
 import { Product } from "@/interfaces";
 import { useEffect, useState } from "react";
 
@@ -12,49 +13,39 @@ export const BarraBusqueda: React.FC<BarraBusquedaProps> = ({ onSearchResults })
     const [query, setQuery] = useState('');
     const [loading, setLoading] = useState(false);
 
-
     useEffect(() => {
-      if (query.length > 2) {
+      const fetchData = async () => {
         setLoading(true);
-        fetch(`http://localhost:3000/api/products/search/${query}`)
-          .then((response) => response.json())
-          .then((data) => {
-            
-            if(JSON.stringify(data).includes('message')){
-              onSearchResults([]);
+        try {
+          if (query.length > 2) {
+            const data = await getProductsByText(query);
+            if (Array.isArray(data)) {
+              onSearchResults(data);
             } else {
-              onSearchResults(data); // Llama a la función prop con los resultados
+              onSearchResults([]);
             }
-            setLoading(false);
-          })
-          .catch((error) => {
-            console.error('Error fetching search results:', error);
-
-            setLoading(false);
-          });
-      } if(query.length < 3){
-        setLoading(true);
-        fetch(`http://localhost:3000/api/products/views`)
-          .then((response) => response.json())
-          .then((data) => {
-            onSearchResults(data.products); // Llama a la función prop con los resultados
-            setLoading(false);
-          })
-          .catch((error) => {
-            console.error('Error fetching search results:', error);
-            setLoading(false);
-          });
-      } else {
-        onSearchResults([]); // Limpia los resultados si la consulta está vacía
-        
-      }
+          } else if (query.length < 3) {
+            const {products} = await getViewProducts({});
+            onSearchResults(products);
+          } else {
+            onSearchResults([]);
+          }
+        } catch (error) {
+          console.error('Error fetching data:', error);
+          onSearchResults([]);
+        } finally {
+          setLoading(false);
+        }
+      };
+  
+      fetchData();
     }, [query]);
 
     return(
         <div className="flex px-2 flex-row relative">
             <input
                 type="text"
-                className="bg-gray-300 dark:bg-gray-700 rounded-3xl shadow text-lg full w-full h-16 py-4 pl-16 transition-shadow focus:shadow-2xl focus:outline-none"
+                className="bg-gray-300 dark:bg-gray-700 text-black dark:text-white rounded-3xl shadow text-lg full w-full h-16 py-4 pl-16 transition-shadow focus:shadow-2xl focus:outline-none"
 
                 placeholder="Buscar..."
                 value={query}

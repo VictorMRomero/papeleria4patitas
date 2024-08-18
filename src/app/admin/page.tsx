@@ -36,14 +36,14 @@ export default function AdminPage() {
 
     return (
         <div className="bg-blue-gray-50">
-            <div className="hide-print flex flex-row h-screen antialiased text-blue-gray-800">
+            <div className="hide-print flex flex-row h-screen antialiased text-black dark:text-white">
 
                 <SideMenu />
 
 
                 <div className="flex-grow flex">
 
-                    <div className="flex flex-col bg-blue-gray-50 h-full w-full py-4">
+                    <div className="flex flex-col h-full w-full py-4">
                         <BarraBusqueda onSearchResults={handleSearchResults} />
                         <div className="h-full overflow-hidden mt-4">
                             <div className="h-full overflow-y-auto px-2">
@@ -54,8 +54,8 @@ export default function AdminPage() {
 
 
 
-                    <div className="w-5/12 flex flex-col bg-blue-gray-50 h-full bg-white pr-4 pl-2 py-4">
-                        <div className="bg-white rounded-3xl flex flex-col h-full shadow">
+                    <div className="w-5/12 flex flex-col h-full pr-4 pl-2 py-4">
+                        <div className="dark:bg-gray-700 bg-gray-300 rounded-3xl flex flex-col h-full shadow">
 
                             {/* carrito vacio */}
 
@@ -74,10 +74,6 @@ export default function AdminPage() {
                                         </p>
                                     </div>
                             }
-
-
-
-
 
 
                             <div className="h-auto w-full text-center pt-3 pb-4 px-4">

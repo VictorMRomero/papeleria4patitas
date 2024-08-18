@@ -1,4 +1,4 @@
-import { CartProduct } from "@/interfaces";
+import { CartProduct, Product } from "@/interfaces";
 
 
 import { create } from "zustand";
@@ -36,16 +36,16 @@ export const useCartStore = create<State>()(
 
             getTotalItems: () => {
                 const { cart } = get();
-                return cart.reduce((total, item) => total + item.quantity, 0);
+                return cart.reduce((total:number, item:CartProduct) => total + item.quantity, 0);
             },
 
             getSumaryInformation: () => {
 
                 const { cart } = get();
 
-                const subTotal = cart.reduce((subTotal, product) => product.price * product.quantity + subTotal, 0)
-                const total = cart.reduce((total, product) => ((product.price * product.quantity) - (( product.descuento / 100) * product.price * product.quantity)) + total, 0) //todo, aqui se agregan otros datos
-                const itemInCart = cart.reduce((total, item) => total + item.quantity, 0);
+                const subTotal = cart.reduce((subTotal:number, product:CartProduct) => product.price * product.quantity + subTotal, 0)
+                const total = cart.reduce((total:number, product:CartProduct) => ((product.price * product.quantity) - (( product.descuento / 100) * product.price * product.quantity)) + total, 0) //todo, aqui se agregan otros datos
+                const itemInCart = cart.reduce((total:number, item:CartProduct) => total + item.quantity, 0);
 
                 return {
                     subTotal,
@@ -62,7 +62,7 @@ export const useCartStore = create<State>()(
 
                 //verificar si ya existe
                 const productInCart = cart.some(
-                    (item) => item.id === product.id
+                    (item:CartProduct) => item.id === product.id
                 );
 
                 //almacena el producto
@@ -72,7 +72,7 @@ export const useCartStore = create<State>()(
                 }
 
                 //actualizar cantidad
-                const updatedCartProducts = cart.map((item) => {
+                const updatedCartProducts = cart.map((item:CartProduct) => {
                     if (item.id === product.id) {
                         return { ...item, quantity: item.quantity + product.quantity }
                     }
@@ -96,7 +96,7 @@ export const useCartStore = create<State>()(
             removeProduct: (product: CartProduct) => {
                 const { cart } = get();
                 const removeProduct = cart.filter(
-                    (item) => item.id !== product.id
+                    (item:CartProduct) => item.id !== product.id
                 );
                 set({ cart: removeProduct });
             },

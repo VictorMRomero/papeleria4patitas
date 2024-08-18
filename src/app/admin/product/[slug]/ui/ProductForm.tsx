@@ -154,7 +154,7 @@ export const ProductForm = ({ product, categories }: Props) => {
               <input
                 type="number"
                 className="bg-gray-100 dark:bg-gray-800 text-gray-800 dark:text-white rounded-md p-3 focus:outline-none focus:ring-2 focus:ring-blue-500"
-                {...register("discount", { required: true, min: 0 })}
+                {...register("discount", { required: true })}
               />
             </div>
 
