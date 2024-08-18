@@ -66,7 +66,7 @@ export const RegisterForm = () => {
       } */}
 
 
-      <label htmlFor="name" className='dark:text-cyan-400'>Nombre completo</label>
+      <label htmlFor="name" className='text-black dark:text-cyan-400'>Nombre completo</label>
       <input
         className={
           clsx(
@@ -81,7 +81,7 @@ export const RegisterForm = () => {
         { ...register('name', { required: true }) }
       />
 
-      <label htmlFor="email" className="dark:text-cyan-400">Correo electrónico</label>
+      <label htmlFor="email" className="text-black dark:text-cyan-400">Correo electrónico</label>
       <input
         className={
           clsx(
@@ -95,7 +95,7 @@ export const RegisterForm = () => {
         { ...register('email', { required: true, pattern: /^\S+@\S+$/i }) }
       />
 
-      <label htmlFor="password" className="dark:text-cyan-400">Contraseña</label>
+      <label htmlFor="password" className="text-black dark:text-cyan-400">Contraseña</label>
       <input
         className={
           clsx(
@@ -109,7 +109,7 @@ export const RegisterForm = () => {
         { ...register('password', { required: true, minLength: 6 }) }
       />
 
-      <label htmlFor="verifiedPassword" className="dark:text-cyan-400">Repite la contraseña</label>
+      <label htmlFor="verifiedPassword" className="text-black dark:text-cyan-400">Repite la contraseña</label>
       <input
         className={
           clsx(

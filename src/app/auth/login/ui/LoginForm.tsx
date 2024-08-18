@@ -30,7 +30,7 @@ export const LoginForm = () => {
         <>
             <form action={dispatch} className="grid grid-cols-1 gap-4 mb-4">
 
-                <label htmlFor="email" className="dark:text-cyan-400">Correo electrónico</label>
+                <label htmlFor="email" className="text-black dark:text-cyan-400">Correo electrónico</label>
 
                 <input
                     className={`w-full bg-gray-100 dark:bg-gray-800 text-gray-800 dark:text-white rounded-md p-3 focus:outline-none focus:ring-2 focus:ring-blue-500`}
@@ -38,7 +38,7 @@ export const LoginForm = () => {
                     name="email" />
 
 
-                <label htmlFor="password" className="dark:text-cyan-400">Contraseña</label>
+                <label htmlFor="password" className="text-black dark:text-cyan-400">Contraseña</label>
 
 
                 <input
