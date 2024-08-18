@@ -49,7 +49,7 @@ export const ProductMobileSlideShow = ({ images, title, className }: Props) => {
                                 height={380}
                                 src={image}
                                 alt={title}
-                                className="rounded-lg object-fill w-full"
+                                className="rounded-lg object-fill w-full dark:bg-gray-700 grid-background"
                             />
                         </SwiperSlide>
                     ))

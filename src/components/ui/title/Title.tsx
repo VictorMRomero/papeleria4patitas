@@ -9,7 +9,7 @@ export const Title = ({title, subtitle, className}: Props) => {
   return (
     <div className={`mt-3 ${className}`}>
         <h1 className={`text-2xl sm:text-4xl font-bold my-5 dark:text-white text-black`}>
-            {title}
+            {title}<span className="text-blue-500">.</span>
         </h1>
         {
             subtitle && (

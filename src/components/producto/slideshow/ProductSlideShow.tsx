@@ -58,7 +58,7 @@ export const ProductSlideShow = ({ images, title, className }: Props) => {
                                 height={400}
                                 src={image}
                                 alt={title}
-                                className="rounded-lg  w-full"
+                                className="rounded-lg  dark:bg-gray-700 w-full grid-background"
                             />
                         </SwiperSlide>
 
@@ -90,7 +90,7 @@ export const ProductSlideShow = ({ images, title, className }: Props) => {
                                 height={600}
                                 src={image}
                                 alt={title}
-                                className="rounded-lg object-fill"
+                                className="rounded-lg object-fill grid-background dark:bg-gray-700"
                             />
                         </SwiperSlide>
 
