@@ -48,7 +48,7 @@ export const SideMenu = () => {
     return( 
 
       <div className="flex flex-row w-auto flex-shrink-0 pl-4 pr-2 py-4">
-          <div className="flex flex-col items-center py-4 flex-shrink-0 w-20 dark:bg-navegacion bg-indigo-900 rounded-3xl">
+          <div className="flex flex-col items-center py-4 flex-shrink-0 w-20 dark:bg-indigo-900 bg-indigo-900  rounded-3xl">
               <Link href="/" className="flex items-center justify-center h-14 w-14 rounded-full" title="Regresar a la pagina principal">
                 <Image
                   src="https://res.cloudinary.com/dog6zhxr8/image/upload/v1705889836/ucdj2aqkkenh4jus1aoh.png"

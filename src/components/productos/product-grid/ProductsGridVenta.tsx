@@ -2,6 +2,7 @@ import { ProductImage } from "@/components/producto/product-image/ProductImage"
 import ContextMenu from "@/components/ui/contextMenu/ContextMenu";
 import { CartProduct, Product } from "@/interfaces"
 import { useCartStore } from "@/store";
+import { currencyFormat } from "@/utils";
 import { useCallback, useEffect, useState } from "react";
 
 interface ProductsGridVentaProps {
@@ -28,15 +29,15 @@ export const ProductsGridVenta: React.FC<ProductsGridVentaProps> = ({ searchResu
 
     const addToCart = (product: Product) => {
         const cartProduct: CartProduct = {
-          id: product.id,
-          title: product.title,
-          description: product.description,
-          inStock: product.inStock,
-          price: product.price,
-          slug: product.slug,
-          quantity: quantity,
-          descuento: product.discount ?? 1,
-          image: (product.images) ? product.images[0] : 'nohay'
+            id: product.id,
+            title: product.title,
+            description: product.description,
+            inStock: product.inStock,
+            price: product.price,
+            slug: product.slug,
+            quantity: quantity,
+            descuento: product.discount ?? 1,
+            image: (product.images) ? product.images[0] : 'nohay'
         }
         addProductToCart(cartProduct);
         setQuantity(1);
@@ -62,7 +63,7 @@ export const ProductsGridVenta: React.FC<ProductsGridVentaProps> = ({ searchResu
                         role="button"
                         onContextMenu={(e) => handleContextMenu(e, product.slug)}
                         onClick={() => addToCart(product)}
-                        className="select-none cursor-pointer transition-shadow overflow-hidden rounded-2xl bg-white shadow hover:shadow-lg"
+                        className="select-none cursor-pointer transition-shadow overflow-hidden rounded-2xl dark:bg-gray-700 bg-gray-300 shadow hover:shadow-lg"
                         title="product.name"
 
                     >
@@ -77,16 +78,29 @@ export const ProductsGridVenta: React.FC<ProductsGridVentaProps> = ({ searchResu
                             width={500}
                             height={500}
                         />
-                        <div className="flex pb-3 px-3 text-sm -mt-3">
-                            <p className="flex-grow truncate mr-1" >{product.title}</p>
-                            <p className="nowrap font-semibold" >{product.price}</p>
+                        <div className="px-6 mb-2 mt-2 ">
+
+                            <div className="sm:text-lg mb-2">
+                                <p className="hidden sm:block">{product.title}</p>
+                            </div>
+                            <div className="flex items-baseline mt-1">
+                                {
+                                    (product.discount && product.discount > 1)
+                                        ? <>
+                                            <span className="text-base sm:text-xl lg:text-2xl font-bold text-red-500">{currencyFormat((product.price - (product.discount * product.price) / 100))}</span>
+                                            <span className="ml-2 text-sm line-through text-gray-600 dark:text-gray-500">{currencyFormat(product.price)}</span>
+                                        </>
+                                        : <span className="dark:text-base text-gray-600 sm:text-xl lg:text-2xl font-bold">{currencyFormat(product.price)}</span>
+                                }
+
+                            </div>
                         </div>
 
 
                     </div>
                 ))
             }
-            
+
             {contextMenu && (
                 <ContextMenu
                     x={contextMenu.x}
