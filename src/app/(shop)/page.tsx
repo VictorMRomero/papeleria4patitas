@@ -29,8 +29,7 @@ export default async function Home() {
 
 
       <Title
-        title="Principales Novedades..."
-        
+        title="Principales Novedades.."
         className='mb-2 '
       />
 
@@ -49,7 +48,7 @@ export default async function Home() {
       />
       
       <Title
-        title="Principales Descuentos..."
+        title="Principales Descuentos.."
         
         className='mb-2'
       />
