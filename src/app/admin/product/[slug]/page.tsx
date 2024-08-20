@@ -1,3 +1,4 @@
+'use server'
 import { getCategories, getProductByTerm } from "@/actions";
 import { Breadcrumb, Title } from "@/components";
 import { redirect } from "next/navigation";

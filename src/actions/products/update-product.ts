@@ -27,19 +27,19 @@ export const updateProduct = async(formData: FormData ) => {
     product.tags = JSON.parse(product.tags)
     product.categories = JSON.parse(product.categories)
     const { id, ...rest } = product;
-
+    
     
     
     
     try {
         const {token} = await getUserServer();
-
+        
         const response = await api.patch(`/products/${id}`, JSON.stringify(rest), {
-          headers: { 'Authorization': `Bearer ${token}` }
+            headers: { 'Authorization': `Bearer ${token}` }
         });
 
         const {ok, product} = response.data;
-
+        
         if(!ok){
             throw new Error
         }

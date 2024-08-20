@@ -15,7 +15,7 @@ const productSchema = z.object({
     inStock: z.coerce.number().min(0).transform(val => Number(val.toFixed(0))),
     price: z.coerce.number().min(0).transform(val => Number(val.toFixed(2))),
     tags: z.string(),
-    discount: z.coerce.number().min(0).transform(val => Number(val.toFixed(0))),
+    discount: z.coerce.number().transform(val => Number(val.toFixed(0))),
     categories: z.string(),
 })
 

@@ -52,7 +52,7 @@ export const ProductForm = ({ product, categories }: Props) => {
   });
   
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [categorias, setCategories] = useState<Category[]>([]); 
+
   
   const handleAddCategory = async(newCategory: NewCategory) => {
     setLoaded(true)
