@@ -53,7 +53,7 @@ export const ProductsInCart = () => {
                             >
                                 {product.title}
                             </Link>
-                            <p className="text-sm text-gray-400 mt-1">{product.description}</p>
+                            <p className="text-sm text-gray-400 mt-1">{product.description.slice(0,25)}...</p>
                             <div className="flex items-center mt-2">
                                 <button onClick={() => removeProductInCart(product)} className="text-red-400">✕ Remove</button>
                             </div>

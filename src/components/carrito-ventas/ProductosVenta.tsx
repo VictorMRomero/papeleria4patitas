@@ -30,7 +30,7 @@ export const ProductosVenta = () => {
                         />
                         <div className="flex-grow">
                             <h5 className="text-sm" >{product.title}</h5>
-                            <p className="text-xs block" >{product.description}</p>
+                            <p className="text-xs block" >{product.description.slice(0,25)}...</p>
                         </div>
                         <div className="py-1">
                             <div className="w-28 grid grid-cols-3 gap-2 ml-2">

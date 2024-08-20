@@ -22,6 +22,7 @@ export default async function cart() {
                     <OrderSummary />
                 </div>
             </div>
+            
             <Title subtitle="Los clientes tambien compraron..." className="hidden sm:block"/>
             <div className="hidden sm:block">
                 <ProductGrid products={products}/>
