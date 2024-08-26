@@ -18,8 +18,8 @@ export default async function Home() {
 
   //todo: cambiar por base de datos
   const images = [
-    'https://res.cloudinary.com/dog6zhxr8/image/upload/f_auto,q_100/v1/Ads/dmc8axuimnvb9ms7c8xr',
-    'https://res.cloudinary.com/dog6zhxr8/image/upload/v1706763865/Ads/noyqdsawx5a2l6o11a30.png'
+    'https://res.cloudinary.com/dog6zhxr8/image/upload/v1724635287/Ads/RegresoClases/wins7ztoh9t49vf6mzby.png',
+    'https://res.cloudinary.com/dog6zhxr8/image/upload/v1724636184/Ads/RegresoClases/eo8ecmcmqk1vw3lqddnj.png'
   ];
 
 

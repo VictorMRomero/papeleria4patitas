@@ -34,7 +34,7 @@ export const AdsImages = ({ images }: Props) => {
                     clickable: true,
                 }}
                 modules={[EffectFade, Navigation, Pagination, Autoplay]}
-                className="mySwiperPrincipal"
+                className="mySwiperPrincipal  "
             >
                 {
                     images.map(image => (
@@ -46,7 +46,7 @@ export const AdsImages = ({ images }: Props) => {
                                 height={500}
                                 src={image}
                                 alt={image}
-                                className="myImagen  object-fill"
+                                className="myImagen  object-fill  bg-neutral-100 dark:bg-gray-900 "
 
                             />
                         </SwiperSlide>

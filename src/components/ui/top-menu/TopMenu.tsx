@@ -103,15 +103,13 @@ export const TopMenu = ({ className, categorias }: Props) => {
                         <div className="flex items-center">
 
                             <Image
-                                src="https://res.cloudinary.com/dog6zhxr8/image/upload/v1705889836/ucdj2aqkkenh4jus1aoh.png"
+                                src="https://res.cloudinary.com/dog6zhxr8/image/upload/v1724631720/Ads/lxjh61k2mjrtxyoh3qtb.png"
 
                                 alt="logo"
-                                width={80}
+                                width={300}
                                 height={80}
                                 className="mr-2 hidden sm:flex"
                             />
-
-                            <span className={`flex antialiased font-bold text-xl mr-2 pr-2`}> Papeler&iacute;a 4 patitas</span>
                         </div>
                     </Link>
                 </div>
@@ -136,32 +134,37 @@ export const TopMenu = ({ className, categorias }: Props) => {
 
                             <IoCartOutline className="w-6 h-6" />
                         </div>
-                        <ul className="z-10 absolute w-72 p-2 bg-slate-200 dark:bg-gray-900 shadow-[rgba(0,_0,_0,_0.24)_0px_0px_40px] shadow-slate-400 dark:shadow-slate-700 hidden md:group-hover:flex flex-col -left-[8em] rounded-xl ">
-                            {productsInCart.map((item) => (
 
-                                <li
-                                    key={item.title}
-                                    className="flex items-center justify-start h-16 font-bold cursor-pointer hover:bg-slate-400 dark:hover:bg-slate-800 rounded-xl"
-                                >
-                                    <ProductImage
-                                        src={item.image}
-                                        width={100}
-                                        height={100}
+                       
+                            {(loaded && totalItemsInCart > 0) && (
+                                <ul className="z-10 absolute w-72 p-2 bg-slate-200 dark:bg-gray-900 shadow-[rgba(0,_0,_0,_0.24)_0px_0px_40px] shadow-slate-400 dark:shadow-slate-700 hidden md:group-hover:flex flex-col -left-[8em] rounded-xl ">
+{                                productsInCart.map((item) => (
 
-                                        alt={item.title}
-                                        className="h-10 w-10"
-                                    />
+                                    <li
+                                        key={item.title}
+                                        className="flex items-center justify-start h-16 font-bold cursor-pointer hover:bg-slate-400 dark:hover:bg-slate-800 rounded-xl"
+                                    >
+                                        <ProductImage
+                                            src={item.image}
+                                            width={100}
+                                            height={100}
 
-                                    <p className="ml-5 text-gray-600 dark:text-gray-200">
-                                        {item.title.slice(0, 15)}...
-                                    </p>
+                                            alt={item.title}
+                                            className="h-10 w-10"
+                                        />
+
+                                        <p className="ml-5 text-gray-600 dark:text-gray-200">
+                                            {item.title.slice(0, 15)}...
+                                        </p>
 
 
 
 
-                                </li>
-                            ))}
-                        </ul>
+                                    </li>
+                                ))}
+                        </      ul>
+
+                            )}
                     </Link>
                     {
                         isAuthenticated && loaded && (
@@ -200,7 +203,7 @@ export const TopMenu = ({ className, categorias }: Props) => {
                         )
                     }
                     {
-                        !isAuthenticated && loaded &&(
+                        !isAuthenticated && loaded && (
                             <div className="relative group">
                                 <div className="flex items-center h-10 gap-3 rounded-lg curso    const openSideMenu = useUIStore(state => (state.openSideMenu));r-pointer w-fit hover:bg-slate-400 dark:hover:bg-slate-800">
                                     <IoLogInOutline className="text-2xl" />
