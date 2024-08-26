@@ -29,7 +29,7 @@ export default async function Home() {
 
 
       <Title
-        title="Principales Novedades.."
+        title="Principales Novedades"
         className='mb-2 '
       />
 
@@ -41,14 +41,14 @@ export default async function Home() {
 
         width={1500}
         height={320}
-        src='https://res.cloudinary.com/dog6zhxr8/image/upload/v1706840583/Ads/nvtb8hupokpljvf624z6.png'
+        src='https://res.cloudinary.com/dog6zhxr8/image/upload/v1724638054/Ads/RegresoClases/dihakxceey6vlyyteycz.png'
         alt='imagen busqueda'
-        className="object-fill mt-2 mb-2"
+        className="object-fill scale-150 lg:scale-100 mt-2 mb-2"
 
       />
       
       <Title
-        title="Principales Descuentos.."
+        title="Principales Descuentos"
         
         className='mb-2'
       />
@@ -64,7 +64,7 @@ export default async function Home() {
 
           width={1500}
           height={320}
-          src='https://res.cloudinary.com/dog6zhxr8/image/upload/v1706763865/Ads/nwvp7tcc9y3n7v1yxxew.png'
+          src='https://res.cloudinary.com/dog6zhxr8/image/upload/v1724639829/Ads/s6yulck2yajt2o8kh64u.png'
           alt='imagen busqueda'
           className="object-fill mb-4"
           
@@ -74,7 +74,7 @@ export default async function Home() {
 
           width={1500}
           height={320}
-          src='https://res.cloudinary.com/dog6zhxr8/image/upload/v1706763865/Ads/qqxiz2ltpd90iddupie8.png'
+          src='https://res.cloudinary.com/dog6zhxr8/image/upload/v1724639399/Ads/mk2dswzpnqqsn94l6ee2.png'
           alt='imagen busqueda'
           className="object-fill mb-4"
 
