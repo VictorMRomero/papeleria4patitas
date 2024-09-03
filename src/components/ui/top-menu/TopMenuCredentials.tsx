@@ -11,7 +11,7 @@ export const TopMenuCredentials = () => {
     const { theme, setTheme } = useTheme();
 
     return (
-        <nav className="flex items-center justify-between w-full px-2 text-white dark:bg-gray-900 bg-indigo-900 xl:px-[300px]">
+        <nav className="flex items-center justify-between w-full px-2 text-white dark:bg-gray-900 bg-white-linen-100 xl:px-[300px]">
             
             <div className="flex intems-center">
 
@@ -19,15 +19,15 @@ export const TopMenuCredentials = () => {
                     <div className="flex items-center">
 
                         <Image
-                            src="https://res.cloudinary.com/dog6zhxr8/image/upload/v1705889836/ucdj2aqkkenh4jus1aoh.png"
+                            src="https://res.cloudinary.com/dog6zhxr8/image/upload/v1724631720/Ads/lxjh61k2mjrtxyoh3qtb.png"
 
                             alt="logo"
-                            width={80}
+                            width={300}
                             height={80}
                             className="mr-2 hidden sm:flex"
                         />
 
-                        <span className={`flex antialiased font-bold text-xl`}> Papelería 4 patitas</span>
+                        
                     </div>
                 </Link>
             </div>
@@ -39,7 +39,7 @@ export const TopMenuCredentials = () => {
                 {
                     (theme === 'dark') 
                     ? <IoSunnyOutline className='' size={30} /> 
-                    : <IoMoonOutline className='' size={30} /> 
+                    : <IoMoonOutline className='text-black' size={30} /> 
                 }
                 
 

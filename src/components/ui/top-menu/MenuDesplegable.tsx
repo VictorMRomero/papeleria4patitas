@@ -101,12 +101,12 @@ const MenuDesplegable = ({ categorias }: Props) => {
       {/* Botón del menú */}
       <button 
         onClick={() => setIsOpen(!isOpen)} 
-        className="text-white p-2"
+        className=" p-2"
         aria-label="Menú"
       >
         {
             (!isOpen) 
-            ? <IoMenuOutline className='w-6 h-6' /> 
+            ? <IoMenuOutline className='w-6 h-6 text-black dark:text-white' /> 
             : <IoCloseOutline className='w-6 h-6 text-red-400' />
         }
       </button>

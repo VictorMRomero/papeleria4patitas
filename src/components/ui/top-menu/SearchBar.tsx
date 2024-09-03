@@ -30,14 +30,14 @@ export const SearchBar = () => {
     };
     
     return (
-      <div className="flex-grow flex items-center rounded-full overflow-hidden bg-gray-300 dark:bg-gray-700 shadow-md">
+      <div className="flex-grow flex items-center rounded-full overflow-hidden bg-gray-100 dark:bg-gray-700 shadow-md">
         <input
           ref={inputRef}
           value={searchText}
           onChange={handleSearchChange}
           onKeyDown={handleKeyPress}
           type="text"
-          className="flex-grow p-2 text-sm dark:text-white placeholder-gray-400 bg-transparent focus:outline-none"
+          className="flex-grow pl-4 text-green-700 text-lg dark:text-white placeholder-gray-400 bg-transparent focus:outline-none"
           placeholder="Buscar..."
         />
         <button

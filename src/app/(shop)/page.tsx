@@ -18,8 +18,8 @@ export default async function Home() {
 
   //todo: cambiar por base de datos
   const images = [
-    'https://res.cloudinary.com/dog6zhxr8/image/upload/v1724635287/Ads/RegresoClases/wins7ztoh9t49vf6mzby.png',
-    'https://res.cloudinary.com/dog6zhxr8/image/upload/v1724636184/Ads/RegresoClases/eo8ecmcmqk1vw3lqddnj.png'
+    'https://res.cloudinary.com/dog6zhxr8/image/upload/v1724904800/Ads/t4lovcsysc0u8hggaufw.png',
+    'https://res.cloudinary.com/dog6zhxr8/image/upload/v1724903954/Ads/fxuqaxyodqr4worgfvbj.png'
   ];
 
 
@@ -43,7 +43,7 @@ export default async function Home() {
         height={320}
         src='https://res.cloudinary.com/dog6zhxr8/image/upload/v1724638054/Ads/RegresoClases/dihakxceey6vlyyteycz.png'
         alt='imagen busqueda'
-        className="object-fill scale-150 lg:scale-100 mt-2 mb-2"
+        className="object-fill  mt-2 mb-2"
 
       />
       

@@ -35,11 +35,31 @@ export const TopMenuMobile = ({ className, categorias }: Props) => {
 
     return (
         <div className={className}>
-            <nav className={`${className} dark:bg-gray-900 bg-indigo-900 text-white p-2 flex items-center justify-between w-full`}>
+            <nav className={`${className} dark:bg-gray-900 bg-white-linen-100 text-black dark:text-white p-2 flex items-center justify-between w-full`}>
                 {/* Botón de menú */}
                 <MenuDesplegable categorias={categorias}/>
 
 
+
+                    <Link href="/">
+                        <div className="flex items-center">
+
+                            <Image
+                                src="https://res.cloudinary.com/dog6zhxr8/image/upload/v1724986309/logo_4p_qshxhk.png"
+
+                                alt="logo"
+                                width={80}
+                                height={80}
+                                className="mr-2 hidden sm:flex"
+                            />
+
+                            
+                        </div>
+                    </Link>
+
+
+                <SearchBar />
+                
                 <Link href={
                     (totalItemsInCart === 0 && loaded)
                         ? '/empty'
@@ -56,8 +76,6 @@ export const TopMenuMobile = ({ className, categorias }: Props) => {
                         <IoCartOutline className="w-6 h-6" />
                     </div>
                 </Link>
-
-                <SearchBar />
 
             </nav>
         </div>

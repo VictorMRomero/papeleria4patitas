@@ -6,7 +6,7 @@ import { IoEyeOffOutline, IoHelpOutline, IoHomeOutline, IoLocationOutline, IoLog
 export const Footer = () => {
   return (
 
-    <footer className="bg-gray-200 dark:bg-gray-700 ">
+    <footer className="bg-white-linen-100 dark:bg-gray-700 ">
       <div className="mx-auto w-full max-w-screen-xl text-gray-800">
         <div className="text-sm grid grid-cols-1 gap-8 px-4 py-6 lg:py-8 md:grid-cols-3">
           <div>

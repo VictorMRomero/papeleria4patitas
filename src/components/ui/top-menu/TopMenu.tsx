@@ -96,7 +96,7 @@ export const TopMenu = ({ className, categorias }: Props) => {
     return (
         <div className={className}>
 
-            <nav className=" flex px-5 justify-between items-center w-full xl:pl-[150px] xl:pr-[150px] 2xl:pl-[300px] 2xl:pr-[300px] pl-2 pr-2 text-white dark:bg-gray-900 bg-indigo-900">
+            <nav className=" flex px-5 justify-between items-center w-full xl:pl-[150px] xl:pr-[150px] 2xl:pl-[300px] 2xl:pr-[300px] pl-2 pr-2 text-white dark:bg-gray-900 bg-white-linen-100">
                 <div className="flex intems-center">
 
                     <Link href="/">
@@ -106,7 +106,7 @@ export const TopMenu = ({ className, categorias }: Props) => {
                                 src="https://res.cloudinary.com/dog6zhxr8/image/upload/v1724631720/Ads/lxjh61k2mjrtxyoh3qtb.png"
 
                                 alt="logo"
-                                width={300}
+                                width={250}
                                 height={80}
                                 className="mr-2 hidden sm:flex"
                             />
@@ -132,7 +132,7 @@ export const TopMenu = ({ className, categorias }: Props) => {
                                 </span>
                             )}
 
-                            <IoCartOutline className="w-6 h-6" />
+                            <IoCartOutline className="w-6 h-6 text-green-500" />
                         </div>
 
                        
@@ -170,13 +170,6 @@ export const TopMenu = ({ className, categorias }: Props) => {
                         isAuthenticated && loaded && (
                             <div className="relative group">
                                 <div className="flex items-center h-10 gap-3 rounded-lg cursor-pointer w-fit hover:bg-slate-400 dark:hover:bg-slate-800">
-                                    {/* <Image
-                                width={150}
-                                height={150}
-                                alt="profile"
-                                src={`https://api.dicebear.com/9.x/identicon/svg`}
-                                className="my-auto ml-3 rounded-full w-7 h-7 bg-gray-600"
-                                /> */}
                                     <p className="mr-3 font-bold text-gray-200">{(user) ? user.fullName : 'Inicia Sesion'}</p>
                                 </div>
                                 <ul className="z-10 absolute w-72 p-2 bg-slate-200 dark:bg-gray-900 shadow-[rgba(0,_0,_0,_0.24)_0px_0px_40px] shadow-slate-400 dark:shadow-slate-700 hidden md:group-hover:flex flex-col -left-[8em] rounded-xl ">
@@ -205,9 +198,9 @@ export const TopMenu = ({ className, categorias }: Props) => {
                     {
                         !isAuthenticated && loaded && (
                             <div className="relative group">
-                                <div className="flex items-center h-10 gap-3 rounded-lg curso    const openSideMenu = useUIStore(state => (state.openSideMenu));r-pointer w-fit hover:bg-slate-400 dark:hover:bg-slate-800">
+                                <div className="flex items-center h-10 gap-3 rounded-lg curso    const openSideMenu = useUIStore(state => (state.openSideMenu));r-pointer w-fit hover:bg-slate-400 dark:hover:bg-slate-800 text-yellow-600">
                                     <IoLogInOutline className="text-2xl" />
-                                    <p className="mr-3 font-bold text-white dark:text-gray-200">Log in</p>
+                                    <p className="mr-3 font-bold  dark:text-gray-200">Log in</p>
                                 </div>
                                 <ul className="z-10 absolute w-72 p-2 bg-slate-50 dark:bg-gray-900 shadow-[rgba(0,_0,_0,_0.24)_0px_0px_40px] shadow-slate-400 dark:shadow-slate-700 hidden md:group-hover:flex flex-col -left-[8em] rounded-xl ">
                                     {itemsNoAuth.map((item) => (
@@ -236,7 +229,7 @@ export const TopMenu = ({ className, categorias }: Props) => {
 
             {/* <ListCategory/> */}
 
-            <nav className="flex xl:pl-[150px] 2xl:pl-[300px] w-full dark:bg-gray-700 shadow-custom-bottom shadow-slate-200 dark:shadow-slate-800">
+            <nav className="flex xl:pl-[150px] 2xl:pl-[300px] w-full dark:bg-gray-700  shadow-custom-bottom shadow-slate-200 dark:shadow-slate-800">
 
                 <div className="relative group">
                     <div className="flex items-center h-10 pl-3 cursor-pointer w-fit hover:bg-slate-200 dark:hover:bg-slate-800">
