@@ -1,17 +1,17 @@
+# Docker compose comentado - El proyecto usa API externa
+# version: '3.8'
 
-version: '3.8'
-
-services:
-  postgres-db:
-    image: postgres:15.3
-    restart: always
-    environment:
-      POSTGRES_USER: ${DB_USER}
-      POSTGRES_DB: ${DB_NAME}
-      POSTGRES_PASSWORD: ${DB_PASSWORD}
-    volumes:
-      - ./postgres:/var/lib/postgressql/data
-    ports:
-      - 5433:5433
+# services:
+#   postgres-db:
+#     image: postgres:15.3
+#     restart: always
+#     environment:
+#       POSTGRES_USER: ${DB_USER}
+#       POSTGRES_DB: ${DB_NAME}
+#       POSTGRES_PASSWORD: ${DB_PASSWORD}
+#     volumes:
+#       - ./postgres:/var/lib/postgressql/data
+#     ports:
+#       - 5433:5433
 
 

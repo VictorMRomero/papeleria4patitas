@@ -2,6 +2,19 @@ Este es un proyecto realizado con [Next.js](https://nextjs.org/)
 
 ## Descripcion
 
+**Papelería 4 Patitas** es una aplicación web de comercio electrónico desarrollada con Next.js 15. El proyecto utiliza una API externa especializada para todas las operaciones de base de datos, manteniendo una arquitectura limpia y separada.
+
+### Características principales:
+- 🛒 **Sistema de carrito de compras** con Zustand
+- 👤 **Autenticación de usuarios** con JWT
+- 📦 **Gestión de productos y categorías**
+- 🏠 **Sistema de direcciones de envío**
+- 💳 **Procesamiento de órdenes**
+- 📱 **Diseño responsive** con Tailwind CSS
+- 🎨 **Tema claro/oscuro** con next-themes
+- 🔍 **Búsqueda de productos**
+- 📊 **Panel de administración**
+
 Pasos para correr el servidor:
 
 1. Clonar el repositorio
@@ -10,13 +23,8 @@ Pasos para correr el servidor:
 
 3. Instalar dependencias```npm install```
 
-4. Levantar la base de datos ```docker compose up - d```
-5. Correr las migraciones de prisma
-```npx prisma migrate dev```
-6. Ejecutar seed 
-```npm run seed```
-
-7. Correr el proyecto
+4. Configurar las variables de entorno en el archivo `.env`
+5. Correr el proyecto
 
 ```bash
 npm run dev
@@ -45,22 +53,10 @@ npm install clsx
 --swiper
 npm install swiper
 
-# --Prisma
-# npm install prisma --save-dev
-
-# npx prisma init --datasource-provider PostgreSQL
-
-# npx prisma migrate dev --name ProductCategory
-
 --ts-node
 npm i -D ts-node
 
 npx tsc --init
-
-# --nexth-auth
-# npm install next-auth@beta
-
-openssl rand -base64 32
 
 --zod
 npm install zod
@@ -70,7 +66,44 @@ npm install bcryptjs
 
 --React Hook Form
 npm install react-hook-form
+
+--Axios
+npm install axios
+
+--Cloudinary
+npm install cloudinary
+
+--Next Themes
+npm install next-themes
+
+--Cookies Next
+npm install cookies-next
 ```
+
+## Configuración de la API
+
+El proyecto está configurado para trabajar con una API externa. Asegúrate de configurar las siguientes variables de entorno:
+
+```env
+# API Configuration
+NEXT_PUBLIC_API_URL=http://localhost:3000/api
+
+# Cloudinary (para imágenes)
+NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME=your_cloud_name
+CLOUDINARY_API_KEY=your_api_key
+CLOUDINARY_API_SECRET=your_api_secret
+```
+
+### Endpoints principales utilizados:
+- `POST /api/auth/login` - Autenticación de usuarios
+- `POST /api/auth/register` - Registro de usuarios
+- `GET /api/products` - Obtener productos
+- `GET /api/categories` - Obtener categorías
+- `POST /api/orders` - Crear órdenes
+- `GET /api/orders` - Obtener órdenes del usuario
+- `POST /api/address` - Gestionar direcciones
+- `GET /api/users` - Gestión de usuarios (admin)
+- `GET /api/sales` - Reportes de ventas (admin)
 
 ## Correr en produccion
 

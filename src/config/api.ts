@@ -7,8 +7,17 @@ const api = axios.create({
   headers: {
     'Content-Type': 'application/json',
   },
+  timeout: 5000, // 5 segundos de timeout
 });
 
+// Interceptor para manejar errores
+api.interceptors.response.use(
+  (response) => response,
+  (error) => {
+    console.warn('API Error:', error.message);
+    return Promise.reject(error);
+  }
+);
 
 export default api;
 

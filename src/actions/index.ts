@@ -18,3 +18,4 @@ export { deleteProductImage } from './products/delete-product-image'
 export { updateProduct } from './products/update-product'
 export { getPaginationUsers,
     getUserServer } from './user/get-user'
+export { getAllStores, getAllStoresActive } from './store/get-stores'

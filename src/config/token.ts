@@ -5,7 +5,7 @@ import { deleteCookie, getCookie } from "cookies-next";
 
 export function getToken() {
   const tokenCookie = getCookie('token');
-  return tokenCookie ? JSON.parse(tokenCookie) : null;
+  return tokenCookie ? JSON.parse(tokenCookie as string) : null;
 }
 
 export function removeSession() {
@@ -16,7 +16,7 @@ export function removeSession() {
 export function getUser() {
 
   const userCookie = getCookie('user');
-  return userCookie ? JSON.parse(userCookie) : null;
+  return userCookie ? JSON.parse(userCookie as string) : null;
   
 }
 

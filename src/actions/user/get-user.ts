@@ -42,7 +42,7 @@ export const getPaginationUsers = async({
 
 
 export const getUserServer = async() => {
-  const cookieStore = cookies();
+  const cookieStore = await cookies();
   const userCookie = cookieStore.get('user');
   const tokenCookie = cookieStore.get('token');
   

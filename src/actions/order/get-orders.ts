@@ -7,7 +7,7 @@ import { cookies } from "next/headers";
 
 
 export const getOrdersByUser = async () => {
-  const cookieStore = cookies();
+  const cookieStore = await cookies();
   const userCookie = cookieStore.get('user');
   const tokenCookie = cookieStore.get('token');
 
@@ -43,7 +43,7 @@ export const getOrdersByUser = async () => {
 
 export const getOrderById = async (id: string) => {
 
-  const cookieStore = cookies();
+  const cookieStore = await cookies();
   const userCookie = cookieStore.get('user');
   const tokenCookie = cookieStore.get('token');
 
