@@ -16,9 +16,9 @@ import { Product } from "@/interfaces";
 
 
 interface Props {
-  params: {
+  params: Promise<{
     id: string;
-  };
+  }>;
 }
 
 
@@ -26,7 +26,7 @@ export default async function OrdersByIdPage({ params }: Props) {
 
 
 
-  const { id } = params;
+  const { id } = await params;
 
   const { ok, order } = await getOrderById(id);
 

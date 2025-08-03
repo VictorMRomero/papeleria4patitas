@@ -5,13 +5,13 @@ import { CategoriaForm } from "./CategoriaForm";
 
 
 interface Props {
-    params: {
+    params: Promise<{
         id: string
-    }
+    }>
 }
 
 export default async function ProductPage ({params}: Props) {
-    const {id} = params;
+    const {id} = await params;
 
 
     // const categoria = await getCategoriesById(id);

@@ -8,12 +8,12 @@ import Image from "next/image";
 import { notFound } from "next/navigation";
 
 interface Props {
-    params: {
+    params: Promise<{
         nameCategory: string;
-    },
-    searchParams: {
+    }>,
+    searchParams: Promise<{
         page?: string;
-    }
+    }>
 }
 
 
@@ -21,8 +21,9 @@ export default async function categoryPage({ params, searchParams }: Props) {
 
 
     try {
-        const { nameCategory } = params; //recibo el string 'juguetes'
-        const page = searchParams.page ? parseInt(searchParams.page) : 1;
+        const { nameCategory } = await params; //recibo el string 'juguetes'
+        const searchParamsResolved = await searchParams;
+        const page = searchParamsResolved.page ? parseInt(searchParamsResolved.page) : 1;
         if(nameCategory === 'ofertas'){
 
 

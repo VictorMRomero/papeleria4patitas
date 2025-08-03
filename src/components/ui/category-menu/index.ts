@@ -1,0 +1,1 @@
+export { MegaCategoryMenu } from './MegaCategoryMenu'

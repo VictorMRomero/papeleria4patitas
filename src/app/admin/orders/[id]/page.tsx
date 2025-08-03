@@ -14,9 +14,9 @@ import { TiendaButton } from "@/components/order/TiendaButton";
 
 
 interface Props {
-    params: {
+    params: Promise<{
         id: string;
-    };
+    }>;
 }
 
 
@@ -24,7 +24,7 @@ export default async function OrdersByIdPage({params}:Props) {
 
 
 
-    const {id } = params;
+    const {id } = await params;
 
     const {ok, order} = await getOrderById(id);
 

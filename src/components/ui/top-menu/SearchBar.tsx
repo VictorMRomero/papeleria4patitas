@@ -1,54 +1,84 @@
-'use client';
+'use client'
 
-import { useRouter } from "next/navigation";
-import { useRef, useState } from "react";
+import { useRouter } from "next/navigation"
+import { useRef, useState } from "react"
+import { IoSearchOutline } from "react-icons/io5"
 
 export const SearchBar = () => {
-    const [searchText, setSearchText] = useState('');
-    const inputRef = useRef<HTMLInputElement>(null);
-    const router = useRouter();
-  
-    const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-      setSearchText(e.target.value);
-    };
-  
-    const handleSearch = () => {
-      if (searchText.trim().length >= 3) {
-        router.push(`/search?productSearch=${encodeURIComponent(searchText.trim())}`);
-        setSearchText('');
+  const [searchText, setSearchText] = useState('')
+  const [isFocused, setIsFocused] = useState(false)
+  const inputRef = useRef<HTMLInputElement>(null)
+  const router = useRouter()
+
+  const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setSearchText(e.target.value)
+  }
+
+  const handleSearch = () => {
+    if (searchText.trim().length >= 3) {
+      router.push(`/search?productSearch=${encodeURIComponent(searchText.trim())}`)
+      setSearchText('')
+      inputRef.current?.blur()
+    }
+  }
+
+  const handleKeyPress = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === 'Enter') {
+      handleSearch()
+    }
+  }
+
+  const handleFocus = () => setIsFocused(true)
+  const handleBlur = () => setIsFocused(false)
+
+  return (
+    <div className="w-full max-w-2xl">
+      <div className={`
+        flex items-center rounded-full overflow-hidden bg-gray-100
+        border-2 transition-all duration-200 mb-2 lg:mb-0
+        ${isFocused 
+          ? 'border-blue-500 shadow-lg shadow-yellow-500/20' 
+          : 'border-blue-300 hover:border-blue-600'
+        }
+      `}>
+        <div className="pl-4 pr-2 py-2">
+          <IoSearchOutline className="w-5 h-5 text-blue-500" />
+        </div>
         
-        if (inputRef.current) {
-            inputRef.current.blur();
-          }
-      }
-    };
-  
-    const handleKeyPress = (e: React.KeyboardEvent<HTMLInputElement>) => {
-      if (e.key === 'Enter') {
-        handleSearch();
-      }
-    };
-    
-    return (
-      <div className="flex-grow flex items-center rounded-full overflow-hidden bg-gray-100 dark:bg-gray-700 shadow-md">
         <input
           ref={inputRef}
           value={searchText}
           onChange={handleSearchChange}
           onKeyDown={handleKeyPress}
+          onFocus={handleFocus}
+          onBlur={handleBlur}
           type="text"
-          className="flex-grow pl-4 text-green-700 text-lg dark:text-white placeholder-gray-400 bg-transparent focus:outline-none"
-          placeholder="Buscar..."
+          className="flex-1 py-3 pr-4 text-gray-900 placeholder-red bg-transparent focus:outline-none text-sm md:text-base"
+          placeholder="Buscar productos, categorías o marcas..."
         />
+        
         <button
           onClick={handleSearch}
-          className="p-2 focus:outline-none bg-blue-500 hover:bg-blue-600 transition-colors duration-300 "
-          aria-label="Search"
+          disabled={searchText.trim().length < 3}
+          className={`
+            m-1 px-4 py-2 rounded-full font-medium transition-all duration-200
+            ${searchText.trim().length >= 3
+              ? 'bg-green-600 hover:bg-green-700 text-white shadow-md hover:shadow-lg'
+              : 'bg-green-300 text-gray-800 cursor-not-allowed'
+            }
+          `}
+          aria-label="Buscar"
         >
-          <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
-          </svg>
+          <span className="hidden sm:inline">Buscar</span>
+          <IoSearchOutline className="w-4 h-4 sm:hidden" />
         </button>
       </div>
-    )
+      
+      {searchText.length > 0 && searchText.length < 3 && (
+        <p className="mt-1 text-xs text-gray-500 dark:text-gray-400 px-4">
+          Mínimo 3 caracteres para buscar
+        </p>
+      )}
+    </div>
+  )
 }

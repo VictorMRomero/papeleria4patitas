@@ -7,16 +7,16 @@ import { NoEncontrado } from "./ui/NoEncontrado";
 import Image from "next/image";
 
 interface Props {
-    searchParams: {
+    searchParams: Promise<{
         productSearch: string;
-    }
+    }>
 }
 
 
 export default async function Search({ searchParams }: Props) {
 
 
-    const productSearch = searchParams.productSearch;
+    const { productSearch } = await searchParams;
 
 
     if (productSearch === '') {

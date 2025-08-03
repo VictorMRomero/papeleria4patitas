@@ -9,8 +9,8 @@ export default async function ShopLayout({
 }:{
     children:React.ReactNode;
 }){
-    const cookieStore = cookies();
-    const userCookie = cookieStore.get('user');
+      const cookieStore = await cookies();
+  const userCookie = cookieStore.get('user');
 
     if(userCookie){
         redirect('/')

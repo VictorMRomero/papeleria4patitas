@@ -46,7 +46,7 @@ export const AdsImages = ({ images }: Props) => {
                                 height={500}
                                 src={image}
                                 alt={image}
-                                className="myImagen  object-fill  bg-neutral-100 dark:bg-gray-900 "
+                                className="myImagen  object-fill  bg-neutral-100 "
 
                             />
                         </SwiperSlide>

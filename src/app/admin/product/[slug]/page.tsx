@@ -7,13 +7,13 @@ import { TopMenuCredentials } from "@/components/ui/top-menu/TopMenuCredentials"
 import Link from "next/link";
 
 interface Props {
-    params: {
+    params: Promise<{
         slug: string
-    }
+    }>
 }
 
 export default async function ProductPage ({params}: Props) {
-    const {slug} = params;
+    const {slug} = await params;
     
     const slugWithAcentos = decodeURIComponent(slug);
 

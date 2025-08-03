@@ -10,8 +10,8 @@ export default async function AdminLayout({children}:{
     children: React.ReactNode;
 }){
 
-    const cookieStore = cookies();
-    const userCookie = cookieStore.get('user');
+      const cookieStore = await cookies();
+  const userCookie = cookieStore.get('user');
 
     if(!userCookie){
         redirect('/auth/login')

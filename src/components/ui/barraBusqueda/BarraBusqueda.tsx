@@ -39,7 +39,7 @@ export const BarraBusqueda: React.FC<BarraBusquedaProps> = ({ onSearchResults })
       };
   
       fetchData();
-    }, [query]);
+    }, [query, onSearchResults]);
 
     return(
         <div className="flex px-2 flex-row relative">
