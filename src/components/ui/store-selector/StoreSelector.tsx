@@ -8,13 +8,15 @@ import {
   IoStorefrontOutline,
   IoLocationOutline,
   IoCheckmarkCircleOutline,
-  IoCloseCircleOutline
+  IoCloseCircleOutline,
+  IoAlertCircleOutline
 } from "react-icons/io5"
 
 export const StoreSelector = () => {
   const [stores, setStores] = useState<Store[]>([])
   const [loading, setLoading] = useState(false)
   const [isVisible, setIsVisible] = useState(false)
+  const [error, setError] = useState<string | null>(null)
   
   const { selectedStore, setSelectedStore, isStoreSelected, clearSelectedStore } = useStoreStore()
 
@@ -60,57 +62,25 @@ export const StoreSelector = () => {
       if (result.stores && result.stores.length > 0) {
         setStores(result.stores)
       } else {
-        // Usar datos de ejemplo si no hay tiendas de la API
-        const fallbackStores = [
-          {
-            id: 'fallback-1',
-            name: 'Papelería 4 Patitas Centro',
-            address: 'Av. Principal 123, Centro',
-            phone: '+52 123 456 7890',
-            isActive: true
-          },
-          {
-            id: 'fallback-2', 
-            name: 'Papelería 4 Patitas Norte',
-            address: 'Blvd. Norte 456, Col. Norte',
-            phone: '+52 123 456 7891',
-            isActive: true
-          },
-          {
-            id: 'fallback-3',
-            name: 'Papelería 4 Patitas Sur',
-            address: 'Calle Sur 789, Col. Sur',
-            phone: '+52 123 456 7892',
-            isActive: true
-          }
-        ]
-        setStores(fallbackStores)
+        setError('No hay tiendas disponibles en este momento. Por favor, intenta de nuevo más tarde.')
+        setStores([])
       }
-    } catch (error) {
-      console.error('Error fetching stores:', error)
-      
-      // Datos de ejemplo si falla la API completamente
-      const fallbackStores = [
-        {
-          id: 'error-1',
-          name: 'Papelería Centro',
-          address: 'Av. Principal 123, Centro',
-          phone: '+52 123 456 7890',	
-          isActive: true
-        },
-        {
-          id: 'error-2', 
-          name: 'Papelería Norte',
-          address: 'Blvd. Norte 456, Col. Norte',
-          phone: '+52 123 456 7891',
-          isActive: true
-        }
-      ]
-      setStores(fallbackStores)
+    } catch (err) {
+      console.error('Error fetching stores:', err)
+      setError('Estamos experimentando problemas para cargar las tiendas. Por favor, inténtalo de nuevo más tarde.')
+      setStores([])
     } finally {
       setLoading(false)
     }
   }
+
+    // Cargar tiendas al inicio si no hay una seleccionada
+    useEffect(() => {
+      if (!isStoreSelected()) {
+        setIsVisible(true)
+        fetchStores()
+      }
+    }, [isStoreSelected])
 
   const handleSelectStore = (store: Store) => {
     setSelectedStore(store)
@@ -143,8 +113,8 @@ export const StoreSelector = () => {
   }
 
   return (
-    <div className="fixed inset-0 bg-black bg-opacity-50 z-[100] flex items-center justify-center p-4">
-      <div className="bg-white dark:bg-gray-800 rounded-xl shadow-2xl max-w-2xl w-full max-h-[90vh] overflow-hidden">
+    <div className="fixed inset-0 bg-gray-200/80 z-[100] flex items-center justify-center p-4">
+      <div className="bg-gray-100 rounded-xl shadow-2xl max-w-2xl w-full max-h-[90vh] overflow-hidden">
         
         {/* Header */}
         <div className="bg-gradient-to-r from-green-600 to-green-700 text-white p-6">
@@ -164,9 +134,25 @@ export const StoreSelector = () => {
           {loading ? (
             <div className="flex items-center justify-center py-12">
               <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-green-600"></div>
-              <span className="ml-3 text-gray-600 dark:text-gray-300">
+              <span className="ml-3 text-gray-600">
                 Cargando tiendas...
               </span>
+            </div>
+          ) : error ? (
+            <div className="text-center py-12">
+              <IoAlertCircleOutline className="w-16 h-16 text-red-500 mx-auto mb-4" />
+              <h3 className="text-lg font-medium text-gray-900 dark:text-gray-100 mb-2">
+                Problemas con la conexión
+              </h3>
+              <p className="text-gray-600 dark:text-gray-400 max-w-sm mx-auto">
+                {error}
+              </p>
+              <button
+                onClick={fetchStores}
+                className="mt-4 px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 transition-colors"
+              >
+                Reintentar
+              </button>
             </div>
           ) : (
             <div className="space-y-3 max-h-96 overflow-y-auto">
@@ -174,28 +160,31 @@ export const StoreSelector = () => {
                 <button
                   key={store.id}
                   onClick={() => handleSelectStore(store)}
-                  className="w-full p-4 rounded-lg border-2 border-gray-200 dark:border-gray-600 hover:border-green-500 dark:hover:border-green-500 transition-all duration-200 text-left group hover:shadow-md"
+                  className={`w-full p-4 rounded-lg border-2 transition-all duration-200 text-left group hover:shadow-md
+                    ${selectedStore?.id === store.id 
+                      ? 'border-green-500 bg-green-50' 
+                      : 'border-gray-200 hover:border-green-500'}`}
                 >
                   <div className="flex items-start gap-3">
-                    <div className="flex-shrink-0 w-12 h-12 bg-green-100 dark:bg-green-900 rounded-full flex items-center justify-center group-hover:bg-green-200 dark:group-hover:bg-green-800 transition-colors">
+                    <div className="flex-shrink-0 w-12 h-12 bg-green-100 rounded-full flex items-center justify-center group-hover:bg-green-200 dark:group-hover:bg-green-800 transition-colors">
                       <IoStorefrontOutline className="w-6 h-6 text-green-600 dark:text-green-400" />
                     </div>
                     
                     <div className="flex-1 min-w-0">
-                      <h3 className="font-semibold text-gray-900 dark:text-white group-hover:text-green-600 dark:group-hover:text-green-400 transition-colors">
+                      <h3 className="font-semibold text-gray-900 group-hover:text-green-600 dark:group-hover:text-green-400 transition-colors">
                         {store.name}
                       </h3>
                       
                       <div className="flex items-start gap-1 mt-1">
-                        <IoLocationOutline className="w-4 h-4 text-gray-500 dark:text-gray-400 mt-0.5 flex-shrink-0" />
-                        <p className="text-sm text-gray-600 dark:text-gray-300">
+                        <IoLocationOutline className="w-4 h-4 text-gray-500 mt-0.5 flex-shrink-0" />
+                        <p className="text-sm text-gray-600">
                           {store.address}
                         </p>
                       </div>
                       
                       
                       {store.phone && (
-                        <p className="text-sm text-green-600 dark:text-green-400 mt-1 font-medium">
+                        <p className="text-sm text-green-600 mt-1 font-medium">
                           {store.phone}
                         </p>
                       )}
@@ -213,10 +202,10 @@ export const StoreSelector = () => {
           {!loading && stores.length === 0 && (
             <div className="text-center py-12">
               <IoCloseCircleOutline className="w-16 h-16 text-gray-400 mx-auto mb-4" />
-              <h3 className="text-lg font-medium text-gray-900 dark:text-white mb-2">
+              <h3 className="text-lg font-medium text-gray-900 mb-2">
                 No hay tiendas disponibles
               </h3>
-              <p className="text-gray-600 dark:text-gray-400">
+              <p className="text-gray-600">
                 Por favor, intenta de nuevo más tarde
               </p>
               <button
@@ -230,16 +219,16 @@ export const StoreSelector = () => {
         </div>
 
         {/* Footer */}
-        <div className="bg-gray-50 dark:bg-gray-900 px-6 py-4">
+        <div className="bg-gray-200 px-6 py-4">
           <div className="flex items-center justify-between">
-            <p className="text-xs text-gray-500 dark:text-gray-400">
+            <p className="text-xs text-gray-500 ">
               Puedes cambiar de tienda en cualquier momento
             </p>
             
             {selectedStore && (
               <button
                 onClick={handleClearStore}
-                className="text-xs text-red-500 hover:text-red-600 dark:text-red-400 dark:hover:text-red-300 underline"
+                className="text-xs text-red-500 hover:text-red-600 underline"
               >
                 Limpiar selección
               </button>

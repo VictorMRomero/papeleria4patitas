@@ -1,25 +1,23 @@
 
 
 .mySwiperPrincipal {
-  width: 100% ;
-  height: 100%;
-  margin-top:10px;
+  width: 100%;
 }
 
 .mySwiperPrincipal-slide {
   text-align: center;
   font-size: 18px;
-
-
   /* Center slide text vertically */
   display: flex;
   justify-content: center;
   align-items: center;
+  width: 100%;
 }
 
 .myImagen {
   display: block;
   width: 100%;
-  height: 100%;
-  object-fit: cover;
+  height: auto;
+  object-fit: contain;
+  object-position: center;
 }

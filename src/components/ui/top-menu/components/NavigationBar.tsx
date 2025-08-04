@@ -180,7 +180,7 @@ export const NavigationBar = ({ categorias }: Props) => {
           </button>
 
           {/* Store Button */}
-          <button 
+          {/* <button 
             onClick={handleStoreClick}
             className="flex items-center gap-2 px-3 py-2 rounded-md hover:bg-white hover:shadow-sm transition-colors border border-gray-200"
           >
@@ -188,7 +188,7 @@ export const NavigationBar = ({ categorias }: Props) => {
             <span className="text-sm font-medium text-gray-800">
               {selectedStore ? selectedStore.name.split(' ').slice(-1)[0] : 'Tienda'}
             </span>
-          </button>
+          </button> */}
         </div>
 
         {/* Mobile Menu Full Screen */}
