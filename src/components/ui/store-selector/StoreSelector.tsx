@@ -4,6 +4,7 @@ import { getAllStoresActive } from "@/actions"
 import { Store } from "@/interfaces"
 import { useStoreStore } from "@/store"
 import { useEffect, useState } from "react"
+import { setCookie, deleteCookie } from 'cookies-next'
 import {
   IoStorefrontOutline,
   IoLocationOutline,
@@ -34,6 +35,13 @@ export const StoreSelector = () => {
     ;(window as any).openStoreSelector = openSelector
     ;(window as any).clearStore = handleClearStore
   }, [])
+
+  // Mantener cookie sincronizada cuando ya existe una tienda seleccionada
+  useEffect(() => {
+    if (selectedStore?.id) {
+      setCookie('storeId', selectedStore.id, { path: '/' })
+    }
+  }, [selectedStore?.id])
 
   // También escuchar evento personalizado para abrir selector
   useEffect(() => {
@@ -84,6 +92,10 @@ export const StoreSelector = () => {
 
   const handleSelectStore = (store: Store) => {
     setSelectedStore(store)
+    // Persist also in cookie for server components
+    setCookie('storeId', store.id, { path: '/' })
+    // Dispatch custom event for client components to listen to
+    window.dispatchEvent(new CustomEvent('storeChanged', { detail: { storeId: store.id } }))
     setIsVisible(false)
   }
 
@@ -96,6 +108,9 @@ export const StoreSelector = () => {
 
   const handleClearStore = () => {
     clearSelectedStore()
+    deleteCookie('storeId', { path: '/' })
+    // Dispatch custom event for client components to listen to
+    window.dispatchEvent(new CustomEvent('storeChanged', { detail: { storeId: null } }))
     setIsVisible(true)
     fetchStores()
   }

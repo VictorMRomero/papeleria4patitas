@@ -1,5 +1,7 @@
 'use client'
 
+import { IoRemoveOutline, IoAddOutline } from 'react-icons/io5'
+
 interface Props {
   quantity: number;
   inStock: number;
@@ -15,11 +17,38 @@ export const QuantitySelector = ({ quantity, inStock, onQuantityChanged }: Props
     onQuantityChanged(quantity + value);
   }
 
+  const isDecrementDisabled = quantity <= 1;
+  const isIncrementDisabled = quantity >= inStock - 0; // mantener misma lógica límite
+
   return (
-    <div className="flex items-center">
-      <button className="bg-gray-400 border hover:bg-blue-500 dark:hover:bg-blue-500 dark:bg-gray-700 text-xl px-3 py-1 rounded-l" onClick={() => onValueChanged(-1)}>-</button>
-      <span className="bg-gray-500 dark:bg-gray-700 px-4 py-1"> {quantity}</span>
-      <button className="bg-gray-400 border dark:border-disabled hover:bg-green-400 dark:hover:bg-green-400 dark:bg-gray-700 text-xl px-3 py-1 rounded-r" onClick={() => onValueChanged(+1)}>+</button>
+    <div className="inline-flex items-center gap-2">
+      <button
+        aria-label="Disminuir cantidad"
+        disabled={isDecrementDisabled}
+        className={`h-10 w-10 rounded-full flex items-center justify-center border transition-all
+          ${isDecrementDisabled
+            ? 'border-gray-200 text-gray-800 bg-gray-100 cursor-not-allowed'
+            : 'border-gray-300 hover:border-blue-500 hover:text-blue-600 text-gray-800 hover:shadow-sm bg-white'}`}
+        onClick={() => onValueChanged(-1)}
+      >
+        <IoRemoveOutline className="h-5 w-5" />
+      </button>
+
+      <span className="min-w-[3rem] text-center font-semibold text-gray-800 select-none">
+        {quantity}
+      </span>
+
+      <button
+        aria-label="Aumentar cantidad"
+        disabled={isIncrementDisabled}
+        className={`h-10 w-10 rounded-full flex items-center justify-center border transition-all
+          ${isIncrementDisabled
+            ? 'border-gray-200 text-gray-800 bg-gray-100 cursor-not-allowed'
+            : 'border-gray-300 hover:border-green-500 hover:text-green-600 text-gray-800 hover:shadow-sm bg-white'}`}
+        onClick={() => onValueChanged(+1)}
+      >
+        <IoAddOutline className="h-5 w-5" />
+      </button>
     </div>
   )
 }

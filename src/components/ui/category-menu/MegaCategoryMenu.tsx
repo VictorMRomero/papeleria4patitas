@@ -108,9 +108,9 @@ export const MegaCategoryMenu = ({ categories, onClose }: Props) => {
                         key={subcat.id}
                         href={`/category/${subcat.slug}`}
                         onClick={handleLinkClick}
-                        className="block py-1.5 px-3 my-1 text-sm text-gray-600 hover:text-white hover:bg-green-600 rounded-lg transition-all duration-200 group relative"
+                        className="block py-2.5 px-3 my-1 text-sm text-gray-600 hover:text-white hover:bg-green-600 rounded-lg transition-all duration-200 group relative"
                       >
-                        <span className="absolute left-[-24px] top-1/2 -translate-y-1/2 w-1.5 h-1.5 bg-green-300 rounded-full transition-all duration-200 group-hover:bg-green-600 group-hover:scale-125"></span>
+                        <span className="absolute left-[-24px] top-1/2 -translate-y-1/2 w-3 h-3 bg-green-300 rounded-full transition-all duration-200 group-hover:bg-green-600 group-hover:scale-125"></span>
                         <span className="capitalize">{subcat.title}</span>
                       </Link>
                     ))}
