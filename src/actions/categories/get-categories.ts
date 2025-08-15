@@ -20,3 +20,19 @@ export const getCategories =  async()=> {
 
 
 }
+
+export const getCategoryBySlug = async(slug: string)=> {
+
+  try {
+    const response = await api.get(`/category/slug/${slug}`)
+    const {ok, category} = response.data;
+
+    if(!ok || !category){
+      return null;
+    }
+
+    return category;
+  } catch (error) {
+    return null;
+  }
+}

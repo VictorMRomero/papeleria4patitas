@@ -96,3 +96,57 @@ export const getAllStoreProductsWithDiscount = async (storeId?: string) => {
     }
   }
 }
+
+export const getAllStoreProductsNewest = async (storeId?: string) => {
+  try {
+    if (!storeId) {
+      return { products: [], total: 0 }
+    }
+    
+    const response = await api.get(`/store/${storeId}/products/newest`)
+    
+    if (!response.data) {
+      return { products: [], total: 0 }
+    }
+    
+    const { products, total } = response.data;
+
+    return {
+      products: products || [],
+      total: total || 0
+    }
+  } catch (error) {
+    console.warn('API not available');
+    return {
+      products: [],
+      total: 0
+    }
+  }
+}
+
+export const getAllStoreProductsPopular = async (storeId?: string) => {
+  try {
+    if (!storeId) {
+      return { products: [], total: 0 }
+    }
+    
+    const response = await api.get(`/store/${storeId}/products/popular`)
+    
+    if (!response.data) {
+      return { products: [], total: 0 }
+    }
+    
+    const { products, total } = response.data;
+
+    return {
+      products: products || [],
+      total: total || 0
+    }
+  } catch (error) {
+    console.warn('API not available');
+    return {
+      products: [],
+      total: 0
+    }
+  }
+}
