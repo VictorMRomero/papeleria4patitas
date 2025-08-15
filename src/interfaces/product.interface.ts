@@ -1,8 +1,5 @@
 import { Category } from "./category.interface";
-export interface ImageInStore {
-  id: string;
-  url: string;
-}
+
 
 export interface CategoryInStore {
   id: string;
@@ -12,50 +9,54 @@ export interface CategoryInStore {
   parentId: string | null;
 }
 
-export interface ProductInStore {
-  id: string;
-  title: string;
-  slug: string;
-  description: string;
-  tags: string[];
-  views: number;
-  images: ImageInStore[];
-  categories: Category[];
-}
+// export interface ProductInStore {
+//   id: string;
+//   title: string;
+//   slug: string;
+//   description: string;
+//   tags: string[];
+//   views: number;
+//   images: ImageInStore[];
+//   categories: Category[];
+// }
+
+// export interface StoreProduct {
+//   storeId: string;
+//   storeName: string;
+//   slug: string;
+//   description: string;
+//   tags: string[];
+// }
 
 export interface ProductStore {
   id: string;
   storeId: string;
   productId: string;
   stock: number;
-  storePrice: number;
-  basePrice: number;
-  finalPrice: number;
-  discount?: number;
+  price: number;
   isOnlineOnly?: boolean;
   isActive?: boolean;
-  product: ProductInStore;
   createdAt: Date;
   updatedAt: Date;
+  discount?: number;
+  product: Product;
 }
 
 export interface Product {
   id: string;
   title: string;
-  description: string;
-  inStock: number;
-  price: number;
   slug: string;
+  description: string;
   tags: string[];
-  discount?: number;
-  createAt?: Date;
-  isActive?: boolean;
-  views?: number;
-  images?: string[];
-  categories?: Category[];
+  inStock: number;
+  images?: ImageInStore[];
+  categories?: CategoryInStore[];
 }
 
-
+export interface ImageInStore {
+  id: string;
+  url: string;
+}
 
 export interface CartProduct {
   id: string;
@@ -74,11 +75,11 @@ export interface CartProduct {
   quantity: number;
 }
 
-export interface ProductImage {
-  id: number;
-  url: string;
-  productId: string;
-}
+// export interface ProductImage {
+//   id: number;
+//   url: string;
+//   productId: string;
+// }
 
 export interface ProductCategories {
   id: string,
