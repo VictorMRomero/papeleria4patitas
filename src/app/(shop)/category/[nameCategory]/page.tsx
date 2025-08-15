@@ -1,11 +1,15 @@
 export const revalidate = 60;
 
-import {getAllProducts, getProductsWithOffer } from "@/actions";
-import { Pagination, ProductGrid, Title } from "@/components";
+import { 
+  getAllProducts, 
+  getCategoryBySlug, 
+  getProductsWithOffer, 
+  getProductsByCategoryStore,
+} from "@/actions";
+import { Pagination, ProductGrid, Title, EmptyCategory, CategoryHeader, CategoryBreadcrumb, CategoryStats } from "@/components";
 import Image from "next/image";
-
-
-import { notFound } from "next/navigation";
+import { notFound, redirect } from "next/navigation";
+import { cookies } from 'next/headers';
 
 interface Props {
     params: Promise<{
@@ -16,137 +20,146 @@ interface Props {
     }>
 }
 
-
 export default async function categoryPage({ params, searchParams }: Props) {
-
-
     try {
-        const { nameCategory } = await params; //recibo el string 'juguetes'
+        const { nameCategory } = await params;
         const searchParamsResolved = await searchParams;
         const page = searchParamsResolved.page ? parseInt(searchParamsResolved.page) : 1;
-        if(nameCategory === 'ofertas'){
 
+        // Caso especial para ofertas
+        if (nameCategory === 'ofertas') {
+            const { productsWithOffer, totalPages } = await getProductsWithOffer({ page });
 
-            const {productsWithOffer, totalPages} = await getProductsWithOffer({page});
-
-            return(
-
-                    <div className="mt-10 ">
+            return (
+                <div className="mt-10">
                     <Image
-
                         width={1500}
                         height={320}
                         src='https://res.cloudinary.com/dog6zhxr8/image/upload/v1706763864/Ads/bu0xxz15orrumrqsukzs.png'
                         alt='imagen busqueda'
                         className="object-fill mb-4"
-
                     />
                     <Title
-                        title={`Ofertas`}
-                        subtitle=''
-
+                        title="Ofertas"
+                        subtitle="Productos con descuentos especiales"
                     />
-                    <ProductGrid
-                        products={productsWithOffer}
-                    />
+                    <ProductGrid products={productsWithOffer} />
                     <Pagination totalPages={totalPages} />
-
                 </div>
-            )
+            );
         }
 
-        if(nameCategory === 'all'){
+        // Caso especial para todos los productos
+        if (nameCategory === 'all') {
+            const { products, totalPages } = await getAllProducts({ page });
 
-
-            const {products, totalPages} = await getAllProducts({page});
-
-            return(
-
-                    <div className="mt-10 ">
+            return (
+                <div className="mt-10">
                     <Image
-
                         width={1500}
                         height={320}
                         src='https://res.cloudinary.com/dog6zhxr8/image/upload/v1706763864/Ads/bu0xxz15orrumrqsukzs.png'
                         alt='imagen busqueda'
                         className="object-fill mb-4"
-
                     />
                     <Title
-                        title={`Todos los Productos`}
-                        subtitle=''
-
+                        title="Todos los Productos"
+                        subtitle="Explora nuestra colección completa"
                     />
-                    <ProductGrid
-                        products={products}
-                    />
+                    <ProductGrid products={products} />
                     <Pagination totalPages={totalPages} />
-
                 </div>
-            )
+            );
         }
 
-
-
-        // const { id, name } = (await prisma.category.findUnique({
-        //     where: { name: nameCategory }
-        // })) as { id: string; name: string; };
-
-
-
-        // const { products, currentPage, totalPages } = await getPaginatedProductsWithImages({
-        //     page,
-        //     id: id
-        // });
+        // Obtener información de la categoría
+        const category = await getCategoryBySlug(nameCategory);
         
+        if (!category) {
+            notFound();
+        }
 
-        // if (products.length === 0) { notFound(); }
+        // Obtener storeId de las cookies
+        const cookieStore = await cookies();
+        const storeId = cookieStore.get('storeId')?.value;
+        
+        // Si no hay tienda seleccionada, redirigir al home
+        if (!storeId) {
+          redirect('/');
+        }
+        
+        // Obtener productos de la categoría (puede retornar null)
+        const response = await getProductsByCategoryStore(storeId, nameCategory, page);
 
+        // Normalizar respuesta nula a estructura vacía
+        const products = response?.products ?? [];
+        const total = response?.total ?? 0;
+        const totalPages = response?.totalPages ?? 1;
 
-        // return (
-        //     <>
-        //         <Image
+        // Si no hay productos, mostrar componente EmptyCategory
+        if (!products || products.length === 0) {
+            return (
+                <div className="mt-10">
+                    <Image
+                        width={1500}
+                        height={320}
+                        src='https://res.cloudinary.com/dog6zhxr8/image/upload/v1706763864/Ads/bu0xxz15orrumrqsukzs.png'
+                        alt='imagen busqueda'
+                        className="object-fill mb-4"
+                    />
+                    <CategoryBreadcrumb categoryName={category.title} />
+                    <Title
+                        title={category.title}
+                        subtitle={`Productos de ${category.title}`}
+                        className='mb-2'
+                    />
+                    <EmptyCategory category={category} />
+                </div>
+            );
+        }
 
-        //             width={1500}
-        //             height={320}
-        //             src='https://res.cloudinary.com/dog6zhxr8/image/upload/v1706763864/Ads/bu0xxz15orrumrqsukzs.png'
-        //             alt='imagen busqueda'
-        //             className="object-fill mt-2"
+        // Mostrar productos de la categoría
+        return (
+            <div className="mt-10">
+                <Image
+                    width={1500}
+                    height={320}
+                    src='https://res.cloudinary.com/dog6zhxr8/image/upload/v1706763864/Ads/bu0xxz15orrumrqsukzs.png'
+                    alt='imagen busqueda'
+                    className="object-fill mb-4"
+                />
+                <CategoryBreadcrumb categoryName={category.title} />
+                <Title
+                    title={category.title}
+                    subtitle={`${total} productos en ${category.title}`}
+                    className='mb-2'
+                />
+                
+                {category.description && (
+                    <div className="mb-6 text-center">
+                        <p className="text-gray-600 max-w-2xl mx-auto">
+                            {category.description}
+                        </p>
+                    </div>
+                )}
 
-        //         />
-        //         <Title
+                <CategoryStats 
+                    totalProducts={total}
+                    currentPage={page}
+                    totalPages={totalPages}
+                />
 
-        //             title={name.charAt(0).toUpperCase() + name.slice(1)}
-        //             subtitle={`Productos de ${name.charAt(0).toUpperCase() + name.slice(1)}`}
-        //             className='mb-2'
-        //         />
-
-        //         <ProductGrid
-        //             products={products}
-        //         />
-
-        //         <Pagination totalPages={totalPages} />
-        //     </>
-
-
-        // )
-
+                <ProductGrid products={products} />
+                
+                {totalPages > 1 && (
+                    <Pagination totalPages={totalPages} />
+                )}
+            </div>
+        );
 
     } catch (error) {
+        console.error('Error in category page:', error);
         notFound();
     }
-
-
-
-
-
-
-
-
-
-
-
-
-
 }
 
