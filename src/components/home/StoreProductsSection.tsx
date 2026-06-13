@@ -65,7 +65,7 @@ export const StoreProductsSection = () => {
       />
       <ProductCarousel
         storeProducts={storeProducts}
-        viewMoreLink={`/store/${selectedStore.id}/products`}
+        viewMoreLink={`/category/all`}
         viewMoreText={`Ver todos los productos de ${selectedStore.name}`}
       />
     </div>

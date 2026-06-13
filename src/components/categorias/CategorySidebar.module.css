@@ -1,0 +1,90 @@
+/* Estilos para los sliders de precio */
+.priceSlider {
+  -webkit-appearance: none;
+  appearance: none;
+  height: 8px;
+  background: #e5e7eb;
+  outline: none;
+  border-radius: 4px;
+  transition: background 0.3s;
+}
+
+.priceSlider:hover {
+  background: #d1d5db;
+}
+
+.priceSlider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 20px;
+  height: 20px;
+  background: #2563eb;
+  cursor: pointer;
+  border-radius: 50%;
+  border: 2px solid #ffffff;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  transition: all 0.2s ease;
+}
+
+.priceSlider::-webkit-slider-thumb:hover {
+  background: #1d4ed8;
+  transform: scale(1.1);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+}
+
+.priceSlider::-moz-range-thumb {
+  width: 20px;
+  height: 20px;
+  background: #2563eb;
+  cursor: pointer;
+  border-radius: 50%;
+  border: 2px solid #ffffff;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  transition: all 0.2s ease;
+}
+
+.priceSlider::-moz-range-thumb:hover {
+  background: #1d4ed8;
+  transform: scale(1.1);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+}
+
+/* Progreso del slider */
+.priceSlider::-webkit-slider-runnable-track {
+  height: 8px;
+  background: linear-gradient(to right, #2563eb 0%, #2563eb var(--progress), #e5e7eb var(--progress), #e5e7eb 100%);
+  border-radius: 4px;
+}
+
+.priceSlider::-moz-range-track {
+  height: 8px;
+  background: #e5e7eb;
+  border-radius: 4px;
+  border: none;
+}
+
+.priceSlider::-moz-range-progress {
+  height: 8px;
+  background: #2563eb;
+  border-radius: 4px;
+}
+
+/* Animaciones para las secciones colapsibles */
+.sidebarSection {
+  transition: all 0.3s ease;
+}
+
+.sectionContent {
+  transition: max-height 0.3s ease, opacity 0.3s ease;
+  overflow: hidden;
+}
+
+.sectionContent.open {
+  max-height: 1000px;
+  opacity: 1;
+}
+
+.sectionContent.closed {
+  max-height: 0;
+  opacity: 0;
+}

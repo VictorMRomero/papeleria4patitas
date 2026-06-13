@@ -16,6 +16,7 @@ export const StoreProductsPopular = () => {
       if (selectedStore?.id) {
         setLoading(true)
         try {
+          // TODO: Crear una nueva ruta para obtener los productos mas populares
           const result = await getAllStoreProductsNewest(selectedStore.id)
           setStoreProducts(result.products)
         } catch (error) {

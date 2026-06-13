@@ -65,7 +65,7 @@ export const StoreProductsWithDiscount = () => {
       />
       <ProductCarousel
         storeProducts={storeProducts}
-        viewMoreLink={`/store/${selectedStore.id}/products/discounted`}
+        viewMoreLink={`/category/ofertas`}
         viewMoreText={`Ver todos los productos con descuento de ${selectedStore.name}`}
       />
     </div>

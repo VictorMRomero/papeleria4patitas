@@ -16,7 +16,7 @@ interface Props {
 
 export const ProductCarousel = ({
   storeProducts,
-  viewMoreLink = "#",
+  viewMoreLink = "/category/all",
   viewMoreText = "Ver más productos"
 }: Props) => {
   const [currentPage, setCurrentPage] = useState(0);

@@ -65,7 +65,7 @@ export const StoreProductsNewest = () => {
       />
       <ProductCarousel
         storeProducts={storeProducts}
-        viewMoreLink={`/store/${selectedStore.id}/products/newest`}
+        viewMoreLink={`/category/newest`}
         viewMoreText={`Ver todos los productos mas recientes`}
       />
     </div>

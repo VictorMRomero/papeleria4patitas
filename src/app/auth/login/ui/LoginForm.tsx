@@ -3,7 +3,7 @@
 import { authenticate } from "@/actions"
 import clsx from "clsx"
 import { setCookie } from 'cookies-next';
-import { useEffect } from "react"
+import { useActionState, useEffect } from "react"
 import { useFormState, useFormStatus } from "react-dom"
 import { IoInformationOutline } from "react-icons/io5"
 
@@ -13,7 +13,7 @@ import { IoInformationOutline } from "react-icons/io5"
 export const LoginForm = () => {
 
 
-    const [state, dispatch] = useFormState(authenticate, undefined);
+    const [state, dispatch] = useActionState(authenticate, undefined);
 
 
     

@@ -26,4 +26,5 @@ export {
 } from './user/get-user'
 export { getAllStores, getAllStoresActive, getAllStoreProductsNewest, getAllStoreProductsPopular } from './store/get-stores'
 export { getProductStoreBySlug, getProductFuzzySearch } from './store/products-store/get-product-store'
+export { searchStoreProducts } from './store/products-store/search-store-products'
 export { getProductsByCategoryStore } from './store/categories-store/get-products-by-category-store'
