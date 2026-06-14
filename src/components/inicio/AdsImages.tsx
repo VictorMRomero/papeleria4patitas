@@ -59,7 +59,7 @@ export const AdsImages = ({ images }: Props) => {
                 {/* Banners Secundarios - Se apilan en móvil y se colocan a la derecha en desktop */}
                 <div className="flex flex-col space-y-2 lg:space-y-4">
                     {/* Banner Superior */}
-                    <Link href="#" className="block group">
+                    <Link href="/category/ofertas" className="block group">
                         <div className="relative rounded-xl overflow-hidden shadow-lg transition-transform duration-300 group-hover:scale-105 group-hover:shadow-xl">
                             <Image
                                 src="https://res.cloudinary.com/dog6zhxr8/image/upload/v1754252321/Ads/oferta_articulos_jphp9n.svg" // Reemplaza con tu imagen
@@ -87,7 +87,7 @@ export const AdsImages = ({ images }: Props) => {
                     </Link>
 
                     {/* Banner Inferior */}
-                    <Link href="#" className="block group">
+                    <Link href="/category/ofertas" className="block group">
                         <div className="relative rounded-xl overflow-hidden shadow-lg transition-transform duration-300 group-hover:scale-105 group-hover:shadow-xl">
                             <Image
                                 src="https://res.cloudinary.com/dog6zhxr8/image/upload/v1754252321/Ads/oferta_articulos_jphp9n.svg" // Reemplaza con tu imagen

@@ -125,7 +125,7 @@ export const MegaCategoryMenu = ({ categories, onClose }: Props) => {
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
             
             <Link
-              href="/productos/nuevos"
+              href="/category/newest"
               onClick={handleLinkClick}
               className="flex items-center gap-3 p-4 bg-gradient-to-r from-blue-50 to-blue-100 rounded-lg hover:shadow-md transition-all duration-200 group"
             >
@@ -141,7 +141,7 @@ export const MegaCategoryMenu = ({ categories, onClose }: Props) => {
             </Link>
 
             <Link
-              href="/productos/ofertas"
+              href="/category/ofertas"
               onClick={handleLinkClick}
               className="flex items-center gap-3 p-4 bg-gradient-to-r from-red-50 to-red-100 rounded-lg hover:shadow-md transition-all duration-200 group"
             >
@@ -157,7 +157,7 @@ export const MegaCategoryMenu = ({ categories, onClose }: Props) => {
             </Link>
 
             <Link
-              href="/productos/populares"
+              href="/category/all"
               onClick={handleLinkClick}
               className="flex items-center gap-3 p-4 bg-gradient-to-r from-green-50 to-green-100 rounded-lg hover:shadow-md transition-all duration-200 group"
             >

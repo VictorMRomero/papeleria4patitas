@@ -1,9 +1,10 @@
 'use client'
 
 import { useStoreStore } from "@/store"
+import { whatsappUrl } from "@/config/contact"
 import Image from "next/image"
 import Link from "next/link"
-import { IoLogoFacebook, IoLogoInstagram, IoLogoTiktok, IoLogoTwitter, IoLogoYoutube, IoMailOutline, IoLocationOutline, IoPhonePortraitOutline, IoArrowForward, IoChevronDown } from "react-icons/io5"
+import { IoLogoFacebook, IoLogoInstagram, IoLogoTiktok, IoLogoTwitter, IoLogoYoutube, IoLocationOutline, IoArrowForward, IoChevronDown, IoLogoWhatsapp } from "react-icons/io5"
 import { useState } from "react"
 
 export const Footer = () => {
@@ -22,7 +23,7 @@ export const Footer = () => {
 
       <div className="relative container mx-auto px-4">
         {/* Main Footer Content */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 py-8 lg:py-16">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 py-8 lg:py-16">
 
           {/* Branding Section - Stays consistent */}
           <div className="md:col-span-2 lg:col-span-1 text-center lg:text-left">
@@ -50,8 +51,8 @@ export const Footer = () => {
             </div>
           </div>
 
-          {/* Navigation & Legal - Accordion on Mobile */}
-          <div className="md:col-span-2 lg:col-span-2 grid grid-cols-1 lg:grid-cols-2 gap-6">
+          {/* Navegación */}
+          <div className="md:col-span-1 lg:col-span-1">
             <AccordionCard
               title="Navegación"
               icon={<span className="w-2 h-8 bg-gradient-to-b from-blue-500 to-blue-600 rounded-full mr-3"></span>}
@@ -60,39 +61,41 @@ export const Footer = () => {
               setOpenAccordion={setOpenAccordion}
             >
               <FooterLink href="/" title="Inicio" />
-              <FooterLink href="/productos" title="Productos" />
+              <FooterLink href="/category/all" title="Productos" />
               <FooterLink href="/category/ofertas" title="Ofertas" />
+              <FooterLink href="/category/newest" title="Novedades" />
               <FooterLink href="/nosotros" title="Sobre Nosotros" />
-              <FooterLink href="/contacto" title="Contacto" />
-            </AccordionCard>
-
-            <AccordionCard
-              title="Legal"
-              icon={<span className="w-2 h-8 bg-gradient-to-b from-orange-500 to-orange-600 rounded-full mr-3"></span>}
-              name="legal"
-              openAccordion={openAccordion}
-              setOpenAccordion={setOpenAccordion}
-            >
-              <FooterLink href="/legal/terminos" title="Términos y Condiciones" />
-              <FooterLink href="/legal/privacidad" title="Aviso de Privacidad" />
-              <FooterLink href="/legal/cookies" title="Política de Cookies" />
-              <FooterLink href="/faq" title="Preguntas Frecuentes" />
             </AccordionCard>
           </div>
 
-          {/* Contact Card - Stays consistent */}
-          <div className="md:col-span-2 lg:col-span-1 grid">
+          {/* Atención a clientes */}
+          <div className="md:col-span-1 lg:col-span-1">
             <AccordionCard
-              title="Información de general"
+              title="Atención a clientes"
               icon={<span className="w-2 h-8 bg-gradient-to-b from-green-500 to-green-600 rounded-full mr-3"></span>}
-              name="infoGeneral"
+              name="contacto"
               openAccordion={openAccordion}
               setOpenAccordion={setOpenAccordion}
             >
-              <FooterLink href="/info/terminos" title="Términos y Condiciones" />
-              <FooterLink href="/info/privacidad" title="Aviso de Privacidad" />
-              <FooterLink href="/info/cookies" title="Política de Cookies" />
-              <FooterLink href="/info" title="Preguntas Frecuentes" />
+              <li>
+                <a
+                  href={whatsappUrl()}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-2 bg-green-500 hover:bg-green-600 text-white font-medium px-4 py-2 rounded-full shadow transition-colors"
+                >
+                  <IoLogoWhatsapp className="w-5 h-5" /> Escríbenos por WhatsApp
+                </a>
+              </li>
+              {selectedStore && (
+                <li className="text-gray-600 text-sm mt-3 flex items-start gap-2">
+                  <IoLocationOutline className="w-4 h-4 mt-0.5 text-green-600" />
+                  <span>
+                    {selectedStore.name}
+                    {selectedStore.address ? ` — ${selectedStore.address}` : ''}
+                  </span>
+                </li>
+              )}
             </AccordionCard>
           </div>
         </div>

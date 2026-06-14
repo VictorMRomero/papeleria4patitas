@@ -1,5 +1,5 @@
 import { getCategories } from "@/actions";
-import { Footer,TopMenu, StoreSelector } from "@/components";
+import { Footer,TopMenu, StoreSelector, WhatsappButton } from "@/components";
 import { titleFont } from "@/config/fonts";
 
 export default async function ShopLayout({
@@ -20,6 +20,7 @@ export default async function ShopLayout({
             </div>
             <Footer/>
             <StoreSelector />
+            <WhatsappButton />
         </main>
     )
 }

@@ -3,15 +3,16 @@
 import { Category } from "@/interfaces"
 import { useStoreStore } from "@/store"
 import { MegaCategoryMenu } from "@/components"
+import { whatsappUrl } from "@/config/contact"
 import Link from "next/link"
 import { useState } from "react"
 import {
   IoBagOutline,
-  IoHeartOutline,
   IoStarOutline,
-  IoPrintOutline,
+  IoPricetagOutline,
+  IoSparklesOutline,
+  IoLogoWhatsapp,
   IoStorefrontOutline,
-  IoHelpCircleOutline,
   IoChevronDownOutline,
   IoMenuOutline,
   IoCloseOutline
@@ -26,6 +27,7 @@ interface NavItem {
   icon: React.ReactNode
   href: string
   hasDropdown?: boolean
+  external?: boolean
 }
 
 export const NavigationBar = ({ categorias }: Props) => {
@@ -42,29 +44,20 @@ export const NavigationBar = ({ categorias }: Props) => {
       hasDropdown: true
     },
     {
-      title: "Servicios",
-      icon: <IoHeartOutline className="w-6 h-6 text-blue-500" />,
-      href: "/servicios"
+      title: "Ofertas",
+      icon: <IoPricetagOutline className="w-6 h-6 text-orange-500" />,
+      href: "/category/ofertas"
     },
     {
-      title: "Programa de Lealtad",
-      icon: <IoStarOutline className="w-6 h-6 text-green-500" />,
-      href: "/lealtad"
+      title: "Novedades",
+      icon: <IoSparklesOutline className="w-6 h-6 text-green-500" />,
+      href: "/category/newest"
     },
     {
-      title: "Impresiones",
-      icon: <IoPrintOutline className="w-6 h-6 text-yellow-500" />,
-      href: "/impresiones"
-    },
-    {
-      title: "Tiendas",
-      icon: <IoStorefrontOutline className="w-6 h-6 text-red-500" />,
-      href: "/tiendas"
-    },
-    {
-      title: "Ayuda",
-      icon: <IoHelpCircleOutline className="w-6 h-6 text-blue-500" />,
-      href: "/ayuda"
+      title: "Contacto",
+      icon: <IoLogoWhatsapp className="w-6 h-6 text-green-600" />,
+      href: whatsappUrl(),
+      external: true
     }
   ]
 
@@ -150,6 +143,16 @@ export const NavigationBar = ({ categorias }: Props) => {
                       }`} 
                     />
                   </button>
+                ) : item.external ? (
+                  <a
+                    href={item.href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex items-center gap-2 px-4 py-3 hover:bg-white hover:shadow-sm transition-colors whitespace-nowrap text-gray-800 rounded-md"
+                  >
+                    {item.icon}
+                    <span className="text-sm font-medium">{item.title}</span>
+                  </a>
                 ) : (
                   <Link
                     href={item.href}
@@ -289,16 +292,31 @@ export const NavigationBar = ({ categorias }: Props) => {
                       )}
                     </div>
                   ) : (
-                    <Link
-                      href={item.href}
-                      onClick={closeMobileMenu}
-                      className="flex items-center gap-3 px-4 py-4 hover:bg-gray-50 transition-colors"
-                    >
-                      <div className="text-green-600 text-xl">
-                        {item.icon}
-                      </div>
-                      <span className="font-medium text-gray-800 text-lg">{item.title}</span>
-                    </Link>
+                    item.external ? (
+                      <a
+                        href={item.href}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        onClick={closeMobileMenu}
+                        className="flex items-center gap-3 px-4 py-4 hover:bg-gray-50 transition-colors"
+                      >
+                        <div className="text-green-600 text-xl">
+                          {item.icon}
+                        </div>
+                        <span className="font-medium text-gray-800 text-lg">{item.title}</span>
+                      </a>
+                    ) : (
+                      <Link
+                        href={item.href}
+                        onClick={closeMobileMenu}
+                        className="flex items-center gap-3 px-4 py-4 hover:bg-gray-50 transition-colors"
+                      >
+                        <div className="text-green-600 text-xl">
+                          {item.icon}
+                        </div>
+                        <span className="font-medium text-gray-800 text-lg">{item.title}</span>
+                      </Link>
+                    )
                   )}
                 </div>
               ))}

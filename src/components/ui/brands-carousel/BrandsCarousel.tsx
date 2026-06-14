@@ -105,7 +105,7 @@ export const BrandsCarousel = ({
         {duplicatedBrands.map((brand, index) => (
           <Link
             key={`${brand.id}-${index}`}
-            href={`/brand/${brand.slug}`}
+            href={`/search?productSearch=${encodeURIComponent(brand.name)}`}
             className="flex-none group/brand"
           >
             <div className="relative bg-white rounded-xl shadow-md hover:shadow-xl transition-all duration-300 p-3 min-w-[140px] lg:min-w-[180px] h-20 lg:h-24 flex items-center justify-center group-hover/brand:scale-105">

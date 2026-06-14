@@ -1,4 +1,3 @@
-import Link from 'next/link';
 import { IoCheckmarkCircleOutline, IoShieldCheckmarkOutline, IoGiftOutline, IoFlashOutline } from 'react-icons/io5';
 
 export const BenefitsSection = () => {
@@ -7,22 +6,18 @@ export const BenefitsSection = () => {
         {
             icon: <IoFlashOutline className="text-4xl text-blue-600 dark:text-blue-400" />,
             title: 'No a las filas',
-            href: '#',
         },
         {
             icon: <IoGiftOutline className="text-4xl text-blue-600 dark:text-blue-400" />,
             title: 'Productos Exclusivos',
-            href: '#',
         },
         {
             icon: <IoCheckmarkCircleOutline className="text-4xl text-blue-600 dark:text-blue-400" />,
             title: 'Bonificación por compra',
-            href: '#',
         },
         {
             icon: <IoShieldCheckmarkOutline className="text-4xl text-blue-600 dark:text-blue-400" />,
             title: 'Compra fácil y segura',
-            href: '#',
         },
     ];
 
@@ -46,12 +41,12 @@ export const BenefitsSection = () => {
                 {/* Grid para el layout de los beneficios */}
                 <div className="grid grid-cols-2 lg:grid-cols-4 gap-8 md:gap-12">
                     {benefits.map((benefit, index) => (
-                        <Link href={benefit.href} key={index} className='flex flex-col items-center text-center pt-4 text-xs md:text-base'>
+                        <div key={index} className='flex flex-col items-center text-center pt-4 text-xs md:text-base'>
                             <div className="w-16 h-16 flex items-center justify-center bg-blue-100 rounded-full hover:bg-green-300 transition-all duration-300">
                                 {benefit.icon}
                             </div>
                             <h3 className="text-sm md:text-lg font-semibold text-gray-900 mt-2">{benefit.title}</h3>
-                        </Link>
+                        </div>
                     ))}
                 </div>
             </div>
