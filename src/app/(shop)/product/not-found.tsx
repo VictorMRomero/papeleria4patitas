@@ -1,11 +1,8 @@
-import { PageNotFound } from "@/components";
+import { redirect } from "next/navigation";
 
+// Producto inexistente: redirige al inicio.
 function notFoundPage() {
-
-    return(
-        <PageNotFound />
-    )
+  redirect("/");
 }
-
 
 export default notFoundPage;

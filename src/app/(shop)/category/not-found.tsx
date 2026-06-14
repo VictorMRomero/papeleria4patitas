@@ -1,10 +1,8 @@
-import { PageNotFound } from "@/components";
+import { redirect } from "next/navigation";
 
-function notFound( ) {
-
-    return(
-        <PageNotFound />
-    )
+// Categoría inexistente: redirige al inicio.
+function notFound() {
+  redirect("/");
 }
 
 export default notFound;
