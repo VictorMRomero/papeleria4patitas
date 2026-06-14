@@ -1,5 +1,5 @@
 'use client'
-import { Product } from "@/interfaces";
+import { PosProduct } from "@/interfaces";
 import { useCartStore } from "@/store";
 import { useEffect, useState } from "react";
 import { BarraBusqueda } from "../ui/barraBusqueda/BarraBusqueda";
@@ -11,9 +11,9 @@ import { IoCartOutline } from "react-icons/io5";
 
 export const InterfazPuntoVenta = ( ) => {
 
-    const [searchResults, setSearchResults] = useState<Product[]>([]);
-    
-    const handleSearchResults = (results: Product[]) => {
+    const [searchResults, setSearchResults] = useState<PosProduct[]>([]);
+
+    const handleSearchResults = (results: PosProduct[]) => {
         
         setSearchResults(results);
     };

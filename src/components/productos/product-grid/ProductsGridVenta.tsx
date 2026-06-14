@@ -1,12 +1,12 @@
 import { ProductImage } from "@/components/producto/product-image/ProductImage"
 import ContextMenu from "@/components/ui/contextMenu/ContextMenu";
-import { CartProduct, Product } from "@/interfaces"
+import { CartProduct, PosProduct } from "@/interfaces"
 import { useCartStore } from "@/store";
 import { currencyFormat } from "@/utils";
 import { useCallback, useEffect, useState } from "react";
 
 interface ProductsGridVentaProps {
-    searchResults: Product[];
+    searchResults: PosProduct[];
 }
 
 export const ProductsGridVenta: React.FC<ProductsGridVentaProps> = ({ searchResults }) => {
@@ -27,7 +27,7 @@ export const ProductsGridVenta: React.FC<ProductsGridVentaProps> = ({ searchResu
 
     const [quantity, setQuantity] = useState<number>(1);
 
-    const addToCart = (product: Product) => {
+    const addToCart = (product: PosProduct) => {
         const cartProduct: CartProduct = {
             id: product.id,
             title: product.title,

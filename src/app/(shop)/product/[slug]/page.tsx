@@ -80,20 +80,10 @@ export default async function ProductBySlugPage({ params }: Props) {
     if (!productStore) {
       notFound();
     }
-    
-    // Obtener productos relacionados
-    let relatedProducts: Product[] = [];
-    try {
-      relatedProducts = await getProductsByText(productStore.product.tags[0]);
-      relatedProducts = relatedProducts.filter(p => p.id !== productStore.product.id);
-    } catch (error) {
-      console.warn('Error fetching related products');
-    }
-    
+
     return (
-      <ProductPageClient 
+      <ProductPageClient
         productStore={productStore}
-        relatedProducts={relatedProducts}
         slug={slug}
       />
     );

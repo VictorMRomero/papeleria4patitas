@@ -7,8 +7,9 @@ import { useStoreStore } from "@/store";
 import { useEffect, useState } from "react";
 import { ProductStore } from "@/interfaces";
 import { useSearchParams } from "next/navigation";
+import { Suspense } from "react";
 
-export default function Search() {
+function SearchContent() {
     const searchParams = useSearchParams();
     const productSearch = searchParams.get('productSearch') || '';
     const pageParam = searchParams.get('page') || '1';
@@ -119,5 +120,13 @@ export default function Search() {
             <ProductGrid products={storeProducts} />
             <Pagination totalPages={totalPages} />
         </div>
+    )
+}
+
+export default function Search() {
+    return (
+        <Suspense fallback={null}>
+            <SearchContent />
+        </Suspense>
     )
 }

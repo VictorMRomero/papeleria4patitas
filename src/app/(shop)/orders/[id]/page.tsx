@@ -9,7 +9,7 @@ import { getOrderById } from "@/actions";
 import { redirect } from "next/navigation";
 import { currencyFormat } from "@/utils";
 import { TiendaButton } from "@/components/order/TiendaButton";
-import { Product } from "@/interfaces";
+import { OrderItem } from "@/interfaces";
 
 
 
@@ -59,7 +59,7 @@ export default async function OrdersByIdPage({ params }: Props) {
             }
 
             {/* Items */}
-            {order!.items.map((item: Product) => (
+            {order!.items.map((item: OrderItem) => (
               <div
                 key={item.slug}
                 className="flex mb-5"

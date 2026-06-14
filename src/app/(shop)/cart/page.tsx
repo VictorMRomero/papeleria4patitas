@@ -3,6 +3,9 @@ import { ProductsInCart } from "./ui/productsInCart";
 import { OrderSummary } from "./ui/OrderSummary";
 import { getViewProducts } from "@/actions";
 
+// El carrito depende de datos en vivo del API; se renderiza en cada request
+// para no requerir el backend durante el build.
+export const dynamic = 'force-dynamic';
 
 export default async function cart() {
 

@@ -9,3 +9,12 @@ export interface Order {
     subTotal: number,
     total: number,
   }
+
+export interface OrderItem {
+    id: string;
+    title: string;
+    slug: string;
+    price: number;
+    discount: number;
+    quantity: number;
+  }

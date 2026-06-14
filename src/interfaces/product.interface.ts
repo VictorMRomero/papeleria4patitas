@@ -58,6 +58,20 @@ export interface ImageInStore {
   url: string;
 }
 
+// Producto plano que consume el punto de venta (POS) y la busqueda interna.
+// Mantiene precio/descuento a nivel producto porque proviene del API antiguo.
+export interface PosProduct {
+  id: string;
+  title: string;
+  slug: string;
+  description: string;
+  inStock: number;
+  price: number;
+  discount?: number;
+  images?: string[];
+  tags?: string[];
+}
+
 export interface CartProduct {
   id: string;
   title: string;
@@ -75,11 +89,11 @@ export interface CartProduct {
   quantity: number;
 }
 
-// export interface ProductImage {
-//   id: number;
-//   url: string;
-//   productId: string;
-// }
+export interface ProductImage {
+  id: number;
+  url: string;
+  productId: string;
+}
 
 export interface ProductCategories {
   id: string,

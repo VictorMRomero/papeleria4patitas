@@ -10,7 +10,6 @@ import './style.css'
 import clsx from "clsx";
 import AddCategoryModal from "./AddCategoryModal";
 import { createCategory } from "@/actions/categories/create-category";
-import { revalidatePath } from "next/cache";
 
 interface Props {
   product: Partial<Product> & { ProductImage?: ProductWithImage[] };
@@ -245,10 +244,10 @@ export const ProductForm = ({ product, categories }: Props) => {
 
             <div className="bg-gray-100 dark:bg-gray-800 text-gray-800 dark:text-white grid grid-cols-2 p-2 rounded-md sm:grid-cols-3 lg:grid-cols-3 gap-3">
               {product.images?.map((image) => (
-                <div key={image}>
+                <div key={image.id}>
                   <ProductImage
                     alt={product.title ?? ""}
-                    src={image}
+                    src={image.url}
                     width={300}
                     height={300}
                     className="rounded-t shadow-md"
@@ -256,7 +255,7 @@ export const ProductForm = ({ product, categories }: Props) => {
 
                   <button
                     type="button"
-                    onClick={() => deleteProductImage(image)}
+                    onClick={() => deleteProductImage(image.url)}
                     className="btn-danger w-full rounded-b-xl"
                   >
                     Eliminar
